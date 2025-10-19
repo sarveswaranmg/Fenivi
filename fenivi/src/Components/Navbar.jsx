@@ -13,7 +13,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full flex justify-center py-4 ">
+    <nav className="fixed w-full flex justify-center py-4 ">
       <div className="flex gap-8 px-10 py-2 pe-2 ps-2  bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20">
         {links.map((link) => (
           <Link
