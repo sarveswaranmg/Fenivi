@@ -6,10 +6,10 @@ export default function Contact() {
   useEffect(() => {
     // Check if redirected back with success parameter
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
+    if (urlParams.get("success") === "true") {
       setShowSuccess(true);
       // Clear the URL parameter
-      window.history.replaceState({}, '', window.location.pathname);
+      window.history.replaceState({}, "", window.location.pathname);
     }
   }, []);
 
