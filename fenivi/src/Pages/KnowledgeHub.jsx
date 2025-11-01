@@ -1,5 +1,6 @@
 import ArticleCard from "../Components/ArticleCard.jsx";
 
+
 export default function KnowledgeHub() {
   return (
     <div className="h-screen w-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
@@ -10,12 +11,12 @@ export default function KnowledgeHub() {
             Knowledge Hub.
           </h1>
         </div>
-        <div className="h-[30%] bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7]">
+        <div className="h-[30%] bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] animate-gradient">
         </div>
       </div>
 
       {/* Second section: Gradient + tagline */}
-      <div className="flex w-screen h-screen items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] snap-start">
+      <div className="flex w-screen h-screen items-center justify-center animate-gradient-premium  snap-start">
         <p className="text-white text-3xl text-center max-w-2xl leading-snug">
           Explore a growing library of research, publications, and insights that drive sustainable solutions.
         </p>
@@ -25,7 +26,7 @@ export default function KnowledgeHub() {
       <div className="flex-col w-screen min-h-screen items-start snap-start px-16">
         <h2 className="text-black font-normal text-4xl pt-48 px-10 ">
           Our Trending Articles
-        </h2>
+        </h2> 
         <ArticleCard />
       </div>
     </div>

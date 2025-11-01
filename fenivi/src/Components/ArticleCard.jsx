@@ -1,5 +1,6 @@
 import React from "react";
 import cardimg from "../assets/1.png";
+import { Link } from "react-router-dom";
 
 const ArticleCard = () => {
   return (
@@ -19,9 +20,13 @@ const ArticleCard = () => {
           recommendations for sustainable hydrological planning and flood mitigation.
         </p>
 
-        <button className="bg-violet-700 text-white text-sm px-4 py-2 rounded-2xl self-start hover:bg-violet-800">
-          Learn More
-        </button>
+        
+        <Link to="/article">
+          <button className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300 animate-gradient">
+            Read More
+          </button>
+        </Link>
+
       </div>
 
       {/* RIGHT SIDE (ALWAYS SQUARE IMAGE) */}
