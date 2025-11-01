@@ -144,7 +144,7 @@ export default function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-black underline decoration-2 decoration-black underline-offset-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-black decoration-black">
               Training & Knowledge Services
             </h2>
 
@@ -189,7 +189,7 @@ export default function Services() {
       <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 px-8 md:px-16 lg:px-24 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Image */}
-          <div className="bg-white rounded-3xl overflow-hidden shadow-lg border-4 border-blue-500 h-[400px] lg:h-[500px]">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-lg">
             <img
               src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80"
               alt="Person planning research with sticky notes"
