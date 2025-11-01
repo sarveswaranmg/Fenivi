@@ -8,6 +8,7 @@ import Services from "./Pages/Services";
 import Projects from "./Pages/Projects";
 import KnowledgeHub from "./Pages/KnowledgeHub";
 import Contact from "./Pages/Contact";
+import Article from "./Pages/Article";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/knowledge-hub" element={<KnowledgeHub />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/article" element={<Article />} />
       </Routes>
       <Footer />
     </Router>

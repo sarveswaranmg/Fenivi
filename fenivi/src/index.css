@@ -23,3 +23,89 @@ body {
     transform: translateX(200%) skewX(-15deg);
   }
 }
+@keyframes gradient-luxury {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 400% 400%;
+  animation: gradient-luxury 15s ease-in-out infinite;
+  transition: all 0.5s ease;
+}
+
+.animate-conic-gradient {
+  background: conic-gradient(
+    from 0deg,
+    #7b2ff7,
+    #9d50bb,
+    #5304a3,
+    #7b2ff7
+  );
+  background-size: 200% 200%;
+  animation: conic-spin 20s linear infinite;
+}
+
+@keyframes conic-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-gradient-premium {
+  background: radial-gradient(
+    circle at 30% 20%,
+    #7b2ff7,
+    #9d50bb 30%,
+    #5304a3 60%,
+    #2e026d 90%
+  );
+  background-size: 200% 200%;
+  animation: gradient-luxury 12s ease-in-out infinite;
+}
+
+@keyframes gradient-luxury {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+@keyframes gradient-luxury {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-shape {
+  background: radial-gradient(
+    circle at 30% 20%,
+    #7b2ff7,
+    #9d50bb 30%,
+    #5304a3 60%,
+    #2e026d 90%
+  );
+  background-size: 200% 200%;
+  animation: gradient-luxury 15s ease-in-out infinite;
+
+  -webkit-mask: url("/wave-shape.svg") no-repeat center;
+  -webkit-mask-size: cover;
+  mask: url("/wave-shape.svg") no-repeat center;
+  mask-size: cover;
+}
