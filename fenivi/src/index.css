@@ -1,15 +1,25 @@
 /* Import the fonts */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 /* Tailwind import */
 @import "tailwindcss";
 
 /* Apply fonts */
 body {
-  font-family: 'Poppins', ui-sans-serif, system-ui;
+  font-family: "Poppins", ui-sans-serif, system-ui;
 }
 
 #KNH {
-  font-family: 'Instrument Sans', ui-sans-serif, system-ui;
+  font-family: "Instrument Sans", ui-sans-serif, system-ui;
+}
+
+/* Shimmer animation for liquid glass effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
 }
