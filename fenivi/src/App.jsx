@@ -23,7 +23,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/article" element={<Article />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
