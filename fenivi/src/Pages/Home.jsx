@@ -1,4 +1,5 @@
 import { useState } from "react";
+import StatsSection from "../Components/StatsSection";
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
@@ -100,7 +101,7 @@ const Home = () => {
 
       {/* About Section with Dynamic Gradient */}
       <section
-        className="min-h-screen w-full relative py-24 px-8 flex items-center justify-center -mt-32 pt-40"
+        className="min-h-screen w-full relative py-24 px-8 flex flex-col items-center justify-center -mt-32 pt-40"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
@@ -116,6 +117,27 @@ const Home = () => {
             feasibility studies, and strategic advisory to drive sustainable and
             cost-effective outcomes.
           </p>
+          <br />
+        </div>
+        <div className="w-full flex justify-center">
+          <StatsSection />
+        </div>
+
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-black font-bold text-4xl mb-5 font-sans">
+            Why Choose Fenivi?
+          </p>
+          <p className="text-black font-semibold text-base md:text-2xl leading-relaxed font-sans">
+            Fenivi brings proven expertise in multi-sectoral research across
+            environment, water, health, and social development. Our
+            community-centric model ensures that solutions are both relevant and
+            widely adopted. By integrating science, policy, and community needs
+            through a convergence approach, we deliver impactful outcomes. With
+            a strong track record in river restoration, policy advisory, and
+            capacity building, Fenivi is a trusted partner for governments,
+            NGOs, corporates, and academic institutions.
+          </p>
+          <br />
         </div>
       </section>
     </div>
