@@ -1,55 +1,80 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import React, { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 const LoadingScreen = () => {
+  const [showLoading, setShowLoading] = useState(() => {
+    const hasLoadedBefore = localStorage.getItem("fenivi-loaded");
+    return !hasLoadedBefore; // show only if first time
+  });
+
   const screenRef = useRef(null);
-  const textRef = useRef(null);
+  const mainTextRef = useRef(null);
+  const subTextRef = useRef(null);
 
   useEffect(() => {
-    // Animate text: fade in, slight scale, and subtle rotation
+    if (!showLoading) return; // skip animation if not first load
+
+    // Mark as loaded so next time it won't show
+    localStorage.setItem("fenivi-loaded", "true");
+
+    // Fade in main text
     gsap.fromTo(
-      textRef.current,
-      { opacity: 0, y: 50, scale: 0.9, rotation: -5 },
-      { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out" }
+      mainTextRef.current,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out" }
     );
 
-    // Add subtle shimmer/glow effect
-    gsap.to(textRef.current, {
-      textShadow: "0 0 20px rgba(255,255,255,0.6)",
-      duration: 1.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 0.5
+    // Typing effect
+    const subText = subTextRef.current;
+    const textContent = subText.textContent;
+    subText.textContent = "";
+
+    textContent.split("").forEach((char, i) => {
+      gsap.to(subText, {
+        textContent: subText.textContent + char,
+        duration: 0.05,
+        delay: 1.3 + i * 0.05,
+        ease: "none",
+        onUpdate: () => {
+          subText.innerHTML = subText.textContent;
+        },
+      });
     });
 
-    // Fade out screen with slight scale-down after delay
+    // Fade out screen
     gsap.to(screenRef.current, {
       opacity: 0,
-      scale: 0.95,
-      duration: 1,
-      ease: "power2.inOut",
-      delay: 2.5,
+      duration: 1.8,
+      ease: "power1.inOut",
+      delay: 3.5,
       onComplete: () => {
-        if (screenRef.current) {
-          screenRef.current.style.display = 'none';
-        }
-      }
+        setShowLoading(false); // remove from DOM
+      },
     });
-  }, []);
+  }, [showLoading]);
+
+  if (!showLoading) return null; // ⚡ Skip rendering after first load
 
   return (
     <div
       ref={screenRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] animate-gradient-premium"
-      style={{ backdropFilter: 'blur(10px)' }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7]"
+      style={{ backdropFilter: "blur(10px)" }}
     >
       <h1
-        ref={textRef}
-        className="text-white text-6xl md:text-8xl font-extrabold opacity-0 tracking-widest"
+        ref={mainTextRef}
+        className="text-white text-6xl md:text-8xl font-bold tracking-widest"
+        style={{ fontFamily: "Poppins, ui-sans-serif, system-ui" }}
       >
         FENIVI
       </h1>
+      <h2
+        ref={subTextRef}
+        className="text-white text-xl md:text-2xl mt-4 opacity-100"
+        style={{ fontFamily: "Instrument Sans, ui-sans-serif, system-ui" }}
+      >
+        research and solutions
+      </h2>
     </div>
   );
 };

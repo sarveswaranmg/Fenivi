@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -11,14 +11,59 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 export default function KnowledgeHub() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const titleRef = useRef(null);
-  const sectionsRef = useRef([]); // section DOM refs
-  const currentIndex = useRef(0); // index of current section (0 = landing/title)
+
+  // ---- Refs matching Projects scroll system ----
+  const containerRef = useRef(null);
+  const sectionsRef = useRef([]);         // auto-collected via [data-snap="true"]
+  const currentIndex = useRef(0);
   const isAnimating = useRef(false);
   const touchStartY = useRef(null);
+  const gestureLocked = useRef(false);
+  const wheelDebounceTimer = useRef(null);
 
-  // Title pop-up on load
+  // Content refs
+  const titleRef = useRef(null);
+  const gradientRef = useRef(null);
+  const articlesSectionRef = useRef(null);
+  const cardsRef = useRef(null);
+
+  // ===== 0) Collect sections dynamically (same as Projects) =====
+  const collectSections = () => {
+    if (!containerRef.current) return;
+    sectionsRef.current = Array.from(
+      containerRef.current.querySelectorAll('[data-snap="true"]')
+    );
+  };
+
   useEffect(() => {
+    // Lock native scroll like Projects page
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    collectSections();
+
+    // Snap to first section on mount
+    requestAnimationFrame(() => {
+      const first = sectionsRef.current[0];
+      if (first) gsap.set(window, { scrollTo: first });
+    });
+
+    // Re-collect on size/content change
+    const ro = new ResizeObserver(() => collectSections());
+    if (containerRef.current) ro.observe(containerRef.current);
+
+    window.addEventListener("resize", collectSections);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("resize", collectSections);
+      ro.disconnect();
+    };
+  }, []);
+
+  // ===== 1) Title entrance (same timing) =====
+  useEffect(() => {
+    if (!titleRef.current) return;
     gsap.fromTo(
       titleRef.current,
       { y: 400, opacity: 0 },
@@ -26,149 +71,169 @@ export default function KnowledgeHub() {
     );
   }, []);
 
-  // Animate gradient paragraph when first viewed
+  // ===== 2) Gradient paragraph entrance (ScrollTrigger once) =====
   useEffect(() => {
-    const para = sectionsRef.current.gradientText;
-    if (!para) return;
-
+    if (!gradientRef.current) return;
     gsap.fromTo(
-      para,
+      gradientRef.current,
       { y: 80, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 2,
+        duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: para,
-          start: "top 80%", // triggers when entering viewport
-          toggleActions: "play none none none",
-          once: true,       // only once
+          trigger: gradientRef.current,
+          start: "top 80%",
+          once: true,
         },
       }
     );
   }, []);
 
-  // Helper: animate to section index
-  const scrollToIndex = (index) => {
-    const sections = sectionsRef.current;
-    if (!sections || !sections[index]) return;
+  // ===== 3) Snap logic with mid-animation unlock (identical behavior) =====
+  const SCROLL_DURATION = 1.1;
+  const SCROLL_EASE = "power4.inOut";
+  const WHEEL_THRESHOLD = 20;
+  const WHEEL_GESTURE_GAP = 200;
 
-    isAnimating.current = true;
-    gsap.to(window, {
-      scrollTo: sections[index],
-      duration: 0.9,
-      ease: "power2.inOut",
-      onComplete: () => {
-        currentIndex.current = index;
-        setTimeout(() => {
-          isAnimating.current = false;
-        }, 60);
-      },
-    });
+  const clampIndex = (i) => {
+    const last = (sectionsRef.current?.length || 1) - 1;
+    return Math.max(0, Math.min(i, last));
   };
 
-  // Wheel handler
+  const snapToIndex = (index) => {
+    const i = clampIndex(index);
+    const target = sectionsRef.current[i];
+    if (!target) return;
+
+    isAnimating.current = true;
+
+    const tween = gsap.to(window, {
+      scrollTo: target,
+      duration: SCROLL_DURATION,
+      ease: SCROLL_EASE,
+      onUpdate: () => {
+        if (tween.progress() > 0.5 && isAnimating.current) {
+          // mid-animation unlock for responsiveness
+          isAnimating.current = false;
+        }
+      },
+      onComplete: () => {
+        currentIndex.current = i;
+        isAnimating.current = false;
+      },
+    });
+
+    currentIndex.current = i;
+  };
+
+  // ===== 4) Wheel/trackpad handling (strict one-per-gesture) =====
   useEffect(() => {
     const onWheel = (e) => {
-      if (isAnimating.current) return;
+      e.preventDefault(); // stop native scroll
+
+      if (gestureLocked.current || isAnimating.current) {
+        clearTimeout(wheelDebounceTimer.current);
+        wheelDebounceTimer.current = setTimeout(() => {
+          gestureLocked.current = false;
+        }, WHEEL_GESTURE_GAP);
+        return;
+      }
 
       const delta = e.deltaY;
-      const idx = currentIndex.current;
-      const last = (sectionsRef.current?.length || 1) - 1;
+      if (Math.abs(delta) < WHEEL_THRESHOLD) return;
 
-      if (delta > 20 && idx < last) {
-        scrollToIndex(idx + 1);
-      } else if (delta < -20 && idx > 0) {
-        scrollToIndex(idx - 1);
-      }
+      const idx = currentIndex.current;
+      if (delta > 0) snapToIndex(idx + 1);
+      else snapToIndex(idx - 1);
+
+      gestureLocked.current = true;
+      clearTimeout(wheelDebounceTimer.current);
+      wheelDebounceTimer.current = setTimeout(() => {
+        gestureLocked.current = false;
+      }, WHEEL_GESTURE_GAP);
     };
 
-    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: false });
     return () => window.removeEventListener("wheel", onWheel);
   }, []);
 
-  // Touch handlers for mobile swipe
+  // ===== 5) Touch & mouse-drag swipe (one-per-swipe) =====
   useEffect(() => {
     const onTouchStart = (e) => {
-      touchStartY.current = e.touches ? e.touches[0].clientY : e.clientY;
+      e.preventDefault();
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+      touchStartY.current = y;
     };
+
+    const onTouchMove = (e) => {
+      e.preventDefault(); // prevent rubber-banding
+    };
+
     const onTouchEnd = (e) => {
-      if (isAnimating.current || touchStartY.current == null) return;
-      const touchEndY =
-        e.changedTouches && e.changedTouches[0]
-          ? e.changedTouches[0].clientY
-          : e.clientY;
+      e.preventDefault();
+      if (touchStartY.current == null || isAnimating.current) return;
+
+      const touchEndY = e.changedTouches?.[0]?.clientY ?? e.clientY;
       const diff = touchStartY.current - touchEndY;
-      const idx = currentIndex.current;
-      const last = (sectionsRef.current?.length || 1) - 1;
-
-      if (diff > 50 && idx < last) {
-        scrollToIndex(idx + 1);
-      } else if (diff < -50 && idx > 0) {
-        scrollToIndex(idx - 1);
-      }
-
       touchStartY.current = null;
+
+      const SWIPE = 50; // px
+      if (diff > SWIPE) snapToIndex(currentIndex.current + 1);
+      else if (diff < -SWIPE) snapToIndex(currentIndex.current - 1);
     };
 
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-    window.addEventListener("mousedown", onTouchStart);
-    window.addEventListener("mouseup", onTouchEnd);
+    // Touch
+    window.addEventListener("touchstart", onTouchStart, { passive: false });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: false });
+
+    // Mouse drag as swipe (optional, matching Projects)
+    window.addEventListener("mousedown", onTouchStart, { passive: false });
+    window.addEventListener("mousemove", onTouchMove, { passive: false });
+    window.addEventListener("mouseup", onTouchEnd, { passive: false });
 
     return () => {
       window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
+
       window.removeEventListener("mousedown", onTouchStart);
+      window.removeEventListener("mousemove", onTouchMove);
       window.removeEventListener("mouseup", onTouchEnd);
     };
   }, []);
 
-  // Keep currentIndex synced if user manually scrolls
+  // ===== 6) Articles entrance (stagger reveal when that section appears) =====
   useEffect(() => {
-    let timeout;
-    const onScroll = () => {
-      if (isAnimating.current) return;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        const sections = sectionsRef.current || [];
-        const scrollY = window.scrollY || window.pageYOffset;
-        let nearest = 0;
-        let minDist = Infinity;
-        sections.forEach((sec, i) => {
-          if (!sec) return;
-          const rect = sec.getBoundingClientRect();
-          const secCenter = rect.top + window.scrollY + rect.height / 2;
-          const dist = Math.abs(secCenter - (scrollY + window.innerHeight / 2));
-          if (dist < minDist) {
-            minDist = dist;
-            nearest = i;
-          }
-        });
-        currentIndex.current = nearest;
-      }, 100);
-    };
+    if (!articlesSectionRef.current || !cardsRef.current) return;
+    const items = Array.from(cardsRef.current.children || []);
+    gsap.fromTo(
+      items,
+      { x: -80, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: articlesSectionRef.current,
+          start: "top 75%",
+          once: true,
+        },
+      }
+    );
+  }, [loading]);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  // Firestore fetching
+  // ===== 7) Firestore fetching (unchanged) =====
   useEffect(() => {
     if (!db) {
-      console.warn("Firestore 'db' is not initialized.");
       setLoading(false);
       return;
     }
-
     const q = query(collection(db, "articles"), orderBy("createdAt", "desc"));
-
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -179,20 +244,16 @@ export default function KnowledgeHub() {
         setArticles(list);
         setLoading(false);
       },
-      (error) => {
-        console.error("Error fetching articles:", error);
-        setLoading(false);
-      }
+      () => setLoading(false)
     );
-
     return () => unsubscribe();
   }, []);
 
   return (
-    <div className="w-full min-h-screen">
+    <div ref={containerRef} className="w-full min-h-screen">
       {/* Section 1: Title */}
       <section
-        ref={(el) => (sectionsRef.current[0] = el)}
+        data-snap="true"
         className="flex w-full h-[70vh] justify-center items-end overflow-hidden"
       >
         <div className="flex flex-col items-center mb-10">
@@ -205,13 +266,13 @@ export default function KnowledgeHub() {
         </div>
       </section>
 
-      {/* Section 2: Gradient */}
+      {/* Section 2: Gradient intro */}
       <section
-        ref={(el) => (sectionsRef.current[1] = el)}
+        data-snap="true"
         className="flex w-full h-screen items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] animate-gradient-premium"
       >
         <p
-          ref={(el) => (sectionsRef.current.gradientText = el)}
+          ref={gradientRef}
           className="text-white text-3xl text-center max-w-2xl leading-snug opacity-0 2xl:text-4xl"
         >
           Explore a growing library of research, publications, and insights that
@@ -219,32 +280,42 @@ export default function KnowledgeHub() {
         </p>
       </section>
 
-      {/* Section 3: Articles */}
+      {/* Section 3: Articles (full-screen snap like Projects) */}
       <section
-        ref={(el) => (sectionsRef.current[2] = el)}
-        className="flex flex-col w-full min-h-screen px-16 py-20 bg-white"
+        data-snap="true"
+        ref={articlesSectionRef}
+        className="relative w-full h-screen overflow-hidden bg-white"
       >
-        <h2 className="text-black font-normal text-4xl mb-8 px-10">
-          Our Trending Articles
-        </h2>
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-10">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black">
+            Our Trending Articles
+          </h2>
+        </div>
 
-        {loading && (
-          <p className="px-10 py-6 text-gray-600">Loading articles...</p>
-        )}
-        {!loading && articles.length === 0 && (
-          <p className="px-10 py-6 text-gray-600">No articles found.</p>
-        )}
-
-        {articles.map((a) => (
-          <ArticleCard
-            key={a.id}
-            id={a.id}
-            title={a.title}
-            excerpt={a.excerpt}
-            imageURL={a.imageURL}
-          />
-        ))}
+        {/* Cards area fills the screen like Projects; use padding at bottom for spacing */}
+        <div
+          ref={cardsRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full h-full px-8 pt-28 pb-10 overflow-hidden"
+          style={{ perspective: "1400px" }}
+        >
+          {(loading ? [...Array(6)] : articles).map((a, i) =>
+            loading ? (
+              <ArticleCard key={`skeleton-${i}`} loading={true} />
+            ) : (
+              <ArticleCard
+                key={a.id}
+                id={a.id}
+                title={a.title}
+                excerpt={a.excerpt}
+                content={a.content}
+                imageUrl={a.imageUrl}
+              />
+            )
+          )}
+        </div>
       </section>
+
+      {/* You can add more full-screen snap sections later with data-snap="true" */}
     </div>
   );
 }

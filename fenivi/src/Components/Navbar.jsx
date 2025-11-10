@@ -5,10 +5,10 @@ export default function Navbar() {
   const location = useLocation();
   const links = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
     { name: "Projects", path: "/projects" },
     { name: "Knowledge Hub", path: "/knowledge-hub" },
+    { name: "Services", path: "/services" },
+    { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
 
