@@ -9,7 +9,7 @@ export default function Services() {
   const certificationCards = [
     {
       title: "Certificate Course in Psycho-Oncology Research",
-      icon: "🤚",
+      icon: "🔬",
       bgColor: "bg-gradient-to-br from-purple-500 to-purple-700",
     },
     {
@@ -20,17 +20,17 @@ export default function Services() {
     {
       title: "Short-Term Research Skill Workshops",
       subtitle: "(Proposal Writing, Data Analysis, Publication Skills)",
-      icon: "📊",
+      icon: "🎓",
       bgColor: "bg-gradient-to-br from-teal-500 to-teal-700",
     },
     {
       title: "Faculty Development & Institutional Research Capacity Programs",
-      icon: "🎓",
+      icon: "👥",
       bgColor: "bg-gradient-to-br from-indigo-500 to-indigo-700",
     },
     {
       title: "Mentorship for Thesis, Grant Writing & Publications",
-      icon: "🌱",
+      icon: "📚",
       bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     },
   ];
@@ -76,7 +76,7 @@ export default function Services() {
   };
 
   return (
-    <div className="h-screen w-screen scroll-smooth">
+    <div className="h-screen w-screen scroll-smooth font-sans">
       {/* First section */}
       <div className="flex w-screen h-[70%] justify-center items-end snap-start">
         <div className="flex flex-col items-center mb-10">
@@ -90,16 +90,16 @@ export default function Services() {
       <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 px-8 md:px-16 lg:px-24 py-16">
         {/* Header Section */}
         <div className="mb-12">
-          <h2 className="text-purple-600 text-xl md:text-2xl font-medium mb-8">
+          <h2 className="text-purple-600 text-lg md:text-2xl font-medium mb-8 font-sans">
             ---Our Services
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-12">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-black leading-tight font-sans">
               We offer a wide range of services
             </h1>
 
-            <p className="text-black text-lg md:text-xl leading-relaxed lg:pt-8">
+            <p className="text-black text-base md:text-lg leading-relaxed lg:pt-8 font-sans">
               By combining our industry knowledge with cutting-edge tools and
               methodologies, we develop strategies that drive measurable
               results.
@@ -144,11 +144,11 @@ export default function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-black decoration-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-black decoration-black font-sans">
               Training & Knowledge Services
             </h2>
 
-            <p className="text-black text-lg leading-relaxed text-justify">
+            <p className="text-black text-base md:text-lg leading-relaxed text-justify font-sans">
               We offer a diverse range of educational and capacity-building
               programs designed to strengthen skills, research capabilities, and
               institutional growth. Our initiatives combine academic rigor with
@@ -199,11 +199,11 @@ export default function Services() {
 
           {/* Right Content */}
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-black text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-black text-center lg:text-left font-sans">
               Core Research & Advisory Services
             </h2>
 
-            <p className="text-black text-base md:text-lg leading-relaxed text-justify">
+            <p className="text-black text-base md:text-lg leading-relaxed text-justify font-sans">
               We specialize in conducting comprehensive research, assessments,
               and advisory studies for government bodies, NGOs, and CSR
               initiatives. Our expertise spans from feasibility studies to
@@ -235,11 +235,11 @@ export default function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-black text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-black text-center lg:text-left font-sans">
               Startup Mentoring (New Vertical)
             </h2>
 
-            <p className="text-black text-base md:text-lg leading-relaxed text-justify">
+            <p className="text-black text-base md:text-lg leading-relaxed text-justify font-sans">
               We empower agri-tech, health-tech, and social enterprises through
               strategic, data-driven support that enhances their social and
               business impact. Our approach bridges innovation with
@@ -279,25 +279,25 @@ export default function Services() {
       <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 px-8 md:px-16 lg:px-24 py-16">
         <div className="flex flex-col items-center space-y-12">
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-6xl font-bold text-black text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-black text-center font-sans">
             Training & Certification
           </h1>
 
           {/* Subheading */}
-          <p className="text-2xl md:text-3xl italic text-black text-center max-w-4xl">
+          <p className="text-2xl md:text-3xl italic text-black text-center max-w-4xl font-sans">
             Building the Next Generation of Researchers
           </p>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-black text-center max-w-3xl leading-relaxed">
+          <p className="text-base md:text-lg text-black text-center max-w-3xl leading-relaxed font-sans">
             Fenivi offers structured, flexible research training programs
             designed for students, PhD scholars, clinicians, and young
             professionals.
           </p>
 
           {/* Programs Offered Label */}
-          <h2 className="text-2xl md:text-3xl font-semibold text-black text-center">
-            Programs Offered:
+          <h2 className="text-2xl md:text-3xl font-semibold text-black text-center font-sans">
+            Programs Offered
           </h2>
 
           {/* Card Stack */}
@@ -364,13 +364,15 @@ export default function Services() {
                     className={`${card.bgColor} rounded-3xl shadow-2xl p-10 md:p-12 w-[350px] md:w-[550px] lg:w-[650px] h-[350px] md:h-[400px] pointer-events-none relative overflow-hidden`}
                   >
                     {/* Background Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-20 text-[300px] md:text-[400px] pointer-events-none">
-                      {card.icon}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="opacity-20 text-[220px] md:text-[300px] pointer-events-none">
+                        {card.icon}
+                      </div>
                     </div>
 
                     <div className="relative z-10 flex flex-col items-center justify-center h-full space-y-6">
                       {/* Card Title */}
-                      <h3 className="text-xl md:text-2xl font-bold text-white text-center leading-snug">
+                      <h3 className="text-xl md:text-2xl font-bold text-white text-center leading-snug font-sans">
                         {card.title}
                       </h3>
 
