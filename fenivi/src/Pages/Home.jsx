@@ -5,6 +5,7 @@ import HomeArticleCard from "../Components/HomeArticleCard.jsx";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsSection from "../Components/StatsSection";
+import StatsShowcase from "../Components/StatsShowcase";
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
@@ -174,9 +175,11 @@ const Home = () => {
           <br />
         </div>
       </section>
-
-      {/* Blog Section - Displaying Latest Articles */}
       <section className="max-w-7xl mx-auto px-6 py-20">
+        <StatsShowcase />
+      </section>
+      {/* Blog Section - Displaying Latest Articles */}
+      <section className="max-w-7xl mx-auto px-6 pb-20">
         <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12">
           Latest Insights from Our Research
         </h2>
@@ -195,23 +198,7 @@ const Home = () => {
       </section>
 
       {/* Blog Section - Displaying Latest Articles */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12">
-          Latest Insights from Our Research
-        </h2>
-
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {loading && <p className="col-span-3 text-center text-gray-500">Loading articles...</p>}
-
-          {!loading && articles.length === 0 && (
-            <p className="col-span-3 text-center text-gray-500">No articles available.</p>
-          )}
-
-          {articles.map((a) => (
-            <HomeArticleCard key={a.id} id={a.id} />
-          ))}
-        </div>
-      </section>
+      
     </div>
   );
 };
