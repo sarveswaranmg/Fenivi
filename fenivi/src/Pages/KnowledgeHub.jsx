@@ -1,233 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import React, { useEffect, useState, useRef } from "react";
 import ArticleCard from "../Components/ArticleCard.jsx";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+import { gsap } from "gsap";
 
 export default function KnowledgeHub() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const rowRefs = useRef([]);
 
-  // ---- Refs matching Projects scroll system ----
-  const containerRef = useRef(null);
-  const sectionsRef = useRef([]);         // auto-collected via [data-snap="true"]
-  const currentIndex = useRef(0);
-  const isAnimating = useRef(false);
-  const touchStartY = useRef(null);
-  const gestureLocked = useRef(false);
-  const wheelDebounceTimer = useRef(null);
-
-  // Content refs
-  const titleRef = useRef(null);
-  const gradientRef = useRef(null);
-  const articlesSectionRef = useRef(null);
-  const cardsRef = useRef(null);
-
-  // ===== 0) Collect sections dynamically (same as Projects) =====
-  const collectSections = () => {
-    if (!containerRef.current) return;
-    sectionsRef.current = Array.from(
-      containerRef.current.querySelectorAll('[data-snap="true"]')
-    );
-  };
-
-  useEffect(() => {
-    // Lock native scroll like Projects page
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    collectSections();
-
-    // Snap to first section on mount
-    requestAnimationFrame(() => {
-      const first = sectionsRef.current[0];
-      if (first) gsap.set(window, { scrollTo: first });
-    });
-
-    // Re-collect on size/content change
-    const ro = new ResizeObserver(() => collectSections());
-    if (containerRef.current) ro.observe(containerRef.current);
-
-    window.addEventListener("resize", collectSections);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("resize", collectSections);
-      ro.disconnect();
-    };
-  }, []);
-
-  // ===== 1) Title entrance (same timing) =====
-  useEffect(() => {
-    if (!titleRef.current) return;
-    gsap.fromTo(
-      titleRef.current,
-      { y: 400, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.4, ease: "power3.out", delay: 0.4 }
-    );
-  }, []);
-
-  // ===== 2) Gradient paragraph entrance (ScrollTrigger once) =====
-  useEffect(() => {
-    if (!gradientRef.current) return;
-    gsap.fromTo(
-      gradientRef.current,
-      { y: 80, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: gradientRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      }
-    );
-  }, []);
-
-  // ===== 3) Snap logic with mid-animation unlock (identical behavior) =====
-  const SCROLL_DURATION = 1.1;
-  const SCROLL_EASE = "power4.inOut";
-  const WHEEL_THRESHOLD = 20;
-  const WHEEL_GESTURE_GAP = 200;
-
-  const clampIndex = (i) => {
-    const last = (sectionsRef.current?.length || 1) - 1;
-    return Math.max(0, Math.min(i, last));
-  };
-
-  const snapToIndex = (index) => {
-    const i = clampIndex(index);
-    const target = sectionsRef.current[i];
-    if (!target) return;
-
-    isAnimating.current = true;
-
-    const tween = gsap.to(window, {
-      scrollTo: target,
-      duration: SCROLL_DURATION,
-      ease: SCROLL_EASE,
-      onUpdate: () => {
-        if (tween.progress() > 0.5 && isAnimating.current) {
-          // mid-animation unlock for responsiveness
-          isAnimating.current = false;
-        }
-      },
-      onComplete: () => {
-        currentIndex.current = i;
-        isAnimating.current = false;
-      },
-    });
-
-    currentIndex.current = i;
-  };
-
-  // ===== 4) Wheel/trackpad handling (strict one-per-gesture) =====
-  useEffect(() => {
-    const onWheel = (e) => {
-      e.preventDefault(); // stop native scroll
-
-      if (gestureLocked.current || isAnimating.current) {
-        clearTimeout(wheelDebounceTimer.current);
-        wheelDebounceTimer.current = setTimeout(() => {
-          gestureLocked.current = false;
-        }, WHEEL_GESTURE_GAP);
-        return;
-      }
-
-      const delta = e.deltaY;
-      if (Math.abs(delta) < WHEEL_THRESHOLD) return;
-
-      const idx = currentIndex.current;
-      if (delta > 0) snapToIndex(idx + 1);
-      else snapToIndex(idx - 1);
-
-      gestureLocked.current = true;
-      clearTimeout(wheelDebounceTimer.current);
-      wheelDebounceTimer.current = setTimeout(() => {
-        gestureLocked.current = false;
-      }, WHEEL_GESTURE_GAP);
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, []);
-
-  // ===== 5) Touch & mouse-drag swipe (one-per-swipe) =====
-  useEffect(() => {
-    const onTouchStart = (e) => {
-      e.preventDefault();
-      const y = e.touches ? e.touches[0].clientY : e.clientY;
-      touchStartY.current = y;
-    };
-
-    const onTouchMove = (e) => {
-      e.preventDefault(); // prevent rubber-banding
-    };
-
-    const onTouchEnd = (e) => {
-      e.preventDefault();
-      if (touchStartY.current == null || isAnimating.current) return;
-
-      const touchEndY = e.changedTouches?.[0]?.clientY ?? e.clientY;
-      const diff = touchStartY.current - touchEndY;
-      touchStartY.current = null;
-
-      const SWIPE = 50; // px
-      if (diff > SWIPE) snapToIndex(currentIndex.current + 1);
-      else if (diff < -SWIPE) snapToIndex(currentIndex.current - 1);
-    };
-
-    // Touch
-    window.addEventListener("touchstart", onTouchStart, { passive: false });
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
-    window.addEventListener("touchend", onTouchEnd, { passive: false });
-
-    // Mouse drag as swipe (optional, matching Projects)
-    window.addEventListener("mousedown", onTouchStart, { passive: false });
-    window.addEventListener("mousemove", onTouchMove, { passive: false });
-    window.addEventListener("mouseup", onTouchEnd, { passive: false });
-
-    return () => {
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
-
-      window.removeEventListener("mousedown", onTouchStart);
-      window.removeEventListener("mousemove", onTouchMove);
-      window.removeEventListener("mouseup", onTouchEnd);
-    };
-  }, []);
-
-  // ===== 6) Articles entrance (stagger reveal when that section appears) =====
-  useEffect(() => {
-    if (!articlesSectionRef.current || !cardsRef.current) return;
-    const items = Array.from(cardsRef.current.children || []);
-    gsap.fromTo(
-      items,
-      { x: -80, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: articlesSectionRef.current,
-          start: "top 75%",
-          once: true,
-        },
-      }
-    );
-  }, [loading]);
-
-  // ===== 7) Firestore fetching (unchanged) =====
+  // Firestore fetching
   useEffect(() => {
     if (!db) {
       setLoading(false);
@@ -237,7 +19,8 @@ export default function KnowledgeHub() {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const list = snapshot.docs.map((doc) => ({
+        const list = snapshot.docs.map((doc, index) => ({
+          no: String(index + 1).padStart(3, "0"),
           id: doc.id,
           ...doc.data(),
         }));
@@ -249,73 +32,198 @@ export default function KnowledgeHub() {
     return () => unsubscribe();
   }, []);
 
+  // GSAP Flip Animation for bottom list
+  useEffect(() => {
+    const rows = rowRefs.current.filter(Boolean);
+    if (rows.length === 0) return;
+
+    const hoverCapable = window.matchMedia("(hover: hover)").matches;
+
+    const cleanups = rows.map((row) => {
+      const wrapper = row.querySelector(".flip-wrapper");
+      const front = row.querySelector(".flip-front");
+      const back = row.querySelector(".flip-back");
+
+      gsap.set(row, { perspective: 1000 });
+      gsap.set(wrapper, { transformStyle: "preserve-3d" });
+      gsap.set(front, { backfaceVisibility: "hidden", rotateX: 0 });
+      gsap.set(back, { backfaceVisibility: "hidden", rotateX: 180 });
+
+      const toFront = () => gsap.to(wrapper, { rotateX: 0, duration: 0.6, ease: "power3.out" });
+      const toBack = () => gsap.to(wrapper, { rotateX: 180, duration: 0.6, ease: "power3.out" });
+
+      let onEnter, onLeave, onClick;
+      if (hoverCapable) {
+        onEnter = () => toBack();
+        onLeave = () => toFront();
+        row.addEventListener("mouseenter", onEnter);
+        row.addEventListener("mouseleave", onLeave);
+      } else {
+        onClick = () => {
+          const flipped = row.classList.toggle("is-flipped");
+          flipped ? toBack() : toFront();
+        };
+        row.addEventListener("click", onClick);
+      }
+
+      return () => {
+        if (hoverCapable) {
+          row.removeEventListener("mouseenter", onEnter);
+          row.removeEventListener("mouseleave", onLeave);
+        } else {
+          row.removeEventListener("click", onClick);
+        }
+      };
+    });
+
+    return () => cleanups.forEach((fn) => fn && fn());
+  }, [articles]);
+
   return (
-    <div ref={containerRef} className="w-full min-h-screen">
-      {/* Section 1: Title */}
-      <section
-        data-snap="true"
-        className="flex w-full h-[70vh] justify-center items-end overflow-hidden"
-      >
-        <div className="flex flex-col items-center mb-10">
-          <h1
-            ref={titleRef}
-            className="text-black font-bold text-9xl text-center"
-          >
-            Knowledge Hub.
+    <div className="w-full min-h-screen overflow-y-auto p-8">
+      {/* Intro Section */}
+      <section className="flex flex-col md:flex-row items-center justify-between gap-12 py-14">
+        <div className="md:w-1/2 flex flex-col gap-5">
+          <h1 className="text-4xl md:text-6xl font-bold text-black leading-tight">
+            Knowledge Hub
           </h1>
+          <p className="text-gray-600 text-lg leading-relaxed">
+            Explore a growing library of research, publications, and insights which fuel innovation,
+            sustainability, and impactful solutions for the modern world. Stay informed and inspired
+            with our curated articles and expert knowledge.
+          </p>
+        </div>
+
+        <div className="md:w-1/2 flex justify-center">
+          <img
+            src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+            alt="Knowledge"
+            className="w-full max-w-xl rounded-xl object-cover shadow-xl h-[380px] md:h-[450px]"
+          />
         </div>
       </section>
 
-      {/* Section 2: Gradient intro */}
-      <section
-        data-snap="true"
-        className="flex w-full h-screen items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] animate-gradient-premium"
-      >
-        <p
-          ref={gradientRef}
-          className="text-white text-3xl text-center max-w-2xl leading-snug opacity-0 2xl:text-4xl"
-        >
-          Explore a growing library of research, publications, and insights that
-          drive sustainable solutions.
-        </p>
-      </section>
+      {/* Articles Grid */}
+      <section className="w-full mt-6">
+        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black mb-8">
+          Latest Articles
+        </h2>
 
-      {/* Section 3: Articles (full-screen snap like Projects) */}
-      <section
-        data-snap="true"
-        ref={articlesSectionRef}
-        className="relative w-full h-screen overflow-hidden bg-white"
-      >
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-10">
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black">
-            Our Trending Articles
-          </h2>
-        </div>
-
-        {/* Cards area fills the screen like Projects; use padding at bottom for spacing */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full h-full px-8 pt-28 pb-10 overflow-hidden"
-          style={{ perspective: "1400px" }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {(loading ? [...Array(6)] : articles).map((a, i) =>
             loading ? (
-              <ArticleCard key={`skeleton-${i}`} loading={true} />
+              <ArticleCard key={`skeleton-${i}`} loading={true} imageHeight="h-64" />
             ) : (
               <ArticleCard
                 key={a.id}
                 id={a.id}
                 title={a.title}
-                excerpt={a.excerpt}
-                content={a.content}
-                imageUrl={a.imageUrl}
+                description={a.description}
+                author={a.author}
+                place={a.place}
+                publishedAt={a.publishedAt}
+                imageUrl={a.thumbnailUrl}
               />
             )
           )}
         </div>
       </section>
 
-      {/* You can add more full-screen snap sections later with data-snap="true" */}
+      {/* Flip List Section */}
+{/* Flip List Section */}
+{/* Flip List Section */}
+<section className="w-full px-6 py-10 mt-16">
+  <div className="w-full border border-black">
+
+    {/* Header */}
+    <div className="grid grid-cols-12 font-medium border-b border-black bg-white py-3 px-4 text-sm">
+      <span className="col-span-1">No</span>
+      <span className="col-span-4">Title</span>
+      <span className="col-span-3">Author</span>
+      <span className="col-span-2">Place</span>
+      <span className="col-span-1 text-right">Date</span>
+      <span className="col-span-1 text-center">↗</span>
+
+    </div>
+
+    {/* Rows */}
+    {articles.map((a, i) => {
+      const date = a.publishedAt
+        ? new Date(a.publishedAt).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
+        : "—";
+
+      return (
+        <div
+          key={a.id}
+          ref={(el) => (rowRefs.current[i] = el)}
+          className="relative border-b border-black cursor-pointer select-none"
+          style={{ perspective: "1000px" }}
+        >
+          <div className="h-14 w-full relative">
+            <div className="flip-wrapper absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
+
+              {/* FRONT */}
+              <div className="flip-front absolute inset-0 grid grid-cols-12 items-center bg-white text-black px-4">
+                <span className="col-span-1">{a.no}</span>
+                <span className="col-span-4 truncate">{a.title}</span>
+                <span className="col-span-3 truncate">{a.author}</span>
+                <span className="col-span-2 truncate">{a.place}</span>
+
+                {/* Arrow (Clickable) */}
+                
+
+                <span className="col-span-1 flex items-center justify-end">{date}</span>
+                <span
+                  className="col-span-1 flex items-center justify-center hover:text-purple-700 transition"
+                  onClick={(e) => {
+                    e.stopPropagation(); // stop flip
+                    window.location.href = `/article/${a.id}`;
+                  }}
+                >
+                  ↗
+                </span>
+              </div>
+
+              {/* BACK */}
+              <div
+                className="flip-back absolute inset-0 grid grid-cols-12 items-center text-white px-4"
+                style={{
+                  backgroundImage: "linear-gradient(to bottom right, #5304A3, #9D50BB, #7B2FF7)",
+                }}
+              >
+                <span className="col-span-1">{a.no}</span>
+                <span className="col-span-4 truncate">{a.title}</span>
+                <span className="col-span-3 truncate">{a.author}</span>
+                <span className="col-span-2 truncate">{a.place}</span>
+
+                
+
+                <span className="col-span-1 flex items-center justify-end">{date}</span>
+                {/* Arrow (Clickable) */}
+                <span
+                  className="col-span-1 flex items-center justify-center hover:text-yellow-200 transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `/article/${a.id}`;
+                  }}
+                >
+                  ↗
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+
     </div>
   );
 }
