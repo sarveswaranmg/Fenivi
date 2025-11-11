@@ -1,18 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+import { useState, useRef } from "react";
+import OurApproach from "../Components/OurApproach";
 
 export default function About() {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Scroll animation refs
-  const titleRef = useRef(null);
-  const sectionsRef = useRef([]);
-  const containerRef = useRef(null);
-  const currentIndex = useRef(0);
 
   // Card navigation refs
   const dragStartX = useRef(null);
@@ -57,62 +47,6 @@ export default function About() {
     },
   ];
 
-  // Collect sections dynamically
-  const collectSections = () => {
-    if (!containerRef.current) return;
-    sectionsRef.current = Array.from(
-      containerRef.current.querySelectorAll('[data-snap="true"]')
-    );
-  };
-
-  // Setup smooth scroll behavior
-  useEffect(() => {
-    // Enable smooth scrolling via CSS
-    document.documentElement.style.scrollBehavior = "smooth";
-
-    collectSections();
-
-    const ro = new ResizeObserver(() => collectSections());
-    if (containerRef.current) ro.observe(containerRef.current);
-
-    window.addEventListener("resize", collectSections);
-
-    return () => {
-      document.documentElement.style.scrollBehavior = "";
-      window.removeEventListener("resize", collectSections);
-      ro.disconnect();
-    };
-  }, []);
-
-  // Title entrance animation
-  useEffect(() => {
-    if (!titleRef.current) return;
-    gsap.fromTo(
-      titleRef.current,
-      { y: 400, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.4, ease: "power3.out", delay: 0.4 }
-    );
-  }, []);
-
-  // Observe scroll position to update current section
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-      sectionsRef.current.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          currentIndex.current = index;
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Card navigation functions
   const nextCard = () => {
     setCurrentSlide((prev) => (prev + 1) % highlights.length);
@@ -148,8 +82,8 @@ export default function About() {
       } else {
         prevCard(); // Dragged right, go to previous
       }
-    } else if (!isDragging.current) {
-      // If it was just a click (no significant drag)
+    } else if (!isDragging.current && Math.abs(diff) < 10) {
+      // If it was just a click (minimal movement)
       nextCard();
     }
 
@@ -158,32 +92,11 @@ export default function About() {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full min-h-screen snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth"
-    >
-      {/* First section */}
-      <section
-        data-snap="true"
-        className="flex w-full h-screen justify-center items-end overflow-hidden snap-start snap-always bg-white"
-      >
-        <div className="flex flex-col items-center mb-10">
-          <h1
-            ref={titleRef}
-            className="text-black font-bold text-9xl text-center"
-          >
-            About.
-          </h1>
-        </div>
-      </section>
-
+    <div className="w-full min-h-screen">
       {/* About Us Section */}
-      <section
-        data-snap="true"
-        className="relative w-full h-screen snap-start snap-always"
-      >
+      <section className="relative w-full h-screen">
         {/* Fixed gradient background */}
-        <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
+        {/* <div className="fixed inset-0 -z-10 animate-gradient-premium"></div> */}
 
         {/* Scrollable content */}
         <div className="relative z-10 w-full h-full overflow-y-auto px-8 md:px-16 lg:px-24 py-16 flex items-start justify-center">
@@ -205,11 +118,45 @@ export default function About() {
         </div>
       </section>
 
+      {/* About paragraph and image */}
+      <section className="relative w-full py-16 px-8 md:px-16 lg:px-24 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Image */}
+            <div className="relative h-[350px] md:h-[400px] rounded-lg overflow-hidden shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop"
+                alt="Research and Development"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+
+            {/* Paragraph */}
+            <div className="space-y-6">
+              <p className="text-gray-700 text-lg leading-relaxed">
+                At Fenivi Research Solutions, we believe in a convergence-based
+                approach that integrates scientific rigor with practical
+                implementation. Our team of experts combines advanced
+                technologies like GIS mapping, hydrological modeling, and
+                data-driven analytics with grassroots engagement to deliver
+                sustainable solutions.
+              </p>
+              <p className="text-gray-700 text-lg leading-relaxed">
+                We work closely with government agencies, academic institutions,
+                and local communities to ensure our interventions are not only
+                technically sound but also socially inclusive and
+                environmentally sustainable. From water resource management to
+                health sector innovations, our projects are designed to create
+                lasting impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Key Highlights Section - One Card at a Time */}
-      <section
-        data-snap="true"
-        className="relative w-full h-screen snap-start snap-always"
-      >
+      <section className="relative w-full h-screen">
         {/* Fixed gradient background */}
         <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
 
@@ -221,11 +168,21 @@ export default function About() {
 
           {/* Card Container */}
           <div className="relative w-full max-w-6xl h-[600px] flex items-center justify-center my-auto">
-            <div className="absolute inset-0 overflow-hidden rounded-3xl">
+            <div className="absolute inset-0 overflow-hidden rounded-lg">
               {/* Render all cards with transitions */}
               {highlights.map((highlight, index) => {
-                const position = index - currentSlide;
+                let position = index - currentSlide;
+
+                // Handle wrap-around for seamless transition
+                if (position < -highlights.length / 2) {
+                  position += highlights.length;
+                } else if (position > highlights.length / 2) {
+                  position -= highlights.length;
+                }
+
                 const isActive = index === currentSlide;
+                const isPast = position < 0;
+                const isVisible = Math.abs(position) <= 1 || isActive;
 
                 return (
                   <div
@@ -233,6 +190,8 @@ export default function About() {
                     className={`absolute w-full h-full transition-all duration-700 ease-out cursor-pointer select-none ${
                       isActive
                         ? "opacity-100 scale-100 z-10"
+                        : isPast && isVisible
+                        ? "opacity-100 scale-90 pointer-events-none"
                         : "opacity-0 scale-90 pointer-events-none"
                     }`}
                     style={{
@@ -249,12 +208,12 @@ export default function About() {
                     onTouchEnd={handleDragEnd}
                   >
                     {/* Current Card with Glassmorphism */}
-                    <div className="relative w-full h-full rounded-3xl overflow-hidden opacity-90">
+                    <div className="relative w-full h-full rounded-lg overflow-hidden opacity-90">
                       {/* Outer glow */}
-                      <div className="absolute -inset-4 bg-gradient-to-br from-violet-400/60 via-purple-500/60 to-violet-600/60 rounded-3xl blur-2xl opacity-75 animate-pulse"></div>
+                      <div className="absolute -inset-4 bg-gradient-to-br from-violet-400/60 via-purple-500/60 to-violet-600/60 rounded-lg blur-2xl opacity-75 animate-pulse"></div>
 
                       {/* Animated violet edges */}
-                      <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                      <div className="absolute inset-0 rounded-lg overflow-hidden">
                         <div className="absolute -top-20 -left-20 w-40 h-40 bg-violet-500/30 rounded-full blur-3xl animate-pulse"></div>
                         <div
                           className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl animate-pulse"
@@ -271,10 +230,10 @@ export default function About() {
                       </div>
 
                       {/* Glass morphism card */}
-                      <div className="absolute inset-0 backdrop-blur-2xl bg-black/70 rounded-3xl border border-violet-400/40 shadow-2xl overflow-hidden">
+                      <div className="absolute inset-0 backdrop-blur-2xl bg-black/70 rounded-lg border border-violet-400/40 shadow-2xl overflow-hidden">
                         {/* Noise texture */}
                         <div
-                          className="absolute inset-0 opacity-20 rounded-3xl"
+                          className="absolute inset-0 opacity-20 rounded-lg"
                           style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                             backgroundSize: "100px 100px",
@@ -355,6 +314,8 @@ export default function About() {
           </div>
         </div>
       </section>
+      {/* Our approach */}
+      <OurApproach />
     </div>
   );
 }
