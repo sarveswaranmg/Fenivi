@@ -1,16 +1,44 @@
-# React + Vite
+# Fenivi — Frontend (Vite + React + Tailwind + Firebase)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern marketing + knowledge hub frontend built with Vite, React, Tailwind CSS, GSAP and Firebase (Auth, Firestore, Storage). This repository contains the Fenivi web app used to publish articles, manage content via an admin dashboard, and present articles on a responsive landing site.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- Responsive landing pages and Knowledge Hub with snap-scroll sections
+- Admin dashboard to create articles with:
+  - Title, Author, Place, Published Date
+  - Description (content), Thumbnail (single) and Gallery (up to 10 images)
+- Firestore-backed articles and Firebase Storage for image hosting
+- Article detail page with metadata and gallery
+- GSAP animations for smooth interactions and loading screens
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+- React (JSX) + Vite
+- Tailwind CSS
+- Firebase (Auth, Firestore, Storage)
+- GSAP (animations)
+- React Router
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Prerequisites
+- Node.js (v16+ recommended)
+- npm
+- A Firebase project (Firestore, Storage, Authentication enabled)
+
+---
+
+## Local Setup (Windows)
+1. Clone the repo
+   - git clone <repo-url>
+   - cd Fenivi\fenivi
+
+2. Install dependencies
+   - npm install
+
+3. Create environment file
+   - Place a `.env.local` file inside the `fenivi/` folder (project root used by Vite).
+   - Add the following env keys (no surrounding quotes):
