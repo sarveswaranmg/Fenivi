@@ -90,6 +90,8 @@ export default function KnowledgeHub() {
           <p className="text-gray-600 text-lg leading-relaxed">
             Explore a growing library of research, publications, and insights which fuel innovation,
             sustainability, and impactful solutions for the modern world. Stay informed and inspired
+            with our curated articles and expert knowledge.Explore a growing library of research, publications, and insights which fuel innovation,
+            sustainability, and impactful solutions for the modern world. Stay informed and inspired
             with our curated articles and expert knowledge.
           </p>
         </div>
