@@ -45,65 +45,77 @@ export default function Article() {
 
   const mainImg = thumbnailUrl || imageUrl || "/favicon.ico";
   const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString(undefined, {
+    ? new Date(publishedAt).toLocaleDateString("en-GB", {
+        day: "2-digit",
         month: "short",
-        day: "numeric",
         year: "numeric",
       })
     : "";
 
   return (
-    <div className="flex flex-col items-center w-full bg-white text-gray-800">
-      <div className="w-[95%] md:w-[90%] lg:w-[85%] mt-8">
+    <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
+      {/* Banner */}
+      <div className="w-full max-w-6xl mx-auto mt-8">
         <img
           src={mainImg}
           alt="Article banner"
-          className="w-full h-80 md:h-[28rem] object-cover rounded-3xl shadow-md"
+          className="w-full h-80 md:h-[30rem] object-cover rounded-3xl shadow-lg"
         />
       </div>
 
-      <div className="w-[95%] md:w-[90%] lg:w-[80%] xl:w-[75%] mt-10 mb-20">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-5 md:px-0 mt-10 mb-24">
+        {/* Title */}
+        <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-snug text-gray-900">
           {title}
         </h1>
 
-        <div className="flex flex-wrap items-center justify-between border-b pb-4 mb-8 text-gray-500 text-sm">
-          <div className="flex items-center gap-3 flex-wrap">
+        {/* Metadata */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-4 mb-10 text-gray-500 text-sm">
+          <div className="flex items-center flex-wrap gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-lg">
+              <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-lg">
                 👤
               </div>
-              <span>{author || "Unknown author"}</span>
+              <span className="text-gray-700 font-medium">
+                {author || "Unknown Author"}
+              </span>
             </div>
+
             {formattedDate && <span>• {formattedDate}</span>}
             {place && <span>• {place}</span>}
           </div>
 
-          <div className="flex items-center gap-3 mt-2 md:mt-0">
-            <span>Share:</span>
-            <FaInstagram className="hover:text-purple-600 cursor-pointer" />
-            <FaFacebookF className="hover:text-blue-600 cursor-pointer" />
-            <FaTwitter className="hover:text-sky-500 cursor-pointer" />
-            <FaLinkedinIn className="hover:text-blue-700 cursor-pointer" />
+          <div className="flex items-center gap-3 mt-4 md:mt-0">
+            <span className="font-medium text-gray-600">Share:</span>
+            <FaInstagram className="text-gray-400 hover:text-pink-600 cursor-pointer transition" />
+            <FaFacebookF className="text-gray-400 hover:text-blue-600 cursor-pointer transition" />
+            <FaTwitter className="text-gray-400 hover:text-sky-500 cursor-pointer transition" />
+            <FaLinkedinIn className="text-gray-400 hover:text-blue-700 cursor-pointer transition" />
           </div>
         </div>
 
-        <div className="space-y-6 text-lg leading-relaxed">
+        {/* Description / Content */}
+        <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
           <p>{description || content}</p>
         </div>
 
         {/* Gallery */}
-        {gallery && gallery.length > 0 && (
-          <div className="mt-10">
-            <h3 className="text-xl font-semibold mb-4">Gallery</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {gallery.length > 0 && (
+          <div className="mt-14">
+            <h3 className="text-2xl font-semibold mb-5 text-gray-900">
+              Gallery
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {gallery.slice(0, 10).map((g, i) => (
-                <img
-                  key={i}
-                  src={g}
-                  alt={`gallery-${i}`}
-                  className="w-full h-40 object-cover rounded-lg"
-                />
+                <div key={i} className="relative group overflow-hidden rounded-xl shadow-md">
+                  <img
+                    src={g}
+                    alt={`gallery-${i}`}
+                    className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+                </div>
               ))}
             </div>
           </div>

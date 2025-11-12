@@ -1,339 +1,146 @@
+import React from "react";
+import home3d from "../Assets/home3d.png";
+
 export default function Services() {
-  const certificationCards = [
+  const serviceData = [
     {
-      id: 1,
-      title: "Certificate Course in Psycho-Oncology Research",
-      img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1600&q=80",
+      category: "Core Research & Advisory Services",
+      description:
+        "Our multidisciplinary research team provides evidence-based insights and solutions for sustainable growth, governance, and social development.",
+      points: [
+        "Third-Party Assessments & Audits (Government / NGO / CSR)",
+        "Feasibility and Pre-Feasibility Studies",
+        "Need Analysis & Situation Assessments",
+        "Large-Scale Surveys & Community Consultations",
+        "Environmental, Hydrological & Urban Development Studies",
+        "Policy Advisory & Program Design",
+      ],
+      image:
+        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
     },
     {
-      id: 2,
-      title: "Certificate Course in Research Methodology & Scientific Writing",
-      img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1600&q=80",
+      category: "Training & Knowledge Services",
+      description:
+        "We build institutional and individual capacities through immersive learning, workshops, and mentorship programs that focus on data, governance, and sustainability.",
+      points: [
+        "Short-Term Certificate Courses in Public Health, Political Psychology, Psycho-Oncology, and Research Methodology",
+        "Workshops on Data-Driven Governance, River Restoration, Sustainability, and Policy Design",
+        "Field-Based Learning & Research Mentorship Programs",
+        "Institutional Capacity Building & Faculty Development",
+      ],
+      image:
+        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
     },
     {
-      id: 3,
-      title: "Short-Term Research Skill Workshops",
-      subtitle: "(Proposal Writing, Data Analysis, Publication Skills)",
-      img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80",
-    },
-    {
-      id: 4,
-      title: "Faculty Development & Institutional Research Capacity Programs",
-      img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80",
-    },
-    {
-      id: 5,
-      title: "Mentorship for Thesis, Grant Writing & Publications",
-      img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1600&q=80",
+      category: "Startup Mentoring (New Vertical)",
+      description:
+        "We mentor startups in agri-tech, health-tech, and social innovation, offering guidance across business strategy, financial modeling, and ecosystem partnerships.",
+      points: [
+        "Market Validation & Impact Assessments",
+        "Business Plan Development & Growth Strategies",
+        "Financial Modeling & Sustainability Practices",
+        "CSR Partnerships & Funding Guidance",
+        "Ecosystem Support with Incubators & Accelerators",
+      ],
+      image:
+        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
     },
   ];
 
   return (
-    <div className="h-screen w-screen scroll-smooth font-sans">
-      {/* Second section */}
-      <div className="relative min-h-screen w-full px-8 md:px-16 lg:px-24 py-16">
-        {/* Fixed gradient background */}
-        <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
-        {/* Header Section */}
-        <div className="mb-12">
-          <h1 className="text-white text-5xl md:text-6xl font-bold mt-8 mb-12 font-sans text-center">
-            Services
+    <div className="w-full bg-white text-gray-900">
+      {/* ===== Hero Section (Clean White) ===== */}
+      <section className="h-[110vh] w-full bg-gradient-to-r from-[#f8f9ff] to-[#f3f4fc] flex flex-col md:flex-row items-center justify-center px-8 md:px-20">
+        {/* LEFT SIDE — TEXT */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+            Our Services
           </h1>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight font-sans">
-              We offer a wide range of services
-            </h3>
-
-            <p className="text-white text-base md:text-lg leading-relaxed font-sans">
-              By combining our industry knowledge with cutting-edge tools and
-              methodologies, we develop strategies that drive measurable
-              results.
-            </p>
-          </div>
-        </div>
-
-        {/* Images Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Large image on the left */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-lg h-[400px] lg:h-[500px] animate-gradient-premium">
-            <img
-              src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80"
-              alt="Person planning with sticky notes"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Two stacked images on the right */}
-          <div className="flex flex-col gap-6">
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg h-[190px] lg:h-[240px]">
-              <img
-                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
-                alt="Team collaborating at workspace"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg h-[190px] lg:h-[240px]">
-              <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80"
-                alt="Person working on computer"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Training & Knowledge Services Section */}
-      <div className="relative min-h-screen w-full py-16">
-        {/* Fixed gradient background */}
-        <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
-        <div className="relative w-full px-8 md:px-16 lg:px-24 overflow-hidden">
-          {/* Plain white base layer - completely solid */}
-          <div className="absolute inset-0 bg-white opacity-100"></div>
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-black font-sans">
-                Training & Knowledge Services
-              </h2>
-
-              <p className="text-black text-base md:text-lg leading-relaxed text-justify font-sans">
-                We offer a diverse range of educational and capacity-building
-                programs designed to strengthen skills, research capabilities,
-                and institutional growth. Our initiatives combine academic rigor
-                with practical learning experiences.
-              </p>
-
-              <ul className="space-y-4 text-black text-base md:text-lg">
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1">•</span>
-                  <span className="leading-relaxed">
-                    Includes certificate courses, workshops, and field-based
-                    research mentorship in public health, policy, and
-                    sustainability.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1">•</span>
-                  <span className="leading-relaxed">
-                    Focused on institutional capacity building, faculty
-                    development, and data-driven governance training.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Right Image */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg h-[400px] lg:h-[500px]">
-              <img
-                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80"
-                alt="Person planning with sticky notes on window"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Core Research & Advisory Services Section */}
-      <div className="relative min-h-screen w-full px-8 md:px-16 lg:px-24 py-16">
-        {/* Fixed gradient background */}
-        <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Image */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-            <img
-              src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80"
-              alt="Person planning research with sticky notes"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Right Content */}
-          <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-white text-center lg:text-left font-sans">
-              Core Research & Advisory Services
-            </h2>
-
-            <p className="text-white text-base md:text-lg leading-relaxed text-justify font-sans">
-              We specialize in conducting comprehensive research, assessments,
-              and advisory studies for government bodies, NGOs, and CSR
-              initiatives. Our expertise spans from feasibility studies to
-              policy design, ensuring data-driven and impactful outcomes.
-            </p>
-
-            <div className="space-y-4 text-white text-base md:text-lg">
-              <p className="flex items-start leading-relaxed">
-                <span className="mr-3 mt-1">→</span>
-                <span>
-                  Expertise includes third-party audits, feasibility
-                  assessments, need analyses, and large-scale surveys.
-                </span>
-              </p>
-              <p className="flex items-start leading-relaxed">
-                <span className="mr-3 mt-1">→</span>
-                <span>
-                  Specialized in environmental, hydrological, urban development
-                  studies, and strategic policy advisory.
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Startup Mentoring Section */}
-      <div className="relative min-h-screen w-full py-16">
-        <div className="relative w-full px-8 md:px-16 lg:px-24 overflow-hidden">
-          {/* Plain white base layer - completely solid */}
-          <div className="absolute inset-0 bg-white opacity-100"></div>
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-black text-center lg:text-left font-sans">
-                Startup Mentoring (New Vertical)
-              </h2>
-
-              <p className="text-black text-base md:text-lg leading-relaxed text-justify font-sans">
-                We empower agri-tech, health-tech, and social enterprises
-                through strategic, data-driven support that enhances their
-                social and business impact. Our approach bridges innovation with
-                sustainability and scalable growth.
-              </p>
-
-              <ul className="space-y-4 text-black text-base md:text-lg">
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1">•</span>
-                  <span className="leading-relaxed">
-                    Services include market validation, impact assessments,
-                    business planning, and financial modeling.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1">•</span>
-                  <span className="leading-relaxed">
-                    We also facilitate CSR partnerships, funding guidance, and
-                    ecosystem collaboration with incubators and accelerators.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Right Image */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg h-[400px] lg:h-[500px]">
-              <img
-                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80"
-                alt="Startup planning session"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Training & Certification Section */}
-      <div className="relative min-h-screen w-full py-16">
-        {/* Fixed gradient background */}
-        <div className="fixed inset-0 -z-10 animate-gradient-premium"></div>
-
-        {/* Header */}
-        <div className="text-center mb-12 px-8 md:px-16 lg:px-24">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-sans">
-            Training & Certification
-          </h1>
-          <p className="text-xl md:text-2xl italic text-white mt-4 font-sans">
-            Building the Next Generation of Researchers
-          </p>
-          <p className="text-base md:text-lg text-white mt-6 max-w-3xl mx-auto leading-relaxed font-sans">
-            Fenivi offers structured, flexible research training programs
-            designed for students, PhD scholars, clinicians, and young
-            professionals.
+          <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
+            From field-based research to high-impact consulting and mentorship,
+            our services empower organizations, institutions, and entrepreneurs
+            to create measurable change.
           </p>
         </div>
 
-        {/* Programs Grid - Full Width Cards */}
-        <div className="space-y-0 w-full">
-          {certificationCards.map((card) => (
-            <div
-              key={card.id}
-              className="group relative w-full h-[200px]"
-              style={{ perspective: "1400px" }}
-            >
-              {/* card container that flips */}
-              <div
-                className="relative h-full w-full transition-transform duration-700 ease-out group-hover:[transform:rotateX(180deg)]"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* FRONT */}
-                <div
-                  className="absolute inset-0 overflow-hidden"
-                  style={{ backfaceVisibility: "hidden" }}
-                >
-                  <img
-                    src={card.img}
-                    alt={card.title}
-                    className="h-full w-full object-cover"
-                  />
-                  {/* large central number */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/90 drop-shadow-xl text-[30vw] md:text-[12vw] leading-none font-light select-none">
-                      {card.id}
+        {/* RIGHT SIDE — CONTAINED 2x2 GRID */}
+        <div className="w-full md:w-1/2 flex justify-center items-center">
+          <div className="relative w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] aspect-square rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgba(20,20,50,0.1)] bg-gradient-to-br from-white/60 to-white/30 backdrop-blur-xl border border-white/40">
+            <img
+              src={home3d}
+              alt="3D Illustration"
+              className="w-full h-full object-contain rounded-2xl hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Service Sections ===== */}
+      {serviceData.map((service, index) => (
+        <section
+          key={index}
+          className={`w-full py-20 px-6 md:px-16 lg:px-24 ${
+            index % 2 === 1 ? "bg-gray-50" : "bg-white"
+          }`}
+        >
+          <div
+            className={`max-w-7xl mx-auto flex flex-col ${
+              index % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
+            } items-center gap-14`}
+          >
+            {/* Image */}
+            <div className="flex-1 relative overflow-hidden rounded-3xl shadow-md hover:shadow-xl transition-all duration-500">
+              <img
+                src={service.image}
+                alt={service.category}
+                className="w-full h-[400px] object-cover rounded-3xl transform hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+
+            {/* Text Content */}
+            <div className="flex-1 text-left">
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 mt-2 text-gray-900">
+                {service.category}
+              </h2>
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                {service.description}
+              </p>
+
+              {/* Bullet Points */}
+              <ul className="space-y-3 text-gray-700">
+                {service.points.map((point, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 group transition-transform duration-300"
+                  >
+                    <span className="w-3 h-3 mt-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex-shrink-0 group-hover:scale-110 transition-transform"></span>
+                    <span className="group-hover:text-gray-900 transition-colors">
+                      {point}
                     </span>
-                  </div>
-                  {/* bottom meta */}
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div>
-                      <p className="text-white text-lg md:text-xl font-medium">
-                        {card.title}
-                      </p>
-                      {card.subtitle && (
-                        <p className="text-white/80 text-xs md:text-sm mt-1">
-                          {card.subtitle}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* BACK */}
-                <div
-                  className="absolute inset-0 animate-gradient-premium text-white p-6 md:p-8 flex flex-col justify-between [transform:rotateX(180deg)]"
-                  style={{
-                    backfaceVisibility: "hidden",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <div className="flex flex-col gap-4 mt-12">
-                    <h3 className="text-2xl md:text-3xl font-semibold leading-tight">
-                      {card.title}
-                    </h3>
-                    {card.subtitle && (
-                      <p className="text-base md:text-lg text-white/90">
-                        {card.subtitle}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <p className="text-sm text-white/80">
-                      Formats: Online | Hybrid | In-Person
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/60">Program #{card.id}</span>
-                      <button className="px-4 py-2 rounded-full bg-white text-black text-sm font-medium hover:opacity-90 transition">
-                        Learn More →
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </section>
+      ))}
+
+      {/* ===== Call To Action ===== */}
+      <section className="w-full py-24 text-center bg-gray-50">
+        <h3 className="text-3xl md:text-4xl font-semibold mb-4 text-gray-900">
+          Want to Collaborate?
+        </h3>
+        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Partner with us to turn research and innovation into real-world
+          impact. Let’s co-create solutions that shape the future.
+        </p>
+        <a
+          href="/contact"
+          className="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3 rounded-full font-medium shadow-md hover:shadow-lg hover:scale-105 transition-all"
+        >
+          Get in Touch
+        </a>
+      </section>
     </div>
   );
 }

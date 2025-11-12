@@ -3,6 +3,7 @@ import ArticleCard from "../Components/ArticleCard.jsx";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { gsap } from "gsap";
+import { BookOpen, FileText, BarChart3, Newspaper } from "lucide-react";
 
 export default function KnowledgeHub() {
   const [articles, setArticles] = useState([]);
@@ -80,37 +81,123 @@ export default function KnowledgeHub() {
   }, [articles]);
 
   return (
-    <div className="w-full min-h-screen overflow-y-auto p-8">
-      {/* Intro Section */}
-      <section className="flex flex-col md:flex-row items-center justify-between gap-12 py-14">
-        <div className="md:w-1/2 flex flex-col gap-5">
-          <h1 className="text-4xl md:text-6xl font-bold text-black leading-tight">
-            Knowledge Hub
-          </h1>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Explore a growing library of research, publications, and insights which fuel innovation,
-            sustainability, and impactful solutions for the modern world. Stay informed and inspired
-            with our curated articles and expert knowledge.Explore a growing library of research, publications, and insights which fuel innovation,
-            sustainability, and impactful solutions for the modern world. Stay informed and inspired
-            with our curated articles and expert knowledge.
+    <div className="w-full min-h-screen overflow-y-auto bg-white text-gray-800">
+      {/* ===== HERO: KNOWLEDGE HUB HEADER ===== */}
+{/* ===== HERO: KNOWLEDGE HUB HEADER ===== */}
+{/* ===== HERO: KNOWLEDGE HUB HEADER ===== */}
+<section className="h-[110vh] w-full bg-gradient-to-r from-[#f8f9ff] to-[#f3f4fc] flex flex-col md:flex-row items-center justify-center px-8 md:px-20">
+  {/* LEFT SIDE — TEXT */}
+  <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
+    <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+      Turning Data into Knowledge
+    </h1>
+    <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
+      Fenivi Research Solutions bridges the gap between policy, practice, and community needs
+      through actionable research and evidence-based insights that drive sustainable change.
+    </p>
+  </div>
+
+  {/* RIGHT SIDE — CONTAINED 2x2 GRID */}
+  <div className="w-full md:w-1/2 flex justify-center items-center">
+    <div className="grid grid-cols-2 grid-rows-2 gap-6 w-[90%] max-w-[650px] h-[520px]">
+      
+      {/* 1️⃣ Image */}
+      <div className="overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white">
+        <img
+          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
+          alt="Knowledge Hub"
+          className="w-full h-full object-cover rounded-3xl hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
+      {/* 2️⃣ Publications */}
+      <div className="p-7 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+        <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
+        <div>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">200+ Publications</h3>
+          <p className="text-gray-600 text-sm leading-snug">
+            Research papers, policy briefs, and scientific articles contributing to
+            evidence-based decision-making and innovation.
           </p>
         </div>
+      </div>
 
-        <div className="md:w-1/2 flex justify-center">
-          <img
-            src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
-            alt="Knowledge"
-            className="w-full max-w-xl rounded-xl object-cover shadow-xl h-[380px] md:h-[450px]"
-          />
+      {/* 3️⃣ Conference Leadership */}
+      <div className="p-7 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+        <BarChart3 className="w-8 h-8 text-indigo-600 mb-4" />
+        <div>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">
+            Conference Leadership
+          </h3>
+          <p className="text-gray-600 text-sm leading-snug">
+            Leading the <b>National Conference on Real-World Evidence in Oncology</b> (4th Edition),
+            bringing together clinicians, researchers, and policymakers.
+          </p>
+        </div>
+      </div>
+
+      {/* 4️⃣ Reports & Studies */}
+      <div className="p-7 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+        <FileText className="w-8 h-8 text-purple-700 mb-4" />
+        <div>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">
+            Reports & Studies
+          </h3>
+          <p className="text-gray-600 text-sm leading-snug">
+            Comprehensive hydrological, environmental, and social development studies that empower
+            data-driven governance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      {/* ===== BLOG SECTION ===== */}
+      <section className="max-w-6xl mx-auto px-6 md:px-10 py-20">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-3">
+              Insights • Reflections • Evidence
+            </h2>
+            <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              The Fenivi Blog shares perspectives from our field experiences, research collaborations,
+              and thematic insights across environment, oncology, SDGs, and governance — connecting
+              science with society.
+            </p>
+          </div>
+
+          <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+            Visit Blog →
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            "SDG & Policy Research",
+            "Health Systems & Oncology",
+            "Environmental & Hydrological Studies",
+            "Research Methods & Data Insights",
+            "Voices from the Field",
+          ].map((cat, i) => (
+            <div
+              key={i}
+              className="p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition group"
+            >
+              <Newspaper className="w-8 h-8 text-purple-600 mb-3 group-hover:scale-110 transition" />
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">{cat}</h4>
+              <p className="text-gray-600 text-sm">
+                Explore reflections and research from our work in {cat.toLowerCase()}.
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Articles Grid */}
-      <section className="w-full mt-6">
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black mb-8">
-          Latest Articles
-        </h2>
-
+      {/* ===== ARTICLES GRID ===== */}
+      <section className="max-w-7xl mx-auto px-6 pb-20">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">Latest Articles</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {(loading ? [...Array(6)] : articles).map((a, i) =>
             loading ? (
@@ -131,100 +218,7 @@ export default function KnowledgeHub() {
         </div>
       </section>
 
-      {/* Flip List Section */}
-{/* Flip List Section */}
-{/* Flip List Section */}
-<section className="w-full px-6 py-10 mt-16">
-  <div className="w-full border border-black">
-
-    {/* Header */}
-    <div className="grid grid-cols-12 font-medium border-b border-black bg-white py-3 px-4 text-sm">
-      <span className="col-span-1">No</span>
-      <span className="col-span-4">Title</span>
-      <span className="col-span-3">Author</span>
-      <span className="col-span-2">Place</span>
-      <span className="col-span-1 text-right">Date</span>
-      <span className="col-span-1 text-center">↗</span>
-
-    </div>
-
-    {/* Rows */}
-    {articles.map((a, i) => {
-      const date = a.publishedAt
-        ? new Date(a.publishedAt).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-        : "—";
-
-      return (
-        <div
-          key={a.id}
-          ref={(el) => (rowRefs.current[i] = el)}
-          className="relative border-b border-black cursor-pointer select-none"
-          style={{ perspective: "1000px" }}
-        >
-          <div className="h-14 w-full relative">
-            <div className="flip-wrapper absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
-
-              {/* FRONT */}
-              <div className="flip-front absolute inset-0 grid grid-cols-12 items-center bg-white text-black px-4">
-                <span className="col-span-1">{a.no}</span>
-                <span className="col-span-4 truncate">{a.title}</span>
-                <span className="col-span-3 truncate">{a.author}</span>
-                <span className="col-span-2 truncate">{a.place}</span>
-
-                {/* Arrow (Clickable) */}
-                
-
-                <span className="col-span-1 flex items-center justify-end">{date}</span>
-                <span
-                  className="col-span-1 flex items-center justify-center hover:text-purple-700 transition"
-                  onClick={(e) => {
-                    e.stopPropagation(); // stop flip
-                    window.location.href = `/article/${a.id}`;
-                  }}
-                >
-                  ↗
-                </span>
-              </div>
-
-              {/* BACK */}
-              <div
-                className="flip-back absolute inset-0 grid grid-cols-12 items-center text-white px-4"
-                style={{
-                  backgroundImage: "linear-gradient(to bottom right, #5304A3, #9D50BB, #7B2FF7)",
-                }}
-              >
-                <span className="col-span-1">{a.no}</span>
-                <span className="col-span-4 truncate">{a.title}</span>
-                <span className="col-span-3 truncate">{a.author}</span>
-                <span className="col-span-2 truncate">{a.place}</span>
-
-                
-
-                <span className="col-span-1 flex items-center justify-end">{date}</span>
-                {/* Arrow (Clickable) */}
-                <span
-                  className="col-span-1 flex items-center justify-center hover:text-yellow-200 transition"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.location.href = `/article/${a.id}`;
-                  }}
-                >
-                  ↗
-                </span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      );
-    })}
-  </div>
-</section>
-
+      {/* ===== FLIP TABLE ===== */}
 
     </div>
   );

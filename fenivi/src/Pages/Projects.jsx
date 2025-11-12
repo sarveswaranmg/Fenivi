@@ -1,15 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import ArticleCard from "../Components/ArticleCard";
 
 export default function Projects() {
-  const rowRefs = useRef([]);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const projects = [
+  const staticProjects = [
     {
       id: 1,
       title: "Hydrological Restoration & River Rejuvenation",
       city: "Tirunelveli & Kanniyakumari, Tamil Nadu",
-      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170",
       brief:
         "GIS-based hydrological mapping and community-led river basin restoration reviving 99 irrigation tanks across Anuman Nathi & Pazhayaru.",
     },
@@ -25,7 +28,7 @@ export default function Projects() {
       id: 3,
       title: "Public Health & Social Development Programs",
       city: "Tamil Nadu (Multi-District)",
-      img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+      img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=687",
       brief:
         "CSR interventions for malnutrition mapping, anganwadi upgrades, renewable energy solutions, and community welfare initiatives.",
     },
@@ -39,70 +42,30 @@ export default function Projects() {
     },
   ];
 
-  const listProjects = [
-    { no: "001", title: "Street Chronicles: The Art of Everyday Moments", city: "Los Angeles, USA", date: "17/07/24" },
-    { no: "002", title: "Timeless Alleyways: Streets in Analog", city: "New York, USA", date: "10/06/24" },
-    { no: "003", title: "Silent Stories: The Streets Through My Lens", city: "London, UK", date: "07/03/24" },
-    { no: "004", title: "In the Frame: City Rhythms on Film", city: "Milan, IT", date: "11/01/2024" },
-    { no: "005", title: "Street Shadows: Light, Life, and Lenses", city: "Warsaw, PL", date: "23/12/24" },
-    { no: "006", title: "Faces of the Streets: Captured in Grain", city: "Milan, IT", date: "17/11/2023" },
-    { no: "007", title: "Analog Days: The Pulse of the City", city: "Budapest, HU", date: "13/10/2023" },
-    { no: "008", title: "Fleeting Moments: Street Souls in Film", city: "Budapest, HU", date: "10/10/2023" },
-  ];
-
+  // 🔥 Firestore Fetch
   useEffect(() => {
-    const rows = rowRefs.current.filter(Boolean);
-
-    const hoverCapable = window.matchMedia("(hover: hover)").matches;
-
-    const cleanups = rows.map((row) => {
-      const wrapper = row.querySelector(".flip-wrapper");
-      const front = row.querySelector(".flip-front");
-      const back = row.querySelector(".flip-back");
-
-      // 3D setup
-      gsap.set(row, { perspective: 1000 });
-      gsap.set(wrapper, { transformStyle: "preserve-3d", willChange: "transform" });
-      gsap.set(front, { backfaceVisibility: "hidden", rotateX: 0 });
-      gsap.set(back, { backfaceVisibility: "hidden", rotateX: 180 });
-
-      const toFront = () => gsap.to(wrapper, { rotateX: 0, duration: 0.6, ease: "power3.out", force3D: true });
-      const toBack = () => gsap.to(wrapper, { rotateX: 180, duration: 0.6, ease: "power3.out", force3D: true });
-
-      let onEnter, onLeave, onClick;
-      if (hoverCapable) {
-        onEnter = () => toBack();
-        onLeave = () => toFront();
-        row.addEventListener("mouseenter", onEnter);
-        row.addEventListener("mouseleave", onLeave);
-      } else {
-        // Mobile: tap to toggle; tap same row again to flip back
-        onClick = () => {
-          const flipped = row.classList.toggle("is-flipped");
-          flipped ? toBack() : toFront();
-        };
-        row.addEventListener("click", onClick);
+    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snap) => {
+        const list = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setProjects(list);
+        setLoading(false);
+      },
+      (err) => {
+        console.error("Error fetching projects:", err);
+        setLoading(false);
       }
-
-      return () => {
-        if (hoverCapable) {
-          row.removeEventListener("mouseenter", onEnter);
-          row.removeEventListener("mouseleave", onLeave);
-        } else {
-          row.removeEventListener("click", onClick);
-        }
-      };
-    });
-
-    return () => cleanups.forEach((fn) => fn && fn());
+    );
+    return () => unsubscribe();
   }, []);
 
   return (
     <div className="w-full min-h-screen">
-      {/* ===== 4 FLIP CARDS (unchanged) ===== */}
+      {/* === Static Flip Projects === */}
       <section className="relative w-full h-screen overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-4 w-full h-full" style={{ perspective: "1400px" }}>
-          {projects.map((p) => (
+          {staticProjects.map((p) => (
             <div key={p.id} className="group relative h-screen md:h-full w-full">
               <div
                 className="relative h-full w-full transition-transform duration-700 ease-out group-hover:[transform:rotateY(180deg)]"
@@ -116,7 +79,7 @@ export default function Projects() {
                       {p.id}
                     </span>
                   </div>
-                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between ">
+                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                     <div>
                       <p className="text-white text-lg md:text-xl font-medium">{p.title}</p>
                       <p className="text-white/80 text-xs md:text-sm">{p.city}</p>
@@ -148,59 +111,82 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* ===== FLIP LIST UNDER CARDS (Smooth Vertical Flip with GSAP) ===== */}
-      <section className="w-full px-6 py-10">
-        <div className="w-full border border-black">
-          {/* Header */}
-          <div className="grid grid-cols-12 font-medium border-b border-black bg-white py-3 px-4 text-sm">
-            <span className="col-span-2">Number</span>
-            <span className="col-span-6">Title</span>
-            <span className="col-span-3">City</span>
-            <span className="col-span-1">Date</span>
-          </div>
+{/* === Dynamic Projects (from Firestore) === */}
+<section className="w-full px-8 py-20 bg-gray-50">
+  {/* Header */}
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+    <div>
+      <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-3">
+        Projects & Impact
+      </h2>
+      <p className="text-gray-600 max-w-2xl text-base md:text-lg leading-relaxed">
+        Shaping Change Through Research and Collaboration
+      </p>
+      <p className="text-gray-600 max-w-3xl mt-4 text-sm md:text-base leading-relaxed">
+        Fenivi’s projects span hydrology, public health, sustainability, and social development — 
+        combining technical expertise with local knowledge to deliver measurable impact.
+      </p>
+    </div>
 
-          {/* Rows */}
-          {listProjects.map((p, i) => (
-            <div
-              key={i}
-              ref={(el) => (rowRefs.current[i] = el)}
-              className="relative border-b border-black cursor-pointer select-none"
-              // perspective applied by GSAP as well; keeping a small base here is fine
-              style={{ perspective: "1000px" }}
-            >
-              {/* Fixed height container to avoid shake */}
-              <div className="h-14 w-full relative"> {/* 56px (compact) */}
-                {/* Flip wrapper (animated) */}
-                <div className="flip-wrapper absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
-                  {/* FRONT */}
-                  <div
-                    className="flip-front absolute inset-0 grid grid-cols-12 items-center bg-white text-black px-4 [backface-visibility:hidden]"
-                  >
-                    <span className="col-span-2">{p.no}</span>
-                    <span className="col-span-6 truncate">{p.title}</span>
-                    <span className="col-span-3 truncate">{p.city}</span>
-                    <span className="col-span-1 flex items-center justify-end">↗</span>
-                  </div>
+    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+      Explore all →
+    </button>
+  </div>
 
-                  {/* BACK (same layout) */}
-                  <div
-                    className="flip-back absolute inset-0 grid grid-cols-12 items-center text-white px-4 [backface-visibility:hidden]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to bottom right, #5304A3, #9D50BB, #7B2FF7)",
-                    }}
-                  >
-                    <span className="col-span-2">{p.no}</span>
-                    <span className="col-span-6 truncate">{p.title}</span>
-                    <span className="col-span-3 truncate">{p.city}</span>
-                    <span className="col-span-1 flex items-center justify-end">↗</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+  {/* Projects Grid */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {loading && (
+      <p className="col-span-4 text-center text-gray-500">
+        Loading projects...
+      </p>
+    )}
+
+    {!loading && projects.length === 0 && (
+      <p className="col-span-4 text-center text-gray-500">
+        No projects available.
+      </p>
+    )}
+
+    {projects.map((p) => (
+      <div
+        key={p.id}
+        className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+      >
+        {/* Image */}
+        <div className="relative h-44 w-full overflow-hidden">
+          <img
+            src={p.thumbnailUrl}
+            alt={p.title}
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          {p.date && (
+            <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
+              {new Date(p.date).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+          )}
         </div>
-      </section>
+
+        {/* Content */}
+        <div className="p-5 flex flex-col flex-1">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+            {p.title}
+          </h3>
+          <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+            {p.description}
+          </p>
+          <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+            View Project
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
     </div>
   );
 }

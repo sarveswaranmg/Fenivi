@@ -10,7 +10,7 @@ export default function Navbar() {
 
     { name: "Projects", path: "/projects" },
     { name: "Knowledge Hub", path: "/knowledge-hub" },
-        { name: "Events", path: "/" },
+        { name: "Events", path: "/events" },
     { name: "Contact", path: "/contact" },
 
   ];
