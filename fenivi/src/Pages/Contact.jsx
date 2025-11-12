@@ -46,7 +46,7 @@ export default function Contact() {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
             {/* Left Side - Contact Information */}
-            <div className="lg:col-span-2 bg-gradient-to-br from-purple-600 to-purple-800 text-white p-6 md:p-8 relative overflow-hidden">
+            <div className="lg:col-span-2 animate-gradient-premium  text-white p-6 md:p-8 relative overflow-hidden">
               <div className="relative z-10">
                 <h2 className="text-2xl font-bold mb-3">Contact Information</h2>
                 <p className="text-purple-100 mb-8 text-sm">

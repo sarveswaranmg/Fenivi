@@ -10,6 +10,8 @@ import Contact from "./Pages/Contact";
 import Article from "./Pages/Article";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/AdminDashboard";
+import Events from "./Pages/Event";
+import EventDetails from "./Pages/EventDetails";
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
         <Route path="/article/:id" element={<Article />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetails />} />
+
       </Routes>
       {/* <Footer /> */}
     </Router>
