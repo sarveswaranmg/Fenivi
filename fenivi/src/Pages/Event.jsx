@@ -28,10 +28,10 @@ export default function Events() {
     <div className="w-full bg-white text-gray-900 min-h-screen">
       {/* ===== Header Section ===== */}
       <section className="w-full py-24 px-6 md:px-16 lg:px-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+        <h1 className="text-4xl md:text-5xl font-semibold mb-4">
           Grow Your Network & Skills
         </h1>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
           with Our Events
         </h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
