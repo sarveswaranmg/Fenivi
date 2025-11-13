@@ -18,21 +18,24 @@ import AdminDashboard from "./Pages/AdminDashboard";
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
 import Home1 from "./Pages/Home1.jsx";
-
+import Courses from "./Pages/Courses.jsx";
+import ContactButton from "./Components/ContactButton.jsx";
 function App() {
   return (
     <Router>
       <Navbar />
+      <ContactButton />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-                <Route path="/home1" element={<Home1 />} />
-
+        <Route path="/home1" element={<Home1 />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/knowledge-hub" element={<KnowledgeHub />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
