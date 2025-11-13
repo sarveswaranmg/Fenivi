@@ -17,6 +17,7 @@ import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
+import Home1 from "./Pages/Home1.jsx";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+                <Route path="/home1" element={<Home1 />} />
+
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/projects" element={<Projects />} />
