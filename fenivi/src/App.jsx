@@ -29,9 +29,8 @@ function App() {
         <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
-
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 }
