@@ -6,7 +6,7 @@ import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsSection from "../Components/StatsSection";
 import StatsShowcase from "../Components/StatsShowcase";
-import home3d from "../Assets/home3d.png";
+import home3d from "../assets/home3d.png";
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
@@ -88,7 +88,8 @@ const Home = () => {
               <br />
               through data-driven
               <br />
-              insights, convergence approaches and<br />
+              insights, convergence approaches and
+              <br />
               community engagement
             </h1>
 
@@ -117,12 +118,12 @@ const Home = () => {
           {/* Right Image */}
           <div className="w-[320px] md:w-[380px] h-[320px] md:h-[380px] mt-10 md:mt-0 relative">
             <div className="absolute inset-4 rounded-[2.5rem] overflow-hidden">
-                <img
-                  src={home3d}
-                  alt="3D Shape"
-                  className="w-full h-full object-contain drop-shadow-2xl"
-                />
-              </div>
+              <img
+                src={home3d}
+                alt="3D Shape"
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
+            </div>
           </div>
         </section>
       </div>
@@ -157,147 +158,154 @@ const Home = () => {
       </section>
 
       {/* ===== Articles Section ===== */}
-{/* ===== Articles Section ===== */}
-<section className="max-w-7xl mx-auto px-6 pb-24">
-  {/* Header */}
-  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
-    <div>
-      <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-        Latest Insights from Our Research
-      </h2>
-      <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
-        Discover our latest research studies, field insights, and innovations
-        driving sustainable and community-led development across sectors.
-      </p>
-    </div>
+      {/* ===== Articles Section ===== */}
+      <section className="max-w-7xl mx-auto px-6 pb-24">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+          <div>
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
+              Latest Insights from Our Research
+            </h2>
+            <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              Discover our latest research studies, field insights, and
+              innovations driving sustainable and community-led development
+              across sectors.
+            </p>
+          </div>
 
-    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      Explore all →
-    </button>
-  </div>
-
-  {/* Articles Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    {loading && (
-      <p className="col-span-4 text-center text-gray-500">Loading articles...</p>
-    )}
-
-    {!loading && articles.length === 0 && (
-      <p className="col-span-4 text-center text-gray-500">No articles available.</p>
-    )}
-
-    {articles.map((a) => (
-      <div
-        key={a.id}
-        className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
-      >
-        {/* Image */}
-        <div className="relative h-44 w-full overflow-hidden">
-          <img
-            src={a.thumbnailUrl}
-            alt={a.title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-          {a.publishedAt && (
-            <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
-              {new Date(a.publishedAt).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })}
-            </span>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
-            {a.title}
-          </h3>
-          <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-            {a.description}
-          </p>
-          <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
-            Read More
+          <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+            Explore all →
           </button>
         </div>
-      </div>
-    ))}
-  </div>
-</section>
 
+        {/* Articles Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {loading && (
+            <p className="col-span-4 text-center text-gray-500">
+              Loading articles...
+            </p>
+          )}
+
+          {!loading && articles.length === 0 && (
+            <p className="col-span-4 text-center text-gray-500">
+              No articles available.
+            </p>
+          )}
+
+          {articles.map((a) => (
+            <div
+              key={a.id}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+            >
+              {/* Image */}
+              <div className="relative h-44 w-full overflow-hidden">
+                <img
+                  src={a.thumbnailUrl}
+                  alt={a.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+                {a.publishedAt && (
+                  <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
+                    {new Date(a.publishedAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+                  {a.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                  {a.description}
+                </p>
+                <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+                  Read More
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ===== Events Section ===== */}
 
-<section className="max-w-7xl mx-auto px-6 pb-24">
-  {/* Header */}
-  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
-    <div>
-      <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-        Community Events
-      </h2>
-      <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
-        Join our global community for insightful workshops, hands-on masterclasses, 
-        and networking events designed to boost your skills and connections.
-      </p>
-    </div>
+      <section className="max-w-7xl mx-auto px-6 pb-24">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+          <div>
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
+              Community Events
+            </h2>
+            <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              Join our global community for insightful workshops, hands-on
+              masterclasses, and networking events designed to boost your skills
+              and connections.
+            </p>
+          </div>
 
-    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      Explore all →
-    </button>
-  </div>
-
-  {/* Events Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    {eventsLoading && (
-      <p className="col-span-4 text-center text-gray-500">Loading events...</p>
-    )}
-
-    {!eventsLoading && events.length === 0 && (
-      <p className="col-span-4 text-center text-gray-500">No upcoming events.</p>
-    )}
-
-    {events.map((e) => (
-      <div
-        key={e.id}
-        className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
-      >
-        {/* Image */}
-        <div className="relative h-44 w-full overflow-hidden">
-          <img
-            src={e.thumbnailUrl}
-            alt={e.title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-          {e.date && (
-            <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
-              {new Date(e.date).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })}
-            </span>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
-            {e.title}
-          </h3>
-          <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-            {e.description}
-          </p>
-          <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
-            Register
+          <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+            Explore all →
           </button>
         </div>
-      </div>
-    ))}
-  </div>
-</section>
 
+        {/* Events Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {eventsLoading && (
+            <p className="col-span-4 text-center text-gray-500">
+              Loading events...
+            </p>
+          )}
 
+          {!eventsLoading && events.length === 0 && (
+            <p className="col-span-4 text-center text-gray-500">
+              No upcoming events.
+            </p>
+          )}
+
+          {events.map((e) => (
+            <div
+              key={e.id}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+            >
+              {/* Image */}
+              <div className="relative h-44 w-full overflow-hidden">
+                <img
+                  src={e.thumbnailUrl}
+                  alt={e.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+                {e.date && (
+                  <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
+                    {new Date(e.date).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+                  {e.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                  {e.description}
+                </p>
+                <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+                  Register
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
