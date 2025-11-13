@@ -6,7 +6,7 @@ import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsSection from "../Components/StatsSection";
 import StatsShowcase from "../Components/StatsShowcase";
-import homeImage from "../Assets/triangle.svg";
+import homeImage from "../assets/triangle.svg";
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
