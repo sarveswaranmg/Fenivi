@@ -7,7 +7,7 @@ export default function ContactButton() {
   const isActive = location.pathname === "/contact";
 
   return (
-    <div className="fixed top-8 right-6 z-50">
+    <div className="fixed top-4 right-6 z-50">
       <div className="px-2 py-2 bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20">
         <button
           onClick={() => navigate("/contact")}
