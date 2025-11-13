@@ -1,5 +1,5 @@
 import React from "react";
-import home3d from "../Assets/home3d.png";
+import home3d from "../assets/home3d.png";
 
 export default function Services() {
   const serviceData = [
