@@ -5,14 +5,13 @@ export default function Navbar() {
   const location = useLocation();
   const links = [
     { name: "Home", path: "/" },
-        { name: "About", path: "/about" },
+    { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
 
     { name: "Projects", path: "/projects" },
     { name: "Knowledge Hub", path: "/knowledge-hub" },
-        { name: "Events", path: "/events" },
-    { name: "Contact", path: "/contact" },
-
+    { name: "Events", path: "/events" },
+    { name: "Courses", path: "/courses" },
   ];
 
   return (
@@ -29,7 +28,8 @@ export default function Navbar() {
                   ? "text-white bg-white/25 shadow-md scale-105"
                   : "text-gray-300 hover:text-white hover:bg-white/10"
               }
-            `}>
+            `}
+          >
             {link.name}
           </Link>
         ))}

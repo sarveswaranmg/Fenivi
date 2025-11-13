@@ -117,7 +117,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="#"
+                href="/courses"
                 className="text-white/80 hover:text-white transition-colors duration-300"
               >
                 Courses
