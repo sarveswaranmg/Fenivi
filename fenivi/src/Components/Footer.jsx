@@ -17,8 +17,7 @@ export default function Footer() {
               navigate("/contact");
               window.scrollTo(0, 0);
             }}
-            className="border-2 border-white text-white rounded-full px-6 py-2 hover:bg-white hover:text-purple-700 transition-all duration-300 font-medium"
-          >
+            className="border-2 border-white text-white rounded-full px-6 py-2 hover:bg-white hover:text-purple-700 transition-all duration-300 font-medium">
             Contact Us
           </button>
         </div>
@@ -39,8 +38,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-pink-300 transition-colors duration-300 hover:scale-110 transform"
-            >
+              className="hover:text-pink-300 transition-colors duration-300 hover:scale-110 transform">
               <FaInstagram />
             </a>
             <a
@@ -48,8 +46,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="hover:text-blue-300 transition-colors duration-300 hover:scale-110 transform"
-            >
+              className="hover:text-blue-300 transition-colors duration-300 hover:scale-110 transform">
               <FaFacebookF />
             </a>
             <a
@@ -57,8 +54,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="hover:text-red-300 transition-colors duration-300 hover:scale-110 transform"
-            >
+              className="hover:text-red-300 transition-colors duration-300 hover:scale-110 transform">
               <FaYoutube />
             </a>
           </div>
@@ -71,24 +67,21 @@ export default function Footer() {
             <li>
               <a
                 href="/"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Home
               </a>
             </li>
             <li>
               <a
                 href="/about"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 About Us
               </a>
             </li>
             <li>
               <a
                 href="/services"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Services
               </a>
             </li>
@@ -102,24 +95,21 @@ export default function Footer() {
             <li>
               <a
                 href="/knowledge-hub"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Knowledge Hub
               </a>
             </li>
             <li>
               <a
                 href="/events"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Events
               </a>
             </li>
             <li>
               <a
                 href="/courses"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Courses
               </a>
             </li>
@@ -133,8 +123,7 @@ export default function Footer() {
             <li>
               <a
                 href="/admin"
-                className="text-white/80 hover:text-white transition-colors duration-300"
-              >
+                className="text-white/80 hover:text-white transition-colors duration-300">
                 Admin Login
               </a>
             </li>
