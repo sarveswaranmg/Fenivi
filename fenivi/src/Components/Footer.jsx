@@ -5,11 +5,11 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-purple-700 text-white py-12 px-6">
+    <footer className="bg-purple-700 text-white py-8 px-6">
       {/* Top Section */}
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-4 md:gap-0">
-          <h2 className="text-2xl md:text-3xl font-semibold text-center md:text-left">
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-3 md:gap-0">
+          <h2 className="text-xl md:text-2xl font-semibold text-center md:text-left">
             Ready to transform your business
           </h2>
           <button
@@ -17,16 +17,16 @@ export default function Footer() {
               navigate("/contact");
               window.scrollTo(0, 0);
             }}
-            className="border-2 border-white text-white rounded-full px-8 py-3 hover:bg-white hover:text-purple-700 transition-all duration-300 font-medium"
+            className="border-2 border-white text-white rounded-full px-6 py-2 hover:bg-white hover:text-purple-700 transition-all duration-300 font-medium"
           >
-            Get started
+            Contact Us
           </button>
         </div>
-        <div className="h-[1px] bg-white/30 mt-8 mb-10 w-full"></div>
+        <div className="h-[1px] bg-white/30 mt-6 mb-6 w-full"></div>
       </div>
 
       {/* Bottom Section */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
         {/* Company Info */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-bold mb-3">Fenivi Solutions</h3>
@@ -123,12 +123,19 @@ export default function Footer() {
                 Courses
               </a>
             </li>
+          </ul>
+        </div>
+
+        {/* Column 3 - Admin */}
+        <div className="text-center md:text-left">
+          <h4 className="text-lg font-semibold mb-4">Admin</h4>
+          <ul className="space-y-3">
             <li>
               <a
-                href="/contact"
+                href="/admin"
                 className="text-white/80 hover:text-white transition-colors duration-300"
               >
-                Contact Us
+                Admin Login
               </a>
             </li>
           </ul>
