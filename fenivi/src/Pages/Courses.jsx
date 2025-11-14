@@ -47,7 +47,7 @@ export default function Courses() {
       <section className="max-w-7xl mx-auto px-6 md:px-8 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Course Card 1 */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop"
@@ -79,7 +79,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 2 */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=600&fit=crop"
@@ -112,7 +112,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 3 */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=1200&h=600&fit=crop"
@@ -144,7 +144,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 4 */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&h=600&fit=crop"
@@ -176,7 +176,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 5 */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&h=300&fit=crop"
@@ -208,7 +208,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 6 - Coming Soon */}
-          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=600&fit=crop"
