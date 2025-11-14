@@ -43,221 +43,197 @@ export default function Courses() {
         <div className="w-20 h-[3px] bg-gradient-to-r from-purple-600 to-indigo-600 mx-auto mt-6 rounded-full" />
       </section>
 
-      {/* ===== Static Course Cards (Grid Layout) ===== */}
+      {/* ===== Static Course Cards (Two Column Layout) ===== */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Course Card 1 */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop"
-                  alt="Psycho-Oncology"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop"
+              alt="Psycho-Oncology"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Certificate Course in Psycho-Oncology Research
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  Master the intersection of psychology and oncology research
-                  with evidence-based methodologies
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span> 30 hours,
-                    45 minutes
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Duration</p>
+                    <p className="text-white text-sm font-light">30 hours</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Format</p>
+                    <p className="text-white text-sm font-light">Hybrid</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Course Card 2 */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop"
-                  alt="Research Methodology"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=600&fit=crop"
+              alt="Research Methodology"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Certificate Course in Research Methodology & Scientific
                   Writing
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  Comprehensive training in research design, data analysis, and
-                  publication-ready scientific writing
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span> 40 hours,
-                    30 minutes
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Duration</p>
+                    <p className="text-white text-sm font-light">40 hours</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Format</p>
+                    <p className="text-white text-sm font-light">Online</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Course Card 3 */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=400&h=300&fit=crop"
-                  alt="Research Skills"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=1200&h=600&fit=crop"
+              alt="Research Skills"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Short-Term Research Skill Workshops
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  Intensive workshops on Proposal Writing, Data Analysis, and
-                  Publication Skills for quick skill development
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span> 15 hours,
-                    20 minutes
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Duration</p>
+                    <p className="text-white text-sm font-light">15 hours</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Format</p>
+                    <p className="text-white text-sm font-light">In-Person</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Course Card 4 */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex h-full">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=300&fit=crop"
-                  alt="Faculty Development"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&h=600&fit=crop"
+              alt="Faculty Development"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Faculty Development & Institutional Programs
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  Build institutional research capacity through comprehensive
-                  faculty development programs
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span> 50 hours,
-                    15 minutes
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Duration</p>
+                    <p className="text-white text-sm font-light">50 hours</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Format</p>
+                    <p className="text-white text-sm font-light">Hybrid</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Course Card 5 */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop"
-                  alt="Mentorship"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&h=300&fit=crop"
+              alt="Mentorship"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Mentorship for Thesis, Grant Writing & Publications
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  One-on-one mentorship for research projects, grant proposals,
-                  and journal publications
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span>{" "}
-                    Customized based on needs
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Duration</p>
+                    <p className="text-white text-sm font-light">Custom</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Format</p>
+                    <p className="text-white text-sm font-light">1-on-1</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Course Card 6 - Placeholder for balance */}
-          <div className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200">
-            <div className="flex h-full">
-              {/* Left side - Image with gradient fade */}
-              <div className="w-48 relative overflow-hidden flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop"
-                  alt="Coming Soon"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
-              </div>
-              {/* Right side - Content */}
-              <div className="flex-1 p-6 -ml-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
+          {/* Course Card 6 - Coming Soon */}
+          <div className="group relative h-96 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+            {/* Background Image */}
+            <img
+              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=600&fit=crop"
+              alt="Coming Soon"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 border border-white/10"
+            />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+
+            {/* Content with Glass Effect */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-xl font-bold text-white mb-4">
                   More Courses Coming Soon
-                  <span className="text-purple-600">→</span>
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
-                  Stay tuned for more specialized research training programs and
-                  skill development workshops
-                </p>
-                <div className="border-t border-gray-200 pt-3 mt-3">
-                  <p className="text-xs text-gray-700 mb-1">
-                    <span className="font-semibold">Formats:</span> Online |
-                    Hybrid | In-Person
-                  </p>
-                  <p className="text-xs text-gray-700">
-                    <span className="font-semibold">Total time:</span> To be
-                    announced
-                  </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Status</p>
+                    <p className="text-white text-sm font-light">Coming</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-300 text-xs mb-1">Availability</p>
+                    <p className="text-white text-sm font-light">Soon</p>
+                  </div>
                 </div>
               </div>
             </div>
