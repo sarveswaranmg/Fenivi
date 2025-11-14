@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import ContactButton from "../Components/ContactButton";
+import coursesAndResearch from "../assets/coursesandresearch.png";
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -32,15 +33,74 @@ export default function Courses() {
     <div className="w-full bg-gradient-to-br from-purple-100 via-white to-violet-50 text-gray-900 min-h-screen">
       <ContactButton />
       {/* ===== Header Section ===== */}
-      <section className="w-full py-24 px-6 md:px-16 lg:px-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-          Building the Next Generation of Researchers
-        </h1>
-        <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed mt-6">
-          Fenivi offers structured, flexible research training programs designed
-          for students, PhD scholars, clinicians, and young professionals.
-        </p>
-        <div className="w-20 h-[3px] bg-gradient-to-r from-purple-600 to-indigo-600 mx-auto mt-6 rounded-full" />
+      <section className="w-full py-20 px-8">
+        <div className="w-fullmx-auto grid grid-cols-1 md:grid-cols-2 gap-0 items-center">
+          {/* IMAGE */}
+          <div className="relative">
+            <img
+              src={coursesAndResearch}
+              alt="Courses and Research"
+              className="w-120 h-auto select-none transform  duration-700 "
+              style={{
+                filter: "drop-shadow(0 10px 30px rgba(147, 51, 234, 0.3))",
+              }}
+            />
+            {/* Glitter Sparks */}
+            {[...Array(15)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 rounded-full bg-purple-400"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animation: `sparkle ${
+                    4 + Math.random() * 4
+                  }s linear infinite`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  opacity: 0,
+                }}
+              />
+            ))}
+            <style jsx>{`
+              @keyframes float {
+                0%,
+                100% {
+                  transform: translateY(0px) rotate(0deg);
+                }
+                50% {
+                  transform: translateY(-15px) rotate(1deg);
+                }
+              }
+              @keyframes sparkle {
+                0% {
+                  opacity: 0;
+                  transform: translateY(0) scale(1);
+                }
+                20% {
+                  opacity: 0.8;
+                }
+                100% {
+                  opacity: 0;
+                  transform: translateY(-80px) scale(1);
+                }
+              }
+            `}</style>
+          </div>
+
+          {/* TEXT CONTENT */}
+          <div className="-ml-40">
+            <h2 className="text-7xl italic text-gray-900">Building the</h2>
+            <h3 className="text-8xl font-bold text-gray-900 mt-2">
+              Next Generation of Researchers
+            </h3>
+
+            <p className="text-gray-700 mt-6 text-xl leading-relaxed max-w-xl">
+              Fenivi offers structured, flexible research training programs
+              designed for students, PhD scholars, clinicians, and young
+              professionals.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* ===== Static Course Cards (Two Column Layout) ===== */}
