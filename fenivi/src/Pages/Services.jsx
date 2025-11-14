@@ -1,5 +1,5 @@
 import React from "react";
-import lightning from "../assets/lightning.png";
+import lightning from "../assets/Lightning.png";
 import ServiceBg1 from "../assets/Services1.avif";
 import ServiceBg2 from "../assets/Services2.avif";
 import ServiceBg3 from "../assets/Services3.avif";
