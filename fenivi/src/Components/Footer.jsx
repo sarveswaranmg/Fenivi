@@ -5,7 +5,7 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-purple-700 text-white py-8 px-6">
+    <footer className=" animate-gradient-premium  text-white py-8 px-6">
       {/* Top Section */}
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-3 md:gap-0">
@@ -28,9 +28,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
         {/* Company Info */}
         <div className="text-center md:text-left">
-          <h3 className="text-xl font-bold mb-3">Fenivi Solutions</h3>
+          <h3 className="text-xl font-semibold mb-3">Fenivi Research Solutions Pvt. Ltd.</h3>
           <p className="text-sm text-white/80 mb-6 leading-relaxed">
-            Address of the company
+            9/56C, ISRO Road, Kavalkinaru Junction,<br /> Tirunelveli District. <br /> Pin: 627105
           </p>
           <div className="flex space-x-5 text-2xl justify-center md:justify-start">
             <a

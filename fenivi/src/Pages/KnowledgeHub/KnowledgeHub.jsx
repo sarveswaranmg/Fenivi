@@ -152,7 +152,7 @@ export default function KnowledgeHub() {
       </section>
 
       {/* BLOG SECTION */}
-      <section className="max-w-6xl mx-auto px-6 md:px-10 py-20">
+      <section className="max-w-7xl mx-auto px-6 md:px-10 py-20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
           <div>
             <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-3">
@@ -164,9 +164,7 @@ export default function KnowledgeHub() {
             </p>
           </div>
 
-          <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-            Visit Blog →
-          </button>
+          
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -194,7 +192,7 @@ export default function KnowledgeHub() {
       </section>
 
       {/* ARTICLES GRID */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-6 md:px-10 pb-20">
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
           Latest Articles
         </h2>

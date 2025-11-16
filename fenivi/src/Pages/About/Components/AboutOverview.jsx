@@ -38,29 +38,49 @@ export default function AboutOverview() {
           </div>
 
           {/* GREY BACKGROUND UNDER STATS */}
-          <div className=" w-full mt-6 p-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className=" rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">5+</div>
-                <div className="text-sm text-gray-600 mt-2">Years of Impact</div>
-              </div>
+{/* GREY BACKGROUND UNDER STATS */}
+<div className="w-full mt-6 p-6">
+  <div className="grid grid-cols-2 gap-4">
 
-              <div className=" rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">200+</div>
-                <div className="text-sm text-gray-600 mt-2">Publications</div>
-              </div>
+    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">5+</div>
+      <div className="text-sm text-gray-600 mt-2">Years of Impact</div>
+      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+        Over half a decade of generating real-world evidence and supporting
+        impactful decision-making across diverse sectors in India.
+      </p>
+    </div>
 
-              <div className=" rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">100+</div>
-                <div className="text-sm text-gray-600 mt-2">Projects</div>
-              </div>
+    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">200+</div>
+      <div className="text-sm text-gray-600 mt-2">Publications</div>
+      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+        A growing body of scientific work published through collaborations with
+        researchers, institutions, and field practitioners nationwide.
+      </p>
+    </div>
 
-              <div className=" rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">15+</div>
-                <div className="text-sm text-gray-600 mt-2">Partners</div>
-              </div>
-            </div>
-          </div>
+    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">100+</div>
+      <div className="text-sm text-gray-600 mt-2">Projects</div>
+      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+        Successfully executed multi-disciplinary projects that address community
+        needs, guide policy, and advance sustainable development outcomes.
+      </p>
+    </div>
+
+    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">15+</div>
+      <div className="text-sm text-gray-600 mt-2">Partners</div>
+      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+        Collaborating with government agencies, NGOs, academic institutions, and
+        global networks to co-create meaningful, evidence-backed solutions.
+      </p>
+    </div>
+
+  </div>
+</div>
+
         </div>
       </div>
     </section>

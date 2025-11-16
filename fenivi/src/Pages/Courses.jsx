@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import ContactButton from "../Components/ContactButton";
 import coursesAndResearch from "../assets/coursesandresearch.png";
 
 export default function Courses() {
@@ -31,7 +30,6 @@ export default function Courses() {
 
   return (
     <div className="w-full bg-gradient-to-br from-purple-100 via-white to-violet-50 text-gray-900 min-h-screen">
-      <ContactButton />
       {/* ===== Header Section ===== */}
       <section className="w-full py-20 px-8">
         <div className="w-fullmx-auto grid grid-cols-1 md:grid-cols-2 gap-0 items-center">

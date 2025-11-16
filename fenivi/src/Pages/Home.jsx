@@ -173,8 +173,8 @@ const Home = () => {
   {/* Header */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
     <div>
-      <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-        Latest Insights from Our Research
+      <h2 className="text-4xl font-semibold text-gray-900 mb-3">
+      Recent Evidence-Driven Projects
       </h2>
       <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
         Discover our latest research studies, field insights, and innovations
@@ -251,8 +251,8 @@ const Home = () => {
   {/* Header */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
     <div>
-      <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-        Community Events
+      <h2 className="text-4xl font-semibold text-gray-900 mb-3">
+      Events
       </h2>
       <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
         Join our global community for insightful workshops, hands-on masterclasses, 

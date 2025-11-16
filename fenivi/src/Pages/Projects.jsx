@@ -111,7 +111,7 @@ export default function Projects() {
       </section>
 
 {/* === Dynamic Projects (from Firestore) === */}
-<section className="w-full px-8 py-20 bg-gray-50">
+<section className="w-full px-20 py-20 bg-gray-50">
   {/* Header */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
     <div>
