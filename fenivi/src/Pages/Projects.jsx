@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import ArticleCard from "../Components/ArticleCard";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
