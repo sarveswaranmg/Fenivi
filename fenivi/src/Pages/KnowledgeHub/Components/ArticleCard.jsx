@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import cardimg from "../assets/1.png";
+import cardimg from "../../../assets/1.png";
 import { Link } from "react-router-dom";
 
 const ArticleCard = ({
@@ -34,10 +34,18 @@ const ArticleCard = ({
         year: "numeric",
       })
     : "N/A";
+useEffect(() => {
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
 
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "auto";
-  }, [open]);
+  // FIX: cleanup always restores scroll on navigation
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [open]);
 
   return (
     <>

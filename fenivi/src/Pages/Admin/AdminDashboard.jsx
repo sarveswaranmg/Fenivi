@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AdminArticleForm from "../Components/AdminArticleForm";
-import AdminProjectForm from "../Components/AdminProjectForm";
-import AdminEventForm from "../Components/AdminEventForm"; // 👈 new component for events
+import AdminArticleForm from "./Components/AdminArticleForm";
+import AdminProjectForm from "./Components/AdminProjectForm";
+import AdminEventForm from "./Components/AdminEventForm"; // 👈 new component for events
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("articles");

@@ -1,7 +1,8 @@
 import React from "react";
-import AboutOverview from "../Components/AboutOverview";
-import TeamSection from "../Components/TeamSection";
-import KeyResponsibilities from "../Components/KeyResponsibilities";
+import AboutOverview from "./Components/AboutOverview";
+import TeamSection from "./Components/TeamSection";
+import KeyResponsibilities from "./Components/KeyResponsibilities";
+import Vidhubala from "./Components/Vidhubala";
 
 export default function About() {
   return (
@@ -24,6 +25,8 @@ export default function About() {
 
       {/* ===== ABOUT OVERVIEW (CLEAN WHITE SECTION) ===== */}
       <AboutOverview />
+
+      <Vidhubala />
 
       {/* ===== TEAM SECTION ===== */}
       <TeamSection />

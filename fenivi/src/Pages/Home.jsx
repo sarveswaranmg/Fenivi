@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
-import HomeArticleCard from "../Components/HomeArticleCard.jsx";
-import EventCard from "../Components/EventCard.jsx";
+import { Link } from "react-router-dom";
+
 import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsSection from "../Components/StatsSection";
@@ -81,36 +81,49 @@ const Home = () => {
       <div className="h-screen w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
         <section className="flex flex-col md:flex-row items-center justify-between h-full px-8 md:px-20 pt-20 gap-6">
           {/* Text Content */}
-          <div className="max-w-xl text-center md:text-left">
+          <div className="max-w text-center md:text-left">
 <h1 className="text-xl md:text-3xl font-bold text-gray-900 leading-snug">
   Advancing sustainable development
   <br />
-  through data-driven
+  through data-driven insights,
   <br />
-  insights, convergence approaches and<br />
+   convergence approaches and<br />
   community engagement
 </h1>
 
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <button className="relative px-6 py-3 rounded-full font-medium overflow-hidden group">
-                <div className="absolute -inset-2 bg-gradient-to-br from-purple-400/40 via-purple-500/50 to-indigo-600/40 rounded-full blur-xl opacity-60"></div>
-                <div className="absolute inset-0 backdrop-blur-md bg-gradient-to-br from-purple-600/30 via-purple-700/40 to-indigo-600/30 rounded-full border border-white/30 shadow-lg"></div>
-                <div className="absolute top-0 left-1/4 w-16 h-16 bg-gradient-to-br from-white/40 to-transparent rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute bottom-0 right-1/4 w-20 h-20 bg-gradient-to-tr from-white/30 to-transparent rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                <span className="relative text-white font-sans font-semibold group-hover:text-white transition-colors">
-                  Partner With Us
-                </span>
-              </button>
+              <Link to="/contact">
+  <button className="relative px-6 py-3 rounded-full font-medium overflow-hidden group animate-gradient-premium">
+    <span className="relative text-white font-sans font-semibold group-hover:text-white transition-colors">
+      Partner With Us
+    </span>
+  </button>
+</Link>
 
-              <button className="relative px-6 py-3 rounded-full font-medium overflow-hidden group">
-                <div className="absolute inset-0 backdrop-blur-md bg-white/30 border border-white/40 rounded-full shadow-lg"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                <span className="relative text-gray-800 font-sans group-hover:text-gray-900 transition-colors">
-                  Explore Our Services
-                </span>
-              </button>
+
+              <Link to="/services">
+  <button className="
+    relative px-8 py-3 rounded-full font-semibold
+    bg-white/10 backdrop-blur-xl
+    border border-white/30
+    shadow-[0_4px_20px_rgba(0,0,0,0.1)]
+    text-gray-900 transition-all duration-300
+    overflow-hidden group
+    hover:bg-white/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]
+  ">
+    <span className="
+      absolute top-0 left-[-150%] w-[250%] h-full
+      bg-gradient-to-r from-transparent via-white/40 to-transparent
+      group-hover:left-[150%] transition-all duration-700 ease-out
+    "></span>
+
+    <span className="relative z-10 tracking-wide">
+      Explore Our Services
+    </span>
+  </button>
+</Link>
+
             </div>
           </div>
 
@@ -145,12 +158,12 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="w-full flex justify-center mt-12">
+        <div className="w-full flex justify-center ">
           <StatsSection />
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 pt-10">
         <StatsShowcase />
       </section>
 
@@ -168,10 +181,13 @@ const Home = () => {
         driving sustainable and community-led development across sectors.
       </p>
     </div>
+    <Link to="/knowledge-hub">
+      <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+        Explore more →
+      </button>
+    </Link>
 
-    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      Explore all →
-    </button>
+    
   </div>
 
   {/* Articles Grid */}
@@ -215,9 +231,13 @@ const Home = () => {
           <p className="text-sm text-gray-600 mb-4 line-clamp-3">
             {a.description}
           </p>
-          <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
-            Read More
-          </button>
+          <Link to={`/article/${a.id}`} className="block w-full">
+  <button className="w-full mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+    Read More
+  </button>
+</Link>
+
+          
         </div>
       </div>
     ))}
@@ -240,9 +260,11 @@ const Home = () => {
       </p>
     </div>
 
-    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      Explore all →
-    </button>
+    <Link to="/events">
+      <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+        Explore more →
+      </button>
+    </Link>
   </div>
 
   {/* Events Grid */}
