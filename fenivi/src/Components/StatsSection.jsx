@@ -12,7 +12,8 @@ const StatsSection = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="mt-3">
+      className="mt-3"
+    >
       <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"></path>
       <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"></path>
       <path d="M6 9v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9"></path>
@@ -32,7 +33,8 @@ const StatsSection = () => {
       stroke="#00BFFF"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
     </svg>
   );
@@ -48,7 +50,8 @@ const StatsSection = () => {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="relative">
+      className="relative"
+    >
       {/* Outer star */}
       <polygon
         points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
@@ -86,8 +89,9 @@ const StatsSection = () => {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "rotate(5deg)";
             e.currentTarget.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.15)";
-          }}>
-          <h2 className="text-5xl font-bold mb-1">5+</h2>
+          }}
+        >
+          <h2 className="text-5xl font-bold mb-1">8+</h2>
           <p className="text-base font-normal text-white mb-2">
             yrs experience
           </p>
@@ -108,13 +112,15 @@ const StatsSection = () => {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "translateY(0) scale(1)";
             e.currentTarget.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.15)";
-          }}>
+          }}
+        >
           <svg
             width="100%"
             height="100%"
             viewBox="0 0 256 192"
             className="absolute inset-0"
-            preserveAspectRatio="none">
+            preserveAspectRatio="none"
+          >
             {/* Base background */}
             <rect width="256" height="192" fill="#F5F8FA" />
 
@@ -255,7 +261,8 @@ const StatsSection = () => {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "rotate(-5deg)";
             e.currentTarget.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.15)";
-          }}>
+          }}
+        >
           <h2 className="text-2xl font-bold mb-3 w-full text-left">
             Achievement
           </h2>

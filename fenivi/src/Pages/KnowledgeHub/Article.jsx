@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 export default function Article() {
   const { id } = useParams();
@@ -97,7 +102,7 @@ export default function Article() {
 
         {/* Description / Content */}
         <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-          <p>{description || content}</p>
+          <p className="text-justify">{description || content}</p>
         </div>
 
         {/* Gallery */}
@@ -108,7 +113,10 @@ export default function Article() {
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {gallery.slice(0, 10).map((g, i) => (
-                <div key={i} className="relative group overflow-hidden rounded-xl shadow-md">
+                <div
+                  key={i}
+                  className="relative group overflow-hidden rounded-xl shadow-md"
+                >
                   <img
                     src={g}
                     alt={`gallery-${i}`}

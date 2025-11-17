@@ -134,8 +134,10 @@ export default function AdminEventForm() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6 text-purple-700">Manage Events</h1>
+    <div className="flex flex-col items-center pt-12">
+      <h1 className="text-3xl font-bold mb-6 mt-8 text-purple-700">
+        Manage Events
+      </h1>
 
       <form
         onSubmit={handleUpload}

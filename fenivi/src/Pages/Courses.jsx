@@ -101,11 +101,11 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* ===== Static Course Cards (Two Column Layout) ===== */}
+      {/* ===== Static Course Cards (Three Column Layout) ===== */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Course Card 1 */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop"
@@ -117,19 +117,19 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   Certificate Course in Psycho-Oncology Research
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Duration</p>
-                    <p className="text-white text-sm font-light">30 hours</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Duration</p>
+                    <p className="text-white text-xs font-light">30 hours</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Format</p>
-                    <p className="text-white text-sm font-light">Hybrid</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Format</p>
+                    <p className="text-white text-xs font-light">Hybrid</p>
                   </div>
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 2 */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=600&fit=crop"
@@ -149,20 +149,20 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   Certificate Course in Research Methodology & Scientific
                   Writing
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Duration</p>
-                    <p className="text-white text-sm font-light">40 hours</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Duration</p>
+                    <p className="text-white text-xs font-light">40 hours</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Format</p>
-                    <p className="text-white text-sm font-light">Online</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Format</p>
+                    <p className="text-white text-xs font-light">Online</p>
                   </div>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 3 */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=1200&h=600&fit=crop"
@@ -182,19 +182,19 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   Short-Term Research Skill Workshops
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Duration</p>
-                    <p className="text-white text-sm font-light">15 hours</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Duration</p>
+                    <p className="text-white text-xs font-light">15 hours</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Format</p>
-                    <p className="text-white text-sm font-light">In-Person</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Format</p>
+                    <p className="text-white text-xs font-light">In-Person</p>
                   </div>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 4 */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&h=600&fit=crop"
@@ -214,19 +214,19 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   Faculty Development & Institutional Programs
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Duration</p>
-                    <p className="text-white text-sm font-light">50 hours</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Duration</p>
+                    <p className="text-white text-xs font-light">50 hours</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Format</p>
-                    <p className="text-white text-sm font-light">Hybrid</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Format</p>
+                    <p className="text-white text-xs font-light">Hybrid</p>
                   </div>
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 5 */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&h=300&fit=crop"
@@ -246,19 +246,19 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   Mentorship for Thesis, Grant Writing & Publications
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Duration</p>
-                    <p className="text-white text-sm font-light">Custom</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Duration</p>
+                    <p className="text-white text-xs font-light">Custom</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Format</p>
-                    <p className="text-white text-sm font-light">1-on-1</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Format</p>
+                    <p className="text-white text-xs font-light">1-on-1</p>
                   </div>
                 </div>
               </div>
@@ -266,7 +266,7 @@ export default function Courses() {
           </div>
 
           {/* Course Card 6 - Coming Soon */}
-          <div className="group relative h-[36rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
+          <div className="group relative h-[28rem] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">
             {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=600&fit=crop"
@@ -278,19 +278,23 @@ export default function Courses() {
 
             {/* Content with Glass Effect */}
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/20 shadow-2xl">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-purple-300/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/20 shadow-2xl">
+                <h3 className="text-base font-bold text-white mb-3">
                   More Courses Coming Soon
+                  <br />
+                  <br></br>
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Status</p>
-                    <p className="text-white text-sm font-light">Coming</p>
+                    <p className="text-gray-300 text-[10px] mb-1">Status</p>
+                    <p className="text-white text-xs font-light">Coming</p>
                   </div>
                   <div>
-                    <p className="text-gray-300 text-xs mb-1">Availability</p>
-                    <p className="text-white text-sm font-light">Soon</p>
+                    <p className="text-gray-300 text-[10px] mb-1">
+                      Availability
+                    </p>
+                    <p className="text-white text-xs font-light">Soon</p>
                   </div>
                 </div>
               </div>

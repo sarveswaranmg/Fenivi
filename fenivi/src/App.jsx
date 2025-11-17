@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import ScrollToTop from "./Components/ScrollToTop";
 import Home from "./Pages/Home";
 import About from "./Pages/About/About.jsx";
 import Services from "./Pages/Services";
@@ -23,6 +24,7 @@ import ContactButton from "./Components/ContactButton.jsx";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <ContactButton />
       <Routes>
