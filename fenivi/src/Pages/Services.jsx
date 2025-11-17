@@ -98,11 +98,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Third-Party Assessments & Audits (Government / NGO / CSR)
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 Independent, evidence-based evaluations to measure programme
                 performance, compliance, and impact.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 Supports governments, NGOs, CSR foundations, and institutions in
                 improving accountability and service delivery.
               </p>
@@ -131,11 +131,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Feasibility & Pre-Feasibility Studies
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 Comprehensive technical, financial, social, and environmental
                 viability assessments for informed project planning.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 Helps clients minimize risks and design sustainable,
                 context-appropriate solutions.
               </p>
@@ -150,11 +150,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Need Analysis & Situation Assessments
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 Structured assessments to understand community priorities,
                 service gaps, behavioural patterns, and emerging challenges.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 Findings guide targeted, effective interventions for development
                 and governance projects.
               </p>
@@ -183,11 +183,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Large-Scale Surveys & Community Consultations
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 End-to-end survey design, field data collection, and
                 participatory consultations using robust methodologies.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 Ensures accurate, culturally aligned insights from diverse
                 communities.
               </p>
@@ -202,11 +202,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Environmental, Hydrological & Urban Development Studies
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 Advanced GIS-based hydrological analysis, watershed assessments,
                 environmental studies, and urban planning research.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 Supports climate resilience, water restoration, and sustainable
                 development planning.
               </p>
@@ -235,11 +235,11 @@ export default function ServicesSection() {
               <h2 className="text-4xl font-bold leading-tight text-gray-900 mb-6">
                 Policy Advisory & Program Design
               </h2>
-              <p className="text-lg leading-relaxed text-gray-700 mb-4">
+              <p className="text-lg leading-relaxed text-gray-700 mb-4 text-justify">
                 Translating evidence into actionable policies and programme
                 strategies.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-lg leading-relaxed text-gray-700 text-justify">
                 We help align interventions with government priorities,
                 community needs, and SDG-linked outcomes.
               </p>

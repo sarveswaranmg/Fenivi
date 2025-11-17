@@ -82,9 +82,7 @@ export default function AdminProjectForm() {
         title,
         city,
         description,
-        date: date
-          ? new Date(date).toISOString()
-          : new Date().toISOString(),
+        date: date ? new Date(date).toISOString() : new Date().toISOString(),
         thumbnailUrl,
         gallery: galleryUrls,
         createdAt: serverTimestamp(),
@@ -99,12 +97,11 @@ export default function AdminProjectForm() {
       setDate("");
       setThumbnailFile(null);
       setGalleryFiles([]);
-const thumbInput = document.getElementById("project-thumb");
-if (thumbInput) thumbInput.value = "";
+      const thumbInput = document.getElementById("project-thumb");
+      if (thumbInput) thumbInput.value = "";
 
-const galleryInput = document.getElementById("project-gallery");
-if (galleryInput) galleryInput.value = "";
-
+      const galleryInput = document.getElementById("project-gallery");
+      if (galleryInput) galleryInput.value = "";
     } catch (err) {
       console.error(err);
       setMessage("❌ Failed to upload project.");
@@ -143,8 +140,8 @@ if (galleryInput) galleryInput.value = "";
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6 text-purple-700">
+    <div className="flex flex-col items-center pt-12">
+      <h1 className="text-3xl font-bold mb-6 mt-8 text-purple-700">
         Manage Projects
       </h1>
 

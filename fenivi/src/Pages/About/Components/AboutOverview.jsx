@@ -16,11 +16,27 @@ export default function AboutOverview() {
 
           <div className="text-gray-600 text-base md:text-lg leading-relaxed flex-1">
             <p className="mb-4">
-              Fenivi was founded in 2017 by two experienced researchers who saw a persistent gap between evidence, policy, practice, and real community needs. In many settings, community priorities do not align with what programme implementers deliver—often due to limited consideration of cultural context and local realities.
+              Fenivi was founded in 2017 by two experienced researchers who saw
+              a persistent gap between evidence, policy, practice, and real
+              community needs. In many settings, community priorities do not
+              align with what programme implementers deliver—often due to
+              limited consideration of cultural context and local realities.
             </p>
-            <p className="mb-4">Despite India’s abundance of data, it is rarely transformed into actionable insights that guide locally appropriate solutions. Fenivi emerged to bridge this gap by generating real-world evidence and converting it into practical, community-aligned knowledge.</p>
-            
-            <p className="mb-4">We focus on hydrology, health, and social development, creating measurable impact through collaboration, convergence, innovation, and deep grassroots understanding. We believe in India’s potential and the power of partnerships to turn data into collective wisdom for sustainable development.</p>
+            <p className="mb-4">
+              Despite India’s abundance of data, it is rarely transformed into
+              actionable insights that guide locally appropriate solutions.
+              Fenivi emerged to bridge this gap by generating real-world
+              evidence and converting it into practical, community-aligned
+              knowledge.
+            </p>
+
+            <p className="mb-4">
+              We focus on hydrology, health, and social development, creating
+              measurable impact through collaboration, convergence, innovation,
+              and deep grassroots understanding. We believe in India’s potential
+              and the power of partnerships to turn data into collective wisdom
+              for sustainable development.
+            </p>
           </div>
         </div>
 
@@ -38,49 +54,60 @@ export default function AboutOverview() {
           </div>
 
           {/* GREY BACKGROUND UNDER STATS */}
-{/* GREY BACKGROUND UNDER STATS */}
-<div className="w-full mt-6 p-6">
-  <div className="grid grid-cols-2 gap-4">
+          {/* GREY BACKGROUND UNDER STATS */}
+          <div className="w-full mt-6 p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  8+
+                </div>
+                <div className="text-sm text-gray-600 mt-2">
+                  Years of Impact
+                </div>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  Over half a decade of generating real-world evidence and
+                  supporting impactful decision-making across diverse sectors in
+                  India.
+                </p>
+              </div>
 
-    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">5+</div>
-      <div className="text-sm text-gray-600 mt-2">Years of Impact</div>
-      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-        Over half a decade of generating real-world evidence and supporting
-        impactful decision-making across diverse sectors in India.
-      </p>
-    </div>
+              <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  200+
+                </div>
+                <div className="text-sm text-gray-600 mt-2">Publications</div>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  A growing body of scientific work published through
+                  collaborations with researchers, institutions, and field
+                  practitioners nationwide.
+                </p>
+              </div>
 
-    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">200+</div>
-      <div className="text-sm text-gray-600 mt-2">Publications</div>
-      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-        A growing body of scientific work published through collaborations with
-        researchers, institutions, and field practitioners nationwide.
-      </p>
-    </div>
+              <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  100+
+                </div>
+                <div className="text-sm text-gray-600 mt-2">Projects</div>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  Successfully executed multi-disciplinary projects that address
+                  community needs, guide policy, and advance sustainable
+                  development outcomes.
+                </p>
+              </div>
 
-    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">100+</div>
-      <div className="text-sm text-gray-600 mt-2">Projects</div>
-      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-        Successfully executed multi-disciplinary projects that address community
-        needs, guide policy, and advance sustainable development outcomes.
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
-      <div className="text-2xl md:text-3xl font-extrabold text-gray-900">15+</div>
-      <div className="text-sm text-gray-600 mt-2">Partners</div>
-      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-        Collaborating with government agencies, NGOs, academic institutions, and
-        global networks to co-create meaningful, evidence-backed solutions.
-      </p>
-    </div>
-
-  </div>
-</div>
-
+              <div className="rounded-xl bg-gray-50 shadow-sm p-5 flex flex-col justify-center items-start">
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  15+
+                </div>
+                <div className="text-sm text-gray-600 mt-2">Partners</div>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  Collaborating with government agencies, NGOs, academic
+                  institutions, and global networks to co-create meaningful,
+                  evidence-backed solutions.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
