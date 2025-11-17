@@ -109,9 +109,45 @@ export default function Projects() {
           ))}
         </div>
       </section>
+{/* === Real World Evidence Section === */}
+<section className="w-full px-20 py-20 bg-white">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT CONTENT */}
+    <div>
+      <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+        Real-World Evidence
+      </h2>
+
+      <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+        Real-World Evidence (RWE) integrates clinical insights, hospital workflows,
+        and large-scale health datasets to generate actionable knowledge for
+        policymakers, researchers, and clinicians. The initiative has enabled
+        multi-site clinical collaborations, standardized data-sharing practices,
+        and published impactful oncology research across India.
+      </p>
+
+      <button
+        onClick={() => window.open("https://realworldevidence.in/gallery/2023", "_blank")}
+        className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium px-6 py-3 rounded-full shadow-md hover:scale-105 transition-transform"
+      >
+        Learn More →
+      </button>
+    </div>
+
+    {/* RIGHT IMAGE */}
+    <div className="w-full h-80 md:h-[420px] rounded-2xl overflow-hidden shadow-lg">
+      <img
+        src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
+        alt="Real World Evidence"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+</section>
 
 {/* === Dynamic Projects (from Firestore) === */}
-<section className="w-full px-20 py-20 bg-gray-50">
+<section className="w-full px-20  bg-gray-50">
   {/* Header */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
     <div>
@@ -127,9 +163,7 @@ export default function Projects() {
       </p>
     </div>
 
-    <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      Explore all →
-    </button>
+    
   </div>
 
   {/* Projects Grid */}

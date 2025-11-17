@@ -35,32 +35,7 @@ body {
   }
 }
 
-.animate-gradient {
-  background-size: 400% 400%;
-  animation: gradient-luxury 15s ease-in-out infinite;
-  transition: all 0.5s ease;
-}
 
-.animate-conic-gradient {
-  background: conic-gradient(
-    from 0deg,
-    #7b2ff7,
-    #9d50bb,
-    #5304a3,
-    #7b2ff7
-  );
-  background-size: 200% 200%;
-  animation: conic-spin 20s linear infinite;
-}
-
-@keyframes conic-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .animate-gradient-premium {
   background: radial-gradient(
     circle at 30% 20%,

@@ -26,7 +26,12 @@ export default function Navbar() {
   return (
     <nav className="fixed w-full flex justify-center py-4 z-50">
       {/* DESKTOP NAVBAR (UNCHANGED) */}
-      <div className="hidden md:flex gap-8 ps-2 pe-2 px-10 py-2 bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20">
+      <div 
+      className="hidden md:flex gap-8 ps-2 pe-2 px-10 py-2 
+      bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md 
+      rounded-full shadow-lg border border-white/20
+      
+      ">
         {links.map((link) => (
           <Link
             key={link.name}
