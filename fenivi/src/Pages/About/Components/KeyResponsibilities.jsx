@@ -38,15 +38,15 @@ export default function KeyResponsibilities() {
   ];
 
   return (
-    <section className="w-full bg-white py-20 px-6 md:px-16 lg:px-24 overflow-hidden">
+    <section className="w-full bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto text-center relative">
         {/* Title */}
-        <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-14">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-10 sm:mb-12 md:mb-14">
           Our Key Responsibilities
         </h2>
 
         {/* === Full-width timeline with dots === */}
-        <div className="relative w-screen left-1/2 right-1/2 -translate-x-1/2 flex justify-center items-center mb-20">
+        <div className="relative w-screen left-1/2 right-1/2 -translate-x-1/2 flex justify-center items-center mb-12 sm:mb-16 md:mb-20">
           <div className="relative w-full max-w-7xl flex justify-between items-center">
             {/* Base line (gray) */}
             <div className="absolute top-1/2 left-0 right-0 h-[3px] bg-gray-200 z-0" />
@@ -67,7 +67,7 @@ export default function KeyResponsibilities() {
               <div
                 key={i}
                 onClick={() => setActiveIndex(i)}
-                className={`relative z-10 w-6 h-6 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300
+                className={`relative z-10 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300
                   ${
                     i <= activeIndex
                       ? "bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md scale-110"
@@ -84,7 +84,7 @@ export default function KeyResponsibilities() {
         </div>
 
         {/* === Card Section === */}
-        <div className="relative w-full max-w-3xl mx-auto flex items-center justify-center">
+        <div className="relative w-full max-w-3xl mx-auto flex items-center justify-center px-8 sm:px-10 md:px-0">
           {/* Left Arrow */}
           <button
             onClick={() =>
@@ -92,18 +92,18 @@ export default function KeyResponsibilities() {
                 p === 0 ? responsibilities.length - 1 : p - 1
               )
             }
-            className="absolute left-0 md:-left-14 p-3 rounded-full bg-gray-200 hover:bg-purple-200 transition z-10"
+            className="absolute left-0 md:-left-14 p-2 sm:p-2.5 md:p-3 rounded-full bg-gray-200 hover:bg-purple-200 transition z-10 text-sm sm:text-base"
             aria-label="Previous"
           >
             ←
           </button>
 
           {/* Card */}
-          <div className="p-8 md:p-10 min-h-[220px] bg-gray-50 border border-gray-100 rounded-2xl shadow-md flex flex-col justify-center">
-            <h3 className="text-2xl md:text-3xl font-medium text-gray-900 mb-4">
+          <div className="p-5 sm:p-6 md:p-8 lg:p-10 min-h-[200px] sm:min-h-[220px] bg-gray-50 border border-gray-100 rounded-2xl shadow-md flex flex-col justify-center">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-gray-900 mb-3 md:mb-4">
               {responsibilities[activeIndex].title}
             </h3>
-            <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+            <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed">
               {responsibilities[activeIndex].description}
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function KeyResponsibilities() {
                 p === responsibilities.length - 1 ? 0 : p + 1
               )
             }
-            className="absolute right-0 md:-right-14 p-3 rounded-full bg-gray-200 hover:bg-purple-200 transition z-10"
+            className="absolute right-0 md:-right-14 p-2 sm:p-2.5 md:p-3 rounded-full bg-gray-200 hover:bg-purple-200 transition z-10 text-sm sm:text-base"
             aria-label="Next"
           >
             →

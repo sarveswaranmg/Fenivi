@@ -182,7 +182,7 @@ const Home = () => {
       </p>
     </div>
     <Link to="/knowledge-hub">
-      <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+      <button className="mt-6 md:mt-0 bg-blue-500 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
         Explore more →
       </button>
     </Link>
@@ -232,7 +232,7 @@ const Home = () => {
             {a.description}
           </p>
           <Link to={`/article/${a.id}`} className="block w-full">
-  <button className="w-full mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+  <button className="w-full mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
     Read More
   </button>
 </Link>
@@ -261,7 +261,7 @@ const Home = () => {
     </div>
 
     <Link to="/events">
-      <button className="mt-6 md:mt-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+      <button className="mt-6 md:mt-0 bg-blue-500 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
         Explore more →
       </button>
     </Link>
@@ -308,14 +308,69 @@ const Home = () => {
           <p className="text-sm text-gray-600 mb-4 line-clamp-3">
             {e.description}
           </p>
-          <button className="mt-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
-            Register
-          </button>
+          {e.registrationUrl ? (
+            <a
+              href={e.registrationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition text-center block"
+            >
+              Register
+            </a>
+          ) : (
+            <Link
+              to={`/events/${e.id}`}
+              className="mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition text-center block"
+            >
+              View Details
+            </Link>
+          )}
         </div>
       </div>
     ))}
   </div>
 </section>
+
+      <section className="w-full px-6 md:px-20 py-20 bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* LEFT CONTENT */}
+          <div>
+            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+              Real-World Evidence
+            </h2>
+
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 text-justify">
+              Real-World Evidence (RWE) integrates clinical insights, hospital
+              workflows, and large-scale health datasets to generate actionable
+              knowledge for policymakers, researchers, and clinicians. The
+              initiative has enabled multi-site clinical collaborations,
+              standardized data-sharing practices, and published impactful
+              oncology research across India.
+            </p>
+
+            <button
+              onClick={() =>
+                window.open(
+                  "https://realworldevidence.in/gallery/2023",
+                  "_blank"
+                )
+              }
+              className="bg-blue-500 text-white font-medium px-6 py-3 rounded-full shadow-md hover:scale-105 transition-transform"
+            >
+              Learn More →
+            </button>
+          </div>
+
+          {/* RIGHT IMAGE */}
+          <div className="w-full h-80 md:h-[420px] rounded-2xl overflow-hidden shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
+              alt="Real World Evidence"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
 
 
     </div>

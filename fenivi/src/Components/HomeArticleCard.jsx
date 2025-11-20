@@ -59,7 +59,7 @@ export default function HomeArticleCard({ id }) {
         <div className="absolute inset-0 bg-black/30" />
         {dateStr && (
           <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block bg-gradient-to-br from-[#6b21a8] to-[#8b5cf6] text-white text-sm px-4 py-1 rounded-full shadow">
+            <span className="inline-block bg-blue-500 text-white text-sm px-4 py-1 rounded-full shadow">
               {dateStr}
             </span>
           </div>

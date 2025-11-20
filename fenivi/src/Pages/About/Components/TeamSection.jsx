@@ -12,34 +12,34 @@ export default function TeamSection() {
   ];
 
   return (
-    <section className="w-full bg-gray-50 py-20 px-6 md:px-20">
+    <section className="w-full bg-gray-50 py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
       {/* Header */}
-      <div className="text-center mb-14">
-        
-        <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mt-2">
+      <div className="text-center mb-10 sm:mb-12 md:mb-14">
+
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mt-2">
           Our Dedicated Research & Development Team
         </h2>
-        <p className="text-gray-600 mt-4 max-w-3xl mx-auto text-base leading-relaxed">
-          A passionate group of scientists, data experts, and social researchers 
+        <p className="text-gray-600 mt-3 md:mt-4 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed px-4">
+          A passionate group of scientists, data experts, and social researchers
           working together to translate evidence into sustainable change.
         </p>
       </div>
 
       {/* Team Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8 lg:gap-10 max-w-7xl mx-auto">
         {team.map((member, index) => (
           <div
             key={index}
-            className="relative overflow-hidden rounded-2xl shadow-md bg-white"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-md bg-white"
           >
             <img
               src={member.img}
               alt={member.name}
-              className="w-full h-[480px] object-cover"
+              className="w-full h-[180px] sm:h-[320px] md:h-[400px] lg:h-[420px] xl:h-[480px] object-cover"
             />
-            <div className="absolute bottom-4 left-4 right-4 bg-gradient-to-r animate-gradient-premium text-white px-4 py-3 rounded-xl shadow-lg">
-              <h4 className="text-lg font-semibold">{member.name}</h4>
-              <p className="text-sm opacity-90">{member.role}</p>
+            <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-2 sm:left-3 md:left-4 right-2 sm:right-3 md:right-4 bg-gradient-to-r animate-gradient-premium text-white px-2 sm:px-3 md:px-4 py-1.5 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl shadow-lg">
+              <h4 className="text-xs sm:text-base md:text-lg font-semibold">{member.name}</h4>
+              <p className="text-[10px] sm:text-xs md:text-sm opacity-90">{member.role}</p>
             </div>
           </div>
         ))}
