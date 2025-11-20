@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
@@ -16,17 +17,29 @@ import Contact from "./Pages/Contact";
 import Article from "./Pages/KnowledgeHub/Article.jsx";
 import AdminLogin from "./Pages/Admin/AdminLogin.jsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
+import EditArticle from "./Pages/Admin/EditArticle.jsx";
+import EditProject from "./Pages/Admin/EditProject.jsx";
+import EditEvent from "./Pages/Admin/EditEvent.jsx";
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
+import ProjectDetails from "./Pages/ProjectDetails";
 import Home1 from "./Pages/Home1.jsx";
 import Courses from "./Pages/Courses.jsx";
 import ContactButton from "./Components/ContactButton.jsx";
-function App() {
+import { AuthProvider } from "./contexts/AuthContext.jsx";
+
+function AppContent() {
+  const location = useLocation();
+  const isAdminPage = location.pathname === "/admin" ||
+                       location.pathname === "/dashboard" ||
+                       location.pathname.startsWith("/admin/edit");
+  const isContactPage = location.pathname === "/contact";
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
-      <Navbar />
-      <ContactButton />
+      {!isAdminPage && <Navbar />}
+      {!isAdminPage && <ContactButton />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -41,12 +54,26 @@ function App() {
         <Route path="/article/:id" element={<Article />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/edit-article/:id" element={<EditArticle />} />
+        <Route path="/admin/edit-project/:id" element={<EditProject />} />
+        <Route path="/admin/edit-event/:id" element={<EditEvent />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
-      <Footer />
-    </Router>
+      {!isAdminPage && !isContactPage && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

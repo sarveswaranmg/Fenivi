@@ -14,7 +14,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center py-12">
+    <div className="h-screen w-screen bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center overflow-auto">
       <div className="w-full max-w-6xl px-4 md:px-8">
         {/* Header Section */}
         <div className="text-center pb-6">

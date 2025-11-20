@@ -154,20 +154,20 @@ export default function AdminArticleForm() {
   }
 
   return (
-    <div className="flex flex-col items-center pt-12">
-      <h1 className="text-3xl font-bold mb-6 mt-8 text-purple-700">
+    <div className="flex flex-col items-center pt-6 sm:pt-8 md:pt-12 px-3 sm:px-4 md:px-6">
+      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 md:mb-6 mt-4 sm:mt-6 md:mt-8 text-purple-700">
         Manage Articles
       </h1>
 
       <form
         onSubmit={handleUpload}
-        className="bg-white p-6 rounded-3xl shadow-xl w-full max-w-3xl mb-8"
+        className="bg-white p-3 sm:p-4 md:p-6 rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-3xl mb-6 sm:mb-8"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           <input
             type="text"
             placeholder="Article Title"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -175,7 +175,7 @@ export default function AdminArticleForm() {
           <input
             type="text"
             placeholder="Author"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
             required
@@ -183,14 +183,14 @@ export default function AdminArticleForm() {
           <input
             type="text"
             placeholder="Place"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
             value={place}
             onChange={(e) => setPlace(e.target.value)}
           />
           <input
             id="admin-date-input"
             type="date"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
             value={publishedDate}
             onChange={(e) => setPublishedDate(e.target.value)}
           />
@@ -198,31 +198,32 @@ export default function AdminArticleForm() {
 
         <textarea
           placeholder="Article Description"
-          className="w-full p-3 mt-4 border rounded-xl h-48"
+          className="w-full p-2 sm:p-2.5 md:p-3 mt-3 sm:mt-4 border rounded-lg sm:rounded-xl h-32 sm:h-40 md:h-48 text-sm sm:text-base"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
 
-        <div className="flex flex-col md:flex-row gap-4 mt-4 items-start">
-          <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">
+        <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mt-3 sm:mt-4 items-start">
+          <div className="flex-1 w-full">
+            <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
               Thumbnail (single)
             </label>
             <input
               id="admin-thumb-input"
               type="file"
               accept="image/*"
+              className="text-xs sm:text-sm w-full"
               onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
               required
             />
             {thumbnailFile && (
-              <div className="text-sm mt-2">{thumbnailFile.name}</div>
+              <div className="text-xs sm:text-sm mt-1.5 sm:mt-2 truncate">{thumbnailFile.name}</div>
             )}
           </div>
 
-          <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">
+          <div className="flex-1 w-full">
+            <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
               Gallery (up to 10)
             </label>
             <input
@@ -230,10 +231,11 @@ export default function AdminArticleForm() {
               type="file"
               accept="image/*"
               multiple
+              className="text-xs sm:text-sm w-full"
               onChange={handleGalleryChange}
             />
             {galleryFiles.length > 0 && (
-              <div className="text-sm mt-2">
+              <div className="text-xs sm:text-sm mt-1.5 sm:mt-2">
                 {galleryFiles.length} file(s) selected
               </div>
             )}
@@ -243,33 +245,33 @@ export default function AdminArticleForm() {
         <button
           type="submit"
           disabled={loading}
-          className="mt-6 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition"
+          className="mt-4 sm:mt-5 md:mt-6 w-full bg-purple-600 text-white py-2 sm:py-2.5 rounded-lg sm:rounded-xl hover:bg-purple-700 transition text-sm sm:text-base font-medium"
         >
           {loading ? "Uploading..." : "Upload Article"}
         </button>
 
-        {message && <p className="mt-4 text-center">{message}</p>}
+        {message && <p className="mt-3 sm:mt-4 text-center text-sm sm:text-base">{message}</p>}
       </form>
 
-      <div className="w-full max-w-4xl">
-        <h2 className="text-xl font-semibold mb-4">Your Articles</h2>
+      <div className="w-full max-w-4xl px-3 sm:px-4 md:px-0">
+        <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Your Articles</h2>
 
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-1 gap-2 sm:gap-3">
           {articles.map((a) => (
             <div
               key={a.id}
-              className="flex items-center justify-between bg-white p-4 rounded-xl shadow hover:shadow-md transition"
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-3 sm:p-4 rounded-lg sm:rounded-xl shadow hover:shadow-md transition gap-2 sm:gap-0"
             >
               <Link to={`/article/${a.id}`} className="flex flex-col">
-                <span className="font-semibold">{a.title}</span>
-                <span className="text-sm text-gray-600">
+                <span className="font-semibold text-sm sm:text-base">{a.title}</span>
+                <span className="text-xs sm:text-sm text-gray-600">
                   {a.author} {a.place ? `• ${a.place}` : ""}
                 </span>
               </Link>
 
               <button
                 onClick={() => setConfirmDelete(a)}
-                className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium"
+                className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm self-start sm:self-auto"
               >
                 🗑️ Delete
               </button>
@@ -279,23 +281,23 @@ export default function AdminArticleForm() {
       </div>
 
       {confirmDelete && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl w-80 shadow-xl text-center">
-            <h3 className="text-lg font-semibold mb-3">Delete Article?</h3>
-            <p className="text-sm text-gray-600 mb-5">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white p-4 sm:p-6 rounded-xl w-full max-w-sm sm:w-80 shadow-xl text-center">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Delete Article?</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">
               Are you sure you want to delete <b>{confirmDelete.title}</b>?
             </p>
-            <div className="flex justify-between gap-3">
+            <div className="flex justify-between gap-2 sm:gap-3">
               <button
                 onClick={() => setConfirmDelete(null)}
-                className="flex-1 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+                className="flex-1 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm sm:text-base"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDeleteArticle(confirmDelete)}
                 disabled={deleting}
-                className="flex-1 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="flex-1 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm sm:text-base"
               >
                 {deleting ? "Deleting..." : "Delete"}
               </button>

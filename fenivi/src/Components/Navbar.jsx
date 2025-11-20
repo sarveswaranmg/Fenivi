@@ -25,18 +25,17 @@ export default function Navbar() {
 
   return (
     <nav className="fixed w-full flex justify-center py-4 z-50">
-      {/* DESKTOP NAVBAR (UNCHANGED) */}
-      <div 
-      className="hidden md:flex gap-8 ps-2 pe-2 px-10 py-2 
-      bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md 
-      rounded-full shadow-lg border border-white/20
-      
+      {/* DESKTOP NAVBAR - Responsive for different screen sizes */}
+      <div
+      className="hidden lg:flex gap-3 xl:gap-5 ps-2 pe-2 py-2
+      bg-gradient-to-r from-gray-900 to-gray-800 bg-white/10 backdrop-blur-md
+      rounded-full shadow-lg border border-white/20 max-w-[95vw]
       ">
         {links.map((link) => (
           <Link
             key={link.name}
             to={link.path}
-            className={`text-sm font-medium transition-all duration-300 px-5 py-2.5 rounded-full ${
+            className={`text-xs xl:text-sm font-medium transition-all duration-300 px-3 xl:px-4 py-2 rounded-full whitespace-nowrap ${
               location.pathname === link.path
                 ? "text-white bg-white/25 shadow-md scale-105"
                 : "text-gray-300 hover:text-white hover:bg-white/10"
@@ -47,8 +46,8 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* MOBILE NAVBAR */}
-      <div className="md:hidden w-full px-4 ">
+      {/* MOBILE/TABLET NAVBAR */}
+      <div className="lg:hidden w-full px-4">
 
         {/* 🔥 MOBILE HEADER WITH CENTERED ACTIVE TITLE */}
         <div className="relative flex items-center bg-gradient-to-r from-gray-900 to-gray-800 backdrop-blur-md border border-white/20 px-4 py-3 rounded-full">
