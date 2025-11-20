@@ -30,9 +30,10 @@ import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 function AppContent() {
   const location = useLocation();
-  const isAdminPage = location.pathname === "/admin" ||
-                       location.pathname === "/dashboard" ||
-                       location.pathname.startsWith("/admin/edit");
+  const isAdminPage =
+    location.pathname === "/admin" ||
+    location.pathname === "/dashboard" ||
+    location.pathname.startsWith("/admin/edit");
   const isContactPage = location.pathname === "/contact";
 
   return (
@@ -60,7 +61,7 @@ function AppContent() {
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
       </Routes>
       {!isAdminPage && !isContactPage && <Footer />}
     </>
