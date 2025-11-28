@@ -78,11 +78,20 @@ const Home = () => {
       <LoadingScreen />
 
       {/* Hero Section */}
-      <div className="min-h-[70vh] md:min-h-screen w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
-        <section className="flex items-center justify-center gap-15 min-h-screen w-full">
-          {/* Text Content */}
-          <div className="max-w text-center md:text-left">
-            <h1 className="text-xl md:text-3xl font-bold text-gray-900 leading-snug">
+      <div className="min-h-fit md:min-h-screen w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
+        <section className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-15 min-h-fit md:min-h-screen w-full px-5 md:px-10 lg:px-16 pt-24 pb-12 md:py-0">
+          {/* Image - Shows first on mobile (order-1), second on desktop (md:order-2) */}
+          <div className="flex justify-center order-1 md:order-2">
+            <img
+              src={homeImage}
+              alt="Homepage visual"
+              className="w-44 sm:w-56 md:w-72 lg:w-96 xl:w-150 object-cover"
+            />
+          </div>
+
+          {/* Text Content - Shows second on mobile (order-2), first on desktop (md:order-1) */}
+          <div className="w-full md:max-w text-left order-2 md:order-1">
+            <h1 className="text-xl sm:text-2xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-tight">
               Advancing sustainable development
               <br />
               through data-driven insights,
@@ -92,53 +101,44 @@ const Home = () => {
               community engagement
             </h1>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <div className="mt-5 md:mt-8 flex flex-row gap-2 sm:gap-4 justify-start">
               <Link to="/contact">
-                <button className="relative px-6 py-3 rounded-full font-medium overflow-hidden group transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-xl animate-gradient-premium focus:outline-none focus:ring-2 focus:ring-purple-200 bg-white/10 backdrop-blur-md border border-white/30 text-white">
+                <button className="relative px-3 py-1.5 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 rounded-full font-medium overflow-hidden group transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-xl animate-gradient-premium focus:outline-none focus:ring-2 focus:ring-purple-200 bg-white/10 backdrop-blur-md border border-white/30 text-white">
                   {/* sheen overlay */}
                   <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white/10 via-white/6 to-transparent opacity-0 group-hover:opacity-40 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-                  <span className="relative text-white font-sans font-semibold">
+                  <span className="relative text-white font-sans font-semibold text-sm sm:text-sm lg:text-base">
                     Partner With Us
                   </span>
                 </button>
               </Link>
 
               <Link to="/services">
-                <button className="relative px-8 py-3 rounded-full font-semibold overflow-hidden transform transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-purple-200 group bg-white/20 backdrop-blur-lg border border-white/20 text-gray-900 shadow-sm hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl z-10">
+                <button className="relative px-3 py-1.5 sm:px-6 sm:py-2.5 lg:px-8 lg:py-3 rounded-full font-semibold overflow-hidden transform transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-purple-200 group bg-white/20 backdrop-blur-lg border border-white/20 text-gray-900 shadow-sm hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl z-10">
                   <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/100 to-transparent opacity-0 group-hover:opacity-30 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
 
-                  <span className="relative z-10 tracking-wide">
+                  <span className="relative z-10 tracking-wide text-sm sm:text-sm lg:text-base">
                     Explore Our Services
                   </span>
                 </button>
               </Link>
             </div>
           </div>
-
-          {/* Right Image */}
-          <div className=" flex justify-center">
-            <img
-              src={homeImage}
-              alt="Homepage visual"
-              className="w-150 object-cover"
-            />
-          </div>
         </section>
       </div>
 
       {/* About Section */}
-      <div className="h-32 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
+      <div className="h-16 md:h-32 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
       <section
-        className="min-h-screen w-full relative py-24 px-8 flex flex-col items-center justify-center -mt-32 pt-5"
+        className="min-h-[auto] md:min-h-screen w-full relative py-12 md:py-24 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-16 md:-mt-32"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
           transition: "background 0.3s ease-out",
         }}>
-        <section className="min-h-screen md:h-[110vh] w-full  flex flex-col md:flex-row items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-20 md:pt-0 pb-8 md:pb-0">
+        <section className="min-h-[auto] md:h-auto lg:h-[100vh] xl:h-[110vh] w-full flex flex-col md:flex-row items-center justify-center pt-8 md:pt-0 pb-6 md:pb-0 gap-6 md:gap-8 lg:gap-10">
           {/* LEFT */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-4 md:space-y-6 mb-6 md:mb-0">
-            <p className="text-xl sm:text-base md:text-xl lg:text-lg xl:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
+          <div className="w-full md:w-1/2 flex flex-col justify-center text-left space-y-3 md:space-y-4 lg:space-y-6 mb-4 md:mb-0">
+            <p className="text-base sm:text-base md:text-sm lg:text-base xl:text-xl text-gray-600 leading-relaxed max-w-lg">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory
               organization committed to bridging the gap between policy,
               practice, and community needs. Since 2017, we have empowered
@@ -148,8 +148,7 @@ const Home = () => {
           </div>
 
           {/* RIGHT */}
-
-          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5 xl:gap-6 w-[95%] sm:w-[90%] max-w-[650px] h-[380px] sm:h-[420px] lg:h-[460px] xl:h-[520px]">
+          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-6 w-full md:w-[95%] md:max-w-[400px] lg:max-w-[500px] xl:max-w-[650px] h-[260px] sm:h-[320px] md:h-[320px] lg:h-[380px] xl:h-[520px]">
             <div className="overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white">
               <img
                 src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
@@ -159,72 +158,72 @@ const Home = () => {
             </div>
 
             {/* Cards */}
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-purple-600 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
+            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+              <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-purple-600 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
               <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
+                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
                   200+ Publications
                 </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
+                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
                   Research papers, policy briefs, and scientific articles.
                 </p>
               </div>
             </div>
 
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-indigo-600 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
+            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+              <BarChart3 className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-indigo-600 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
               <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
+                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
                   8+ years of experience
                 </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
+                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
                   Successfully launched 10+ major projects.
                 </p>
               </div>
             </div>
 
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <FileText className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-purple-700 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
+            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
+              <FileText className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-purple-700 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
               <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
+                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
                   Reports & Studies
                 </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
+                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
                   Comprehensive environmental & social studies.
                 </p>
               </div>
             </div>
           </div>
         </section>
-        <section className="max-w-7xl mx-auto px-6 pt-10">
+        <section className="w-full pt-8 md:pt-12">
           <StatsShowcase />
         </section>
       </section>
 
       {/* ===== Articles Section ===== */}
-      {/* ===== Articles Section ===== */}
-      <section className="max-w-7xl mx-auto px-6  mt-20 pb-24">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
-          <div>
-            <h2 className="text-4xl font-semibold text-gray-900 mb-3">
-              Recent Evidence-Driven Projects
-            </h2>
-            <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
-              Discover our latest research studies, field insights, and
-              innovations driving sustainable and community-led development
-              across sectors.
-            </p>
+      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
+                Recent Evidence-Driven Projects
+              </h2>
+              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+                Discover our latest research studies, field insights, and
+                innovations driving sustainable and community-led development
+                across sectors.
+              </p>
+            </div>
+            <Link to="/knowledge-hub">
+              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+                Explore more →
+              </button>
+            </Link>
           </div>
-          <Link to="/knowledge-hub">
-            <button className="mt-6 md:mt-0 bg-blue-500 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-              Explore more →
-            </button>
-          </Link>
-        </div>
 
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Articles Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
           {loading && (
             <p className="col-span-4 text-center text-gray-500">
               Loading articles...
@@ -240,16 +239,16 @@ const Home = () => {
           {articles.map((a) => (
             <div
               key={a.id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+              className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
               {/* Image */}
-              <div className="relative h-44 w-full overflow-hidden">
+              <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
                 <img
                   src={a.thumbnailUrl}
                   alt={a.title}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
                 {a.publishedAt && (
-                  <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
+                  <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
                     {new Date(a.publishedAt).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "short",
@@ -260,121 +259,124 @@ const Home = () => {
               </div>
 
               {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+              <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
+                <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
                   {a.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
                   {a.description}
                 </p>
                 <Link to={`/article/${a.id}`} className="block w-full">
-                  <button className="w-full mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition">
+                  <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
                     Read More
                   </button>
                 </Link>
               </div>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
       {/* ===== Events Section ===== */}
+      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
+                Events
+              </h2>
+              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+                Join our global community for insightful workshops, hands-on
+                masterclasses, and networking events designed to boost your skills
+                and connections.
+              </p>
+            </div>
 
-      <section className="max-w-7xl mx-auto px-6 pb-24">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
-          <div>
-            <h2 className="text-4xl font-semibold text-gray-900 mb-3">
-              Events
-            </h2>
-            <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
-              Join our global community for insightful workshops, hands-on
-              masterclasses, and networking events designed to boost your skills
-              and connections.
-            </p>
+            <Link to="/events">
+              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+                Explore more →
+              </button>
+            </Link>
           </div>
 
-          <Link to="/events">
-            <button className="mt-6 md:mt-0 bg-blue-500 text-white font-medium px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-              Explore more →
-            </button>
-          </Link>
-        </div>
+          {/* Events Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+            {eventsLoading && (
+              <p className="col-span-4 text-center text-gray-500">
+                Loading events...
+              </p>
+            )}
 
-        {/* Events Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {eventsLoading && (
-            <p className="col-span-4 text-center text-gray-500">
-              Loading events...
-            </p>
-          )}
+            {!eventsLoading && events.length === 0 && (
+              <p className="col-span-4 text-center text-gray-500">
+                No upcoming events.
+              </p>
+            )}
 
-          {!eventsLoading && events.length === 0 && (
-            <p className="col-span-4 text-center text-gray-500">
-              No upcoming events.
-            </p>
-          )}
+            {events.map((e) => (
+              <div
+                key={e.id}
+                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                {/* Image */}
+                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                  <img
+                    src={e.thumbnailUrl}
+                    alt={e.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  {e.date && (
+                    <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                      {new Date(e.date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  )}
+                </div>
 
-          {events.map((e) => (
-            <div
-              key={e.id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
-              {/* Image */}
-              <div className="relative h-44 w-full overflow-hidden">
-                <img
-                  src={e.thumbnailUrl}
-                  alt={e.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                {e.date && (
-                  <span className="absolute top-3 left-3 bg-purple-600 text-white text-[11px] px-3 py-1 rounded-full shadow-md">
-                    {new Date(e.date).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-                )}
+                {/* Content */}
+                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
+                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                    {e.title}
+                  </h3>
+                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                    {e.description}
+                  </p>
+                  {e.registrationUrl ? (
+                    <a
+                      href={e.registrationUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                      Register
+                    </a>
+                  ) : (
+                    <Link
+                      to={`/events/${e.id}`}
+                      className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                      View Details
+                    </Link>
+                  )}
+                </div>
               </div>
-
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
-                  {e.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                  {e.description}
-                </p>
-                {e.registrationUrl ? (
-                  <a
-                    href={e.registrationUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition text-center block">
-                    Register
-                  </a>
-                ) : (
-                  <Link
-                    to={`/events/${e.id}`}
-                    className="mt-auto bg-blue-500 text-white text-sm font-medium py-2 rounded-full hover:opacity-90 transition text-center block">
-                    View Details
-                  </Link>
-                )}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="w-full px-6 md:px-20 py-20 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      {/* ===== Real World Evidence Section ===== */}
+      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 lg:gap-10 items-center">
           {/* LEFT CONTENT */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+            <h2 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-3 md:mb-5 lg:mb-6">
               Real-World Evidence
             </h2>
 
-            <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 text-justify">
+            <p className="text-gray-700 text-base md:text-sm lg:text-base xl:text-lg leading-relaxed mb-4 md:mb-5 lg:mb-6 text-left md:text-justify">
               Real-World Evidence (RWE) integrates clinical insights, hospital
               workflows, and large-scale health datasets to generate actionable
               knowledge for policymakers, researchers, and clinicians. The
@@ -390,13 +392,13 @@ const Home = () => {
                   "_blank"
                 )
               }
-              className="bg-blue-500 text-white font-medium px-6 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+              className="bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2.5 lg:py-3 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
               Learn More →
             </button>
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="w-full h-80 md:h-[420px] rounded-2xl overflow-hidden shadow-lg">
+          <div className="w-full h-48 md:h-72 lg:h-80 xl:h-[420px] rounded-lg md:rounded-2xl overflow-hidden shadow-lg">
             <img
               src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
               alt="Real World Evidence"
