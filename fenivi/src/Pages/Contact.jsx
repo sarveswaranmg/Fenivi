@@ -14,11 +14,11 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center overflow-auto">
-      <div className="w-full max-w-6xl px-4 md:px-8">
+    <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center py-20 md:py-24 px-5 md:px-8">
+      <div className="w-full max-w-6xl">
         {/* Header Section */}
         <div className="text-center pb-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-700 mb-3 pt-12 mt-8">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-purple-700 mb-2 md:mb-3">
             Contact Us
           </h1>
           <p className="text-base md:text-lg text-gray-700">
@@ -43,21 +43,21 @@ export default function Contact() {
         )}
 
         {/* Main Contact Section */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
             {/* Left Side - Contact Information */}
-            <div className="lg:col-span-2 animate-gradient-premium  text-white p-6 md:p-8 relative overflow-hidden">
+            <div className="lg:col-span-2 animate-gradient-premium text-white p-5 md:p-8 relative overflow-hidden">
               <div className="relative z-10">
-                <h2 className="text-2xl font-bold mb-3">Contact Information</h2>
-                <p className="text-purple-100 mb-8 text-sm">
+                <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">Contact Information</h2>
+                <p className="text-purple-100 mb-6 md:mb-8 text-sm">
                   Say something to start a live chat!
                 </p>
 
                 {/* Contact Details */}
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   {/* Phone */}
                   <div className="flex items-start gap-3">
-                    <div className="mt-1">
+                    <div className="mt-0.5">
                       <svg
                         className="w-5 h-5"
                         fill="currentColor"
@@ -66,12 +66,12 @@ export default function Contact() {
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                     </div>
-                    <span className="text-sm">+91-81486 99354</span>
+                    <span className="text-sm md:text-sm">+91-81486 99354</span>
                   </div>
 
                   {/* Email */}
                   <div className="flex items-start gap-3">
-                    <div className="mt-1">
+                    <div className="mt-0.5">
                       <svg
                         className="w-5 h-5"
                         fill="currentColor"
@@ -81,12 +81,12 @@ export default function Contact() {
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                       </svg>
                     </div>
-                    <span className="text-sm">demo@gmail.com</span>
+                    <span className="text-sm md:text-sm">demo@gmail.com</span>
                   </div>
 
                   {/* Address */}
                   <div className="flex items-start gap-3">
-                    <div className="mt-1">
+                    <div className="mt-0.5">
                       <svg
                         className="w-5 h-5"
                         fill="currentColor"
@@ -99,7 +99,7 @@ export default function Contact() {
                         />
                       </svg>
                     </div>
-                    <span className="text-sm">
+                    <span className="text-sm md:text-sm leading-relaxed">
                       Fenivi Research Solutions Pvt. Ltd. <br />
                       9/56C, ISRO Road, Kavalkinaru Junction, Tirunelveli
                       District, Pin: 627105
@@ -108,8 +108,7 @@ export default function Contact() {
                 </div>
 
                 {/* Social Media Icons */}
-                {/* Social Media Icons */}
-                <div className="flex gap-3 mt-12">
+                <div className="flex gap-3 mt-8 md:mt-12">
                   {/* Twitter */}
                   <a
                     href="https://twitter.com/"
@@ -196,11 +195,11 @@ export default function Contact() {
             </div>
 
             {/* Right Side - Contact Form */}
-            <div className="lg:col-span-3 p-6 md:p-8">
+            <div className="lg:col-span-3 p-5 md:p-8">
               <form
                 action="https://formsubmit.co/sarveswaranmg@gmail.com"
                 method="POST"
-                className="space-y-5"
+                className="space-y-4 md:space-y-5"
               >
                 {/* Formsubmit Configuration */}
                 <input type="hidden" name="_captcha" value="false" />
@@ -217,53 +216,53 @@ export default function Contact() {
                 />
 
                 {/* Name Fields */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-sm md:text-xs font-medium text-gray-700 mb-1">
                       First Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="First_Name"
-                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-1.5 text-sm transition-colors"
+                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-sm md:text-xs font-medium text-gray-700 mb-1">
                       Last Name
                     </label>
                     <input
                       type="text"
                       name="Last_Name"
                       placeholder="Doe"
-                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-1.5 text-sm transition-colors"
+                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Email and Phone */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-sm md:text-xs font-medium text-gray-700 mb-1">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
                       name="email"
-                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-1.5 text-sm transition-colors"
+                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-sm md:text-xs font-medium text-gray-700 mb-1">
                       Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
                       name="Phone_Number"
                       placeholder="+1 012 3456 789"
-                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-1.5 text-sm transition-colors"
+                      className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />
                   </div>
@@ -271,7 +270,7 @@ export default function Contact() {
 
                 {/* Subject Selection */}
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-3">
+                  <label className="block text-sm md:text-xs font-medium text-gray-700 mb-2 md:mb-3">
                     Select Subject?
                   </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -300,22 +299,22 @@ export default function Contact() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                  <label className="block text-sm md:text-xs font-medium text-gray-700 mb-1">
                     Message
                   </label>
                   <textarea
                     name="message"
                     placeholder="Write your message.."
                     rows="3"
-                    className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-1.5 text-sm resize-none transition-colors"
+                    className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm resize-none transition-colors"
                   ></textarea>
                 </div>
 
                 {/* Submit Button */}
-                <div className="flex justify-end">
+                <div className="flex justify-center md:justify-end pt-2">
                   <button
                     type="submit"
-                    className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
+                    className="w-full md:w-auto bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 md:py-2.5 rounded-lg text-base md:text-sm font-medium transition-colors"
                   >
                     Send Message
                   </button>
