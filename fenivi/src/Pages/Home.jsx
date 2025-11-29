@@ -91,7 +91,7 @@ const Home = () => {
 
           {/* Text Content - Shows second on mobile (order-2), first on desktop (md:order-1) */}
           <div className="w-full md:max-w text-left order-2 md:order-1">
-            <h1 className="text-xl sm:text-2xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-[15px] sm:text-xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-snug">
               Advancing sustainable development
               <br />
               through data-driven insights,
