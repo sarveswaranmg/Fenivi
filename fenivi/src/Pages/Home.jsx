@@ -200,84 +200,7 @@ const Home = () => {
         </section>
       </section>
 
-      {/* ===== Articles Section ===== */}
-      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
-            <div>
-              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
-                Recent Evidence-Driven Projects
-              </h2>
-              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
-                Discover our latest research studies, field insights, and
-                innovations driving sustainable and community-led development
-                across sectors.
-              </p>
-            </div>
-            <Link to="/knowledge-hub">
-              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
-                Explore more →
-              </button>
-            </Link>
-          </div>
-
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
-          {loading && (
-            <p className="col-span-4 text-center text-gray-500">
-              Loading articles...
-            </p>
-          )}
-
-          {!loading && articles.length === 0 && (
-            <p className="col-span-4 text-center text-gray-500">
-              No articles available.
-            </p>
-          )}
-
-          {articles.map((a) => (
-            <div
-              key={a.id}
-              className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
-              {/* Image */}
-              <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
-                <img
-                  src={a.thumbnailUrl}
-                  alt={a.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                {a.publishedAt && (
-                  <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
-                    {new Date(a.publishedAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
-                <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
-                  {a.title}
-                </h3>
-                <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
-                  {a.description}
-                </p>
-                <Link to={`/article/${a.id}`} className="block w-full">
-                  <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
-                    Read More
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* ===== Events Section ===== */}
       <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto">
@@ -366,6 +289,85 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* ===== Articles Section ===== */}
+      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
+                Recent Evidence-Driven Projects
+              </h2>
+              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+                Discover our latest research studies, field insights, and
+                innovations driving sustainable and community-led development
+                across sectors.
+              </p>
+            </div>
+            <Link to="/knowledge-hub">
+              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+                Explore more →
+              </button>
+            </Link>
+          </div>
+
+          {/* Articles Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+          {loading && (
+            <p className="col-span-4 text-center text-gray-500">
+              Loading articles...
+            </p>
+          )}
+
+          {!loading && articles.length === 0 && (
+            <p className="col-span-4 text-center text-gray-500">
+              No articles available.
+            </p>
+          )}
+
+          {articles.map((a) => (
+            <div
+              key={a.id}
+              className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+              {/* Image */}
+              <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                <img
+                  src={a.thumbnailUrl}
+                  alt={a.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+                {a.publishedAt && (
+                  <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                    {new Date(a.publishedAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
+                <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                  {a.title}
+                </h3>
+                <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                  {a.description}
+                </p>
+                <Link to={`/article/${a.id}`} className="block w-full">
+                  <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
+                    Read More
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* ===== Real World Evidence Section ===== */}
       <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 bg-white">
