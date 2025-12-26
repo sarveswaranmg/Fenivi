@@ -6,7 +6,7 @@ import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
 import { BookOpen, FileText, BarChart3 } from "lucide-react";
-import homeImage from "../assets/homeImage.png";
+import newLogo from "../assets/New_Logo.png";
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
@@ -75,36 +75,42 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <LoadingScreen />
 
       {/* Hero Section */}
-      <div className="min-h-fit md:min-h-screen w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
-        <section className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-15 min-h-fit md:min-h-screen w-full px-5 md:px-10 lg:px-16 pt-24 pb-12 md:py-0">
-          {/* Image - Shows first on mobile (order-1), second on desktop (md:order-2) */}
+      <div className="min-h-fit md:min-h-[75vh] w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
+        <section
+          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-5
+               min-h-[60vh] w-full px-5 md:px-10 lg:px-16 xl:px-24 2xl:px-32
+               pt-24 md:pt-28 pb-2 md:pb-0"
+        >
+          {/* Image - Shows first on mobile, second on desktop */}
           <div className="flex justify-center order-1 md:order-2">
             <img
-              src={homeImage}
+              src={newLogo}
               alt="Homepage visual"
               className="w-44 sm:w-56 md:w-72 lg:w-96 xl:w-150 object-cover"
             />
           </div>
 
-          {/* Text Content - Shows second on mobile (order-2), first on desktop (md:order-1) */}
+          {/* Text Content */}
           <div className="w-full md:max-w text-left order-2 md:order-1">
             <h1 className="text-[15px] sm:text-xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-snug">
-              Advancing sustainable development
+              Advancing Sustainable Development
               <br />
-              through data-driven insights,
+              Through Data-Driven Insights,
               <br />
-              convergence approaches and
+              Convergence Approaches and
               <br />
-              community engagement
+              Community Engagement
             </h1>
+
+            <p className="text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-gray-700 mt-3 md:mt-4 lg:mt-5 max-w-lg leading-relaxed">
+              To be a trusted research partner delivering community-based evidence that informs policy, improves governance, and advances social well-being
+            </p>
 
             <div className="mt-5 md:mt-8 flex flex-row gap-2 sm:gap-4 justify-start">
               <Link to="/contact">
                 <button className="relative px-3 py-1.5 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 rounded-full font-medium overflow-hidden group transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-xl animate-gradient-premium focus:outline-none focus:ring-2 focus:ring-purple-200 bg-white/10 backdrop-blur-md border border-white/30 text-white">
-                  {/* sheen overlay */}
                   <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white/10 via-white/6 to-transparent opacity-0 group-hover:opacity-40 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
                   <span className="relative text-white font-sans font-semibold text-sm sm:text-sm lg:text-base">
                     Partner With Us
@@ -115,7 +121,6 @@ const Home = () => {
               <Link to="/services">
                 <button className="relative px-3 py-1.5 sm:px-6 sm:py-2.5 lg:px-8 lg:py-3 rounded-full font-semibold overflow-hidden transform transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-purple-200 group bg-white/20 backdrop-blur-lg border border-white/20 text-gray-900 shadow-sm hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl z-10">
                   <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/100 to-transparent opacity-0 group-hover:opacity-30 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-
                   <span className="relative z-10 tracking-wide text-sm sm:text-sm lg:text-base">
                     Explore Our Services
                   </span>
@@ -126,16 +131,17 @@ const Home = () => {
         </section>
       </div>
 
+
       {/* About Section */}
-      <div className="h-16 md:h-32 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
+      <div className="h-3 md:h-4 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
       <section
-        className="min-h-[auto] md:min-h-screen w-full relative py-12 md:py-24 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-16 md:-mt-32"
+        className="min-h-[auto] md:min-h-[80vh] w-full relative py-8 md:py-10 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-3 md:-mt-4"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
           transition: "background 0.3s ease-out",
         }}>
-        <section className="min-h-[auto] md:h-auto lg:h-[100vh] xl:h-[110vh] w-full flex flex-col md:flex-row items-center justify-center pt-8 md:pt-0 pb-6 md:pb-0 gap-6 md:gap-8 lg:gap-10">
+        <section className="min-h-[auto] md:h-auto lg:min-h-[75vh] xl:min-h-[80vh] w-full flex flex-col md:flex-row items-center justify-center pt-8 md:pt-0 pb-6 md:pb-0 gap-6 md:gap-8 lg:gap-10">
           {/* LEFT */}
           <div className="w-full md:w-1/2 flex flex-col justify-center text-left space-y-3 md:space-y-4 lg:space-y-6 mb-4 md:mb-0">
             <p className="text-base sm:text-base md:text-sm lg:text-base xl:text-xl text-gray-600 leading-relaxed max-w-lg">
@@ -195,12 +201,10 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section className="w-full pt-8 md:pt-12">
-          <StatsShowcase />
-        </section>
+
       </section>
 
-      
+
       {/* ===== Events Section ===== */}
       <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto">
@@ -289,6 +293,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="w-full pt-8 md:pt-12">
+        <StatsShowcase />
+      </section>
 
       {/* ===== Articles Section ===== */}
       <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
@@ -314,56 +321,56 @@ const Home = () => {
 
           {/* Articles Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
-          {loading && (
-            <p className="col-span-4 text-center text-gray-500">
-              Loading articles...
-            </p>
-          )}
+            {loading && (
+              <p className="col-span-4 text-center text-gray-500">
+                Loading articles...
+              </p>
+            )}
 
-          {!loading && articles.length === 0 && (
-            <p className="col-span-4 text-center text-gray-500">
-              No articles available.
-            </p>
-          )}
+            {!loading && articles.length === 0 && (
+              <p className="col-span-4 text-center text-gray-500">
+                No articles available.
+              </p>
+            )}
 
-          {articles.map((a) => (
-            <div
-              key={a.id}
-              className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
-              {/* Image */}
-              <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
-                <img
-                  src={a.thumbnailUrl}
-                  alt={a.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                {a.publishedAt && (
-                  <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
-                    {new Date(a.publishedAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-                )}
+            {articles.map((a) => (
+              <div
+                key={a.id}
+                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                {/* Image */}
+                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                  <img
+                    src={a.thumbnailUrl}
+                    alt={a.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  {a.publishedAt && (
+                    <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                      {new Date(a.publishedAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
+                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                    {a.title}
+                  </h3>
+                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                    {a.description}
+                  </p>
+                  <Link to={`/article/${a.id}`} className="block w-full">
+                    <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
+                      Read More
+                    </button>
+                  </Link>
+                </div>
               </div>
-
-              {/* Content */}
-              <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
-                <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
-                  {a.title}
-                </h3>
-                <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
-                  {a.description}
-                </p>
-                <Link to={`/article/${a.id}`} className="block w-full">
-                  <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
-                    Read More
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
       </section>

@@ -58,8 +58,8 @@ const LoadingScreen = () => {
   return (
     <div
       ref={screenRef}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7]"
-      style={{ backdropFilter: "blur(10px)" }}
+      className="fixed inset-x-6 top-12 z-50 mx-auto w-[calc(100%-3rem)] md:w-3/5 lg:w-2/5 max-w-4xl h-[60vh] sm:h-[50vh] md:h-[42vh] lg:h-[36vh] xl:h-[32vh] 2xl:h-[28vh] flex flex-col items-center justify-center rounded-xl bg-gradient-to-br from-[#5304A3] via-[#9D50BB] to-[#7B2FF7] shadow-2xl"
+      style={{ backdropFilter: "blur(6px)" }}
     >
       <h1
         ref={mainTextRef}
