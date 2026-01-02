@@ -43,8 +43,8 @@ export default function Navbar() {
             key={link.name}
             to={link.path}
             className={`text-xs xl:text-sm font-medium transition-all duration-300 px-3 xl:px-4 py-2 rounded-full whitespace-nowrap ${location.pathname === link.path
-                ? "text-white shadow-md scale-105 animate-gradient-premium"
-                : "text-gray-700 hover:text-purple-600 hover:bg-purple-50"
+              ? "text-white shadow-md scale-105 animate-gradient-premium"
+              : "text-gray-700 hover:text-purple-600 hover:bg-purple-50"
               }`}
           >
             {link.name}

@@ -276,9 +276,9 @@ export default function Contact() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {[
                       "General Inquiry",
-                      "General Inquiry",
-                      "General Inquiry",
-                      "General Inquiry",
+                      "Service",
+                      "Internship",
+                      "Partnership",
                     ].map((subject, index) => (
                       <label
                         key={index}

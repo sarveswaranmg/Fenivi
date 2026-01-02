@@ -6,7 +6,7 @@ import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
 import { BookOpen, FileText, BarChart3 } from "lucide-react";
-import newLogo from "../assets/New_Logo.png";
+import HeroCarousel from "../Components/HeroCarousel";
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
@@ -77,65 +77,14 @@ const Home = () => {
     <div className="w-full">
 
       {/* Hero Section */}
-      <div className="min-h-fit md:min-h-[75vh] w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
-        <section
-          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-5
-               min-h-[60vh] w-full px-5 md:px-10 lg:px-16 xl:px-24 2xl:px-32
-               pt-24 md:pt-28 pb-2 md:pb-0"
-        >
-          {/* Image - Shows first on mobile, second on desktop */}
-          <div className="flex justify-center order-1 md:order-2">
-            <img
-              src={newLogo}
-              alt="Homepage visual"
-              className="w-44 sm:w-56 md:w-72 lg:w-96 xl:w-150 object-cover"
-            />
-          </div>
-
-          {/* Text Content */}
-          <div className="w-full md:max-w text-left order-2 md:order-1">
-            <h1 className="text-[15px] sm:text-xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-snug">
-              Advancing Sustainable Development
-              <br />
-              Through Data-Driven Insights,
-              <br />
-              Convergence Approaches and
-              <br />
-              Community Engagement
-            </h1>
-
-            <p className="text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-gray-700 mt-3 md:mt-4 lg:mt-5 max-w-lg leading-relaxed">
-              To be a trusted research partner delivering community-based evidence that informs policy, improves governance, and advances social well-being
-            </p>
-
-            <div className="mt-5 md:mt-8 flex flex-row gap-2 sm:gap-4 justify-start">
-              <Link to="/contact">
-                <button className="relative px-3 py-1.5 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 rounded-full font-medium overflow-hidden group transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-xl animate-gradient-premium focus:outline-none focus:ring-2 focus:ring-purple-200 bg-white/10 backdrop-blur-md border border-white/30 text-white">
-                  <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white/10 via-white/6 to-transparent opacity-0 group-hover:opacity-40 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-                  <span className="relative text-white font-sans font-semibold text-sm sm:text-sm lg:text-base">
-                    Partner With Us
-                  </span>
-                </button>
-              </Link>
-
-              <Link to="/services">
-                <button className="relative px-3 py-1.5 sm:px-6 sm:py-2.5 lg:px-8 lg:py-3 rounded-full font-semibold overflow-hidden transform transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-purple-200 group bg-white/20 backdrop-blur-lg border border-white/20 text-gray-900 shadow-sm hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl z-10">
-                  <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/100 to-transparent opacity-0 group-hover:opacity-30 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-                  <span className="relative z-10 tracking-wide text-sm sm:text-sm lg:text-base">
-                    Explore Our Services
-                  </span>
-                </button>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
+      {/* Hero Section */}
+      <HeroCarousel />
 
 
       {/* About Section */}
       <div className="h-3 md:h-4 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
       <section
-        className="min-h-[auto] md:min-h-[80vh] w-full relative py-8 md:py-10 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-3 md:-mt-4"
+        className="min-h-[auto] md:min-h-[80vh] w-full relative py-4 md:py-6 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-3 md:-mt-4"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
