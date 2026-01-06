@@ -81,11 +81,11 @@ export default function Events() {
   return (
     <div className="w-full bg-white text-gray-900 min-h-screen">
       {/* ===== Header Section ===== */}
-      <section className="w-full py-24 px-6 md:px-16 lg:px-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-semibold mb-4">
+      <section className="w-full py-24 px-6 text-center max-w-7xl mx-auto lg:px-12">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">
           Grow Your Network & Skills
         </h1>
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
           with Our Events
         </h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -97,7 +97,7 @@ export default function Events() {
       </section>
 
       {/* ===== Event Filter Buttons & Search ===== */}
-      <div className="max-w-6xl mx-auto px-6 md:px-8 mb-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
         {/* Filter Buttons */}
         <div className="flex justify-center items-center gap-3 flex-wrap mb-6">
           {[
@@ -108,11 +108,10 @@ export default function Events() {
             <button
               key={btn.value}
               onClick={() => setFilterType(btn.value)}
-              className={`px-5 py-2 rounded-full border text-sm font-medium transition ${
-                filterType === btn.value
-                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-transparent"
-                  : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700"
-              }`}
+              className={`px-5 py-2 rounded-full border text-sm font-medium transition ${filterType === btn.value
+                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-transparent"
+                : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700"
+                }`}
             >
               {btn.label}
             </button>
@@ -173,9 +172,8 @@ export default function Events() {
                     setSortOrder("newest");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                    sortOrder === "newest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                  }`}
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "newest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
+                    }`}
                 >
                   Newest First
                 </button>
@@ -184,9 +182,8 @@ export default function Events() {
                     setSortOrder("oldest");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                    sortOrder === "oldest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                  }`}
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "oldest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
+                    }`}
                 >
                   Oldest First
                 </button>
@@ -195,9 +192,8 @@ export default function Events() {
                     setSortOrder("a-z");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                    sortOrder === "a-z" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                  }`}
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "a-z" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
+                    }`}
                 >
                   A-Z
                 </button>
@@ -206,9 +202,8 @@ export default function Events() {
                     setSortOrder("z-a");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                    sortOrder === "z-a" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                  }`}
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "z-a" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
+                    }`}
                 >
                   Z-A
                 </button>
@@ -219,7 +214,7 @@ export default function Events() {
       </div>
 
       {/* ===== Event List ===== */}
-      <section className="max-w-6xl mx-auto px-6 md:px-8 pb-24">
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-24">
         {loading && (
           <p className="text-center text-gray-500 text-lg">Loading events...</p>
         )}
@@ -229,10 +224,10 @@ export default function Events() {
             {searchQuery
               ? "No events found matching your search."
               : filterType === "upcoming"
-              ? "No upcoming events at the moment."
-              : filterType === "past"
-              ? "No past events available."
-              : "No events available at the moment."}
+                ? "No upcoming events at the moment."
+                : filterType === "past"
+                  ? "No past events available."
+                  : "No events available at the moment."}
           </p>
         )}
 

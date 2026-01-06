@@ -104,7 +104,7 @@ export default function EditProject() {
 
       await updateDoc(doc(db, "projects", id), updatedData);
       setMessage("Project updated successfully!");
-      setTimeout(() => navigate("/projects"), 1500);
+      setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
       console.error("Error updating project:", err);
       setMessage("Error updating project: " + err.message);
@@ -131,7 +131,7 @@ export default function EditProject() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Edit Project</h1>
           <button
-            onClick={() => navigate("/projects")}
+            onClick={() => navigate("/dashboard")}
             className="text-gray-600 hover:text-gray-900 transition"
           >
             ← Back
@@ -275,7 +275,7 @@ export default function EditProject() {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/projects")}
+              onClick={() => navigate("/dashboard")}
               className="px-8 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition"
             >
               Cancel

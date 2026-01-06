@@ -53,7 +53,7 @@ export default function EventDetails() {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end px-8 md:px-16 lg:px-24 pb-12">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-2 drop-shadow-lg">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-lg max-w-7xl mx-auto w-full">
             {event.title}
           </h1>
           {event.category && (
@@ -65,7 +65,7 @@ export default function EventDetails() {
       </div>
 
       {/* ===== Main Content ===== */}
-      <section className="max-w-6xl mx-auto py-20 px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <section className="max-w-7xl mx-auto py-20 px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Left Content */}
         <div className="md:col-span-2">
           <h2 className="text-3xl font-bold mb-6">{event.title}</h2>

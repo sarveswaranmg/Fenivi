@@ -3,16 +3,18 @@ import LoadingScreen from "../Components/LoadingScreen";
 import { Link } from "react-router-dom";
 
 import { db } from "../firebase.js";
-import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
-import { BookOpen, FileText, BarChart3 } from "lucide-react";
+import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
 import HeroCarousel from "../Components/HeroCarousel";
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
   const [events, setEvents] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventsLoading, setEventsLoading] = useState(true);
+  const [blogsLoading, setBlogsLoading] = useState(true);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -21,56 +23,40 @@ const Home = () => {
     setMousePosition({ x, y });
   };
 
-  // Fetch latest 3 articles
   useEffect(() => {
-    async function loadTopArticles() {
-      if (!db) {
-        console.warn("Firestore 'db' is not initialized.");
-        setLoading(false);
-        return;
-      }
-      try {
-        const q = query(
-          collection(db, "articles"),
-          orderBy("createdAt", "desc"),
-          limit(3)
-        );
-        const snap = await getDocs(q);
-        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setArticles(list);
-      } catch (err) {
-        console.error("Error loading articles for home:", err);
-      } finally {
-        setLoading(false);
-      }
+    if (!db) {
+      setLoading(false);
+      setEventsLoading(false);
+      setBlogsLoading(false);
+      return;
     }
-    loadTopArticles();
-  }, []);
 
-  // Fetch latest 3 events
-  useEffect(() => {
-    async function loadEvents() {
-      if (!db) {
-        console.warn("Firestore 'db' is not initialized.");
-        setEventsLoading(false);
-        return;
-      }
-      try {
-        const q = query(
-          collection(db, "events"),
-          orderBy("createdAt", "desc"),
-          limit(3)
-        );
-        const snap = await getDocs(q);
-        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setEvents(list);
-      } catch (err) {
-        console.error("Error loading events for home:", err);
-      } finally {
-        setEventsLoading(false);
-      }
-    }
-    loadEvents();
+    // Fetch Articles
+    const qArticles = query(collection(db, "articles"), orderBy("createdAt", "desc"), limit(3));
+    const unsubArticles = onSnapshot(qArticles, (snap) => {
+      setArticles(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      setLoading(false);
+    });
+
+    // Fetch Events
+    const qEvents = query(collection(db, "events"), orderBy("createdAt", "desc"), limit(3));
+    const unsubEvents = onSnapshot(qEvents, (snap) => {
+      setEvents(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      setEventsLoading(false);
+    });
+
+    // Fetch Blogs
+    const qBlogs = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(3));
+    const unsubBlogs = onSnapshot(qBlogs, (snap) => {
+      setBlogs(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      setBlogsLoading(false);
+    });
+
+    return () => {
+      unsubArticles();
+      unsubEvents();
+      unsubBlogs();
+    };
   }, []);
 
   return (
@@ -80,87 +66,80 @@ const Home = () => {
       {/* Hero Section */}
       <HeroCarousel />
 
-
-      {/* About Section */}
-      <div className="h-3 md:h-4 w-full bg-gradient-to-b from-[#f7f5ff] via-[#f3ecff] to-[#f0e8f8]"></div>
+      {/* Intro Section - Moved Up */}
       <section
-        className="min-h-[auto] md:min-h-[80vh] w-full relative py-4 md:py-6 px-5 md:px-10 lg:px-16 flex flex-col items-center justify-center -mt-3 md:-mt-4"
+        className="w-full relative py-16 md:py-24"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
           transition: "background 0.3s ease-out",
         }}>
-        <section className="min-h-[auto] md:h-auto lg:min-h-[75vh] xl:min-h-[80vh] w-full flex flex-col md:flex-row items-center justify-center pt-8 md:pt-0 pb-6 md:pb-0 gap-6 md:gap-8 lg:gap-10">
-          {/* LEFT */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center text-left space-y-3 md:space-y-4 lg:space-y-6 mb-4 md:mb-0">
-            <p className="text-base sm:text-base md:text-sm lg:text-base xl:text-xl text-gray-600 leading-relaxed max-w-lg">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-2 items-center gap-16">
+          {/* LEFT CONTENT */}
+          <div className="flex flex-col justify-center">
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-6">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory
               organization committed to bridging the gap between policy,
-              practice, and community needs. Since 2017, we have empowered
-              governments, NGOs, corporates, and startups with evidence-based
-              research, feasibility studies, and strategic advisory.
+              practice, and community needs.
+            </p>
+            <p className="text-lg md:text-lg text-gray-600 leading-relaxed">
+              Since 2017, we have empowered governments, NGOs, corporates, and startups
+              with evidence-based research, feasibility studies, and strategic advisory.
             </p>
           </div>
 
-          {/* RIGHT */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-6 w-full md:w-[95%] md:max-w-[400px] lg:max-w-[500px] xl:max-w-[650px] h-[260px] sm:h-[320px] md:h-[320px] lg:h-[380px] xl:h-[520px]">
-            <div className="overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white">
+          {/* 2x2 STATS GRID (SYNCED WITH KNOWLEDGE HUB) */}
+          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5 xl:gap-6 w-full max-w-[650px] aspect-[4/3] md:aspect-square">
+            {/* Box 1: Image + Label */}
+            <div className="overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white relative group">
               <img
                 src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-                alt="Knowledge Hub"
-                className="w-full h-full object-cover rounded-3xl hover:scale-105 transition-transform duration-500"
+                alt="Impact Footprint"
+                className="w-full h-full object-cover rounded-3xl transition-all duration-500 group-hover:scale-105"
               />
-            </div>
-
-            {/* Cards */}
-            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-purple-600 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  200+ Publications
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
-                  Research papers, policy briefs, and scientific articles.
-                </p>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-6 flex flex-col justify-end h-full">
+                <p className="text-white text-[10px] sm:text-xs uppercase tracking-widest font-semibold opacity-90 mb-1">Impact Footprint</p>
+                <h4 className="text-white text-lg sm:text-xl xl:text-2xl font-bold">12+ Districts</h4>
               </div>
             </div>
 
-            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BarChart3 className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-indigo-600 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  8+ years of experience
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
-                  Successfully launched 10+ major projects.
-                </p>
+            {/* Box 2: Publications */}
+            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-600">
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
               </div>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">200+</h3>
+              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Publications</p>
             </div>
 
-            <div className="p-2 sm:p-4 md:p-3 lg:p-4 xl:p-7 bg-white rounded-xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <FileText className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8 text-purple-700 mb-1 sm:mb-3 md:mb-2 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-sm md:text-xs lg:text-sm xl:text-lg font-semibold mb-0.5 sm:mb-1.5 md:mb-1 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  Reports & Studies
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-xs md:text-[9px] lg:text-[10px] xl:text-sm leading-snug">
-                  Comprehensive environmental & social studies.
-                </p>
+            {/* Box 3: Years of Impact */}
+            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-indigo-600">
+                <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
               </div>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">8+</h3>
+              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Years of Impact</p>
+            </div>
+
+            {/* Box 4: Strategic Reports */}
+            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-700">
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+              </div>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">100+</h3>
+              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Strategic Reports</p>
             </div>
           </div>
-        </section>
-
+        </div>
       </section>
 
-
       {/* ===== Events Section ===== */}
-      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto">
+      <section className="w-full py-16 md:py-24 bg-gray-50/50">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
             <div>
-              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
+              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
                 Events
               </h2>
               <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
@@ -247,12 +226,12 @@ const Home = () => {
       </section>
 
       {/* ===== Articles Section ===== */}
-      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto">
+      <section className="w-full py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
             <div>
-              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-900 mb-2 md:mb-3">
+              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
                 Recent Evidence-Driven Projects
               </h2>
               <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
@@ -324,17 +303,90 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ===== Latest Blogs Section (Synced with Events) ===== */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
+                Latest Blogs
+              </h2>
+              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+                Explore our latest insights, professional stories, and research updates
+                designed to keep you informed and inspired.
+              </p>
+            </div>
+
+            <Link to="/knowledge-hub">
+              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+                Explore more →
+              </button>
+            </Link>
+          </div>
+
+          {/* Blogs Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+            {blogsLoading && (
+              <p className="col-span-4 text-center text-gray-500">
+                Loading blogs...
+              </p>
+            )}
+
+            {!blogsLoading && blogs.length === 0 && (
+              <p className="col-span-4 text-center text-gray-500">
+                No articles available.
+              </p>
+            )}
+
+            {blogs.slice(0, 4).map((blog) => (
+              <div
+                key={blog.id}
+                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                {/* Image */}
+                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                  <img
+                    src={blog.thumbnailUrl}
+                    alt={blog.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute top-2 left-2 md:top-3 md:left-3">
+                    <span className="bg-indigo-600 text-white text-xs md:text-[10px] uppercase font-bold px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                      Blog
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
+                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                    {blog.title}
+                  </h3>
+                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                    {blog.description}
+                  </p>
+                  <Link
+                    to={`/article/${blog.id}`}
+                    className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                    Read More
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ===== Real World Evidence Section ===== */}
-      <section className="w-full px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 lg:gap-10 items-center">
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
           <div>
-            <h2 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-3 md:mb-5 lg:mb-6">
+            <h2 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
               Real-World Evidence
             </h2>
 
-            <p className="text-gray-700 text-base md:text-sm lg:text-base xl:text-lg leading-relaxed mb-4 md:mb-5 lg:mb-6 text-left md:text-justify">
+            <p className="text-gray-700 text-lg leading-relaxed mb-8 text-left md:text-justify">
               Real-World Evidence (RWE) integrates clinical insights, hospital
               workflows, and large-scale health datasets to generate actionable
               knowledge for policymakers, researchers, and clinicians. The
@@ -350,13 +402,13 @@ const Home = () => {
                   "_blank"
                 )
               }
-              className="bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2.5 lg:py-3 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+              className="bg-blue-500 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-transform">
               Learn More →
             </button>
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="w-full h-48 md:h-72 lg:h-80 xl:h-[420px] rounded-lg md:rounded-2xl overflow-hidden shadow-lg">
+          <div className="w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden shadow-xl">
             <img
               src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
               alt="Real World Evidence"

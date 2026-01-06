@@ -2,9 +2,9 @@ import React from "react";
 
 const StatsShowcase = () => {
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 pb-20">
+    <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 pb-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-end h-full">
-        
+
         {/* Shortest Card (Top-most) */}
         <div className="flex flex-col gap-4 self-end">
           <h3 className="text-sm font-semibold tracking-widest text-gray-500">
@@ -16,7 +16,7 @@ const StatsShowcase = () => {
             and public health interventions.
           </p>
           <img
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+            src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
             alt="Impact Footprint"
             className="w-full h-44 object-cover rounded-lg" // Shortest
           />
@@ -33,7 +33,7 @@ const StatsShowcase = () => {
             for credible research collaborations and advisory support.
           </p>
           <img
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+            src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
             alt="Clients"
             className="w-full h-64 object-cover rounded-lg" // Medium
           />

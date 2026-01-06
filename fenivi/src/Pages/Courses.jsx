@@ -31,40 +31,51 @@ export default function Courses() {
   return (
     <div className="w-full bg-gradient-to-br from-purple-100 via-white to-violet-50 text-gray-900 min-h-screen">
       {/* ===== Header Section ===== */}
-      <section className="w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center">
-          {/* IMAGE */}
-          <div className="relative order-2 lg:order-1">
-            <img
-              src={coursesAndResearch}
-              alt="Courses and Research"
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto h-auto select-none transform duration-700"
-              style={{
-                filter: "drop-shadow(0 10px 30px rgba(147, 51, 234, 0.3))",
-              }}
-            />
-          </div>
+      <section className="w-full pt-32 pb-16 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* TEXT CONTENT */}
+            <div className="order-2 lg:order-1">
+              <h2 className="text-xl md:text-2xl italic text-gray-600 mb-2">
+                Building the
+              </h2>
+              <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                Next Generation of Researchers
+              </h1>
 
-          {/* TEXT CONTENT */}
-          <div className="order-1 lg:order-2 text-center lg:text-left">
-            <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl italic text-gray-900 mt-8 sm:mt-10 md:mt-12">
-              Building the
-            </h2>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mt-2">
-              Next Generation of Researchers
-            </h3>
+              <div className="space-y-6">
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  Fenivi offers structured, flexible research training programs
+                  designed for students, PhD scholars, clinicians, and young
+                  professionals.
+                </p>
 
-            <p className="text-gray-700 mt-4 md:mt-6 text-base sm:text-lg md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Fenivi offers structured, flexible research training programs
-              designed for students, PhD scholars, clinicians, and young
-              professionals.
-            </p>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium p-6 bg-purple-50 rounded-3xl border border-purple-100">
+                  Our comprehensive curriculum bridges the gap between theoretical knowledge and practical application, empowering aspiring researchers with the essential tools, methodologies, and ethical frameworks needed to excel in today's dynamic scientific landscape.
+                </p>
+              </div>
+            </div>
+
+            {/* IMAGE/LOGO */}
+            <div className="order-1 lg:order-2 relative flex justify-center">
+              <div className="relative w-full max-w-lg aspect-square">
+                <img
+                  src={coursesAndResearch}
+                  alt="Courses and Research"
+                  className="w-full h-full object-contain relative z-10"
+                  style={{
+                    filter: "drop-shadow(0 20px 40px rgba(147, 51, 234, 0.2))",
+                  }}
+                />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-100/50 rounded-full blur-3xl -z-0 animate-pulse"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ===== Static Course Cards (Three Column Layout) ===== */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-12 md:pb-16">
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-12 md:pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {/* Course Card 1 */}
           <div className="group relative h-[24rem] sm:h-[26rem] md:h-[28rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20">

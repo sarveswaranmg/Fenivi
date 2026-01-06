@@ -9,8 +9,6 @@ export default function TeamSection() {
     { name: "Dr. R. Dinesh", role: "Hydrological Research Lead", img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop" },
     { name: "Dr. Meera Narayanan", role: "Sustainability & Policy Analyst", img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=800&auto=format&fit=crop" },
     { name: "Dr. A. Harish", role: "GIS & Data Systems Engineer", img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=800&auto=format&fit=crop" },
-    { name: "Dr. Kavya S.", role: "Public Health Specialist", img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=800&auto=format&fit=crop" },
-    { name: "Dr. Ramesh P.", role: "Community Development Coordinator", img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=800&auto=format&fit=crop" },
   ];
 
   return (

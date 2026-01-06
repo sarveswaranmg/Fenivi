@@ -116,7 +116,7 @@ export default function EditEvent() {
 
       await updateDoc(doc(db, "events", id), updatedData);
       setMessage("Event updated successfully!");
-      setTimeout(() => navigate("/events"), 1500);
+      setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
       console.error("Error updating event:", err);
       setMessage("Error updating event: " + err.message);
@@ -143,7 +143,7 @@ export default function EditEvent() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Edit Event</h1>
           <button
-            onClick={() => navigate("/events")}
+            onClick={() => navigate("/dashboard")}
             className="text-gray-600 hover:text-gray-900 transition"
           >
             ← Back
@@ -340,7 +340,7 @@ export default function EditEvent() {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/events")}
+              onClick={() => navigate("/dashboard")}
               className="px-8 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition"
             >
               Cancel

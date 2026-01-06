@@ -11,8 +11,14 @@ export default function Footer() {
           <p className="text-xs text-gray-400 mb-2 leading-relaxed">
             9/56C, ISRO Road,<br />
             Kavalkinaru Junction,<br />
-            Tirunelveli District<br />
-            Pin: 627105
+            Tirunelveli District,<br />
+            Tamil Nadu - 627105
+          </p>
+          <p className="text-gray-400 text-sm leading-relaxed mt-4">
+            <span className="text-white font-semibold">Admin Address:</span><br />
+            No 68, svastika star apartment,<br />
+            A Block G1 House, Krishnaveni Ammal Nagar,<br />
+            Iyyapanthangal, Chennai - 600056
           </p>
           <div className="flex space-x-3 text-lg justify-center md:justify-start mt-2">
             <a
@@ -152,7 +158,7 @@ export default function Footer() {
               <a
                 href="tel:+918148699354"
                 className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                +91 81486 99354
+                +91 98402 87857
               </a>
             </li>
             <li>

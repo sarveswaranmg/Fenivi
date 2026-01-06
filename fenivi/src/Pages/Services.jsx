@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function ServicesSection() {
+  const [searchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("all");
 
+  useEffect(() => {
+    const filterFromUrl = searchParams.get("filter");
+    if (filterFromUrl) {
+      setActiveFilter(filterFromUrl);
+      // Wait for DOM update then scroll to filter section
+      setTimeout(() => {
+        const element = document.getElementById("services-browse");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, [searchParams]);
+
   return (
-    <section className="w-full min-h-screen flex flex-col items-center bg-white px-4 sm:px-6 md:px-8 py-12 md:py-16 lg:py-20 relative">
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 mb-12 md:mb-20 lg:mb-30 items-center relative z-10 px-4 sm:px-6 md:px-8">
+    <section className="w-full min-h-screen flex flex-col items-center bg-white px-4 sm:px-6 md:px-8 py-12 md:py-16 lg:py-20 relative text-left sm:text-justify lg:text-left">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 mb-12 md:mb-20 lg:mb-30 items-center relative z-10 px-8 lg:px-12">
         {/* TEXT CONTENT */}
         <div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-gray-900 mt-8 sm:mt-10 md:mt-12">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-bold text-gray-900 mt-8 sm:mt-10 md:mt-12 uppercase tracking-tight">
             Our
           </h2>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl italic text-gray-900 mt-2">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl italic text-gray-900 mt-2">
             Services
           </h3>
 
@@ -33,51 +49,44 @@ export default function ServicesSection() {
       </div>
 
       {/* SERVICE SECTIONS */}
-      <div className="w-full max-w-7xl relative z-10 px-4 sm:px-6">
+      <div id="services-browse" className="w-full max-w-7xl relative z-10 px-8 lg:px-12 pt-8">
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-8 md:mb-10 lg:mb-12">
           <button
             onClick={() => setActiveFilter("all")}
-            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
-              activeFilter === "all"
-                ? "bg-violet-600 text-white"
-                : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
-            }`}
+            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${activeFilter === "all"
+              ? "bg-violet-600 text-white"
+              : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
+              }`}
           >
             All
           </button>
           <button
             onClick={() => setActiveFilter("research")}
-            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
-              activeFilter === "research"
-                ? "bg-violet-600 text-white"
-                : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
-            }`}
+            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-2.5 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${activeFilter === "research"
+              ? "bg-violet-600 text-white"
+              : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
+              }`}
           >
-            <span className="hidden sm:inline">Research & Field Services</span>
-            <span className="sm:hidden">Research</span>
+            Research & Field Services
           </button>
           <button
             onClick={() => setActiveFilter("training")}
-            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
-              activeFilter === "training"
-                ? "bg-violet-600 text-white"
-                : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
-            }`}
+            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-2.5 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${activeFilter === "training"
+              ? "bg-violet-600 text-white"
+              : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
+              }`}
           >
-            <span className="hidden sm:inline">Training & Education</span>
-            <span className="sm:hidden">Training</span>
+            Training & Education
           </button>
           <button
             onClick={() => setActiveFilter("startup")}
-            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
-              activeFilter === "startup"
-                ? "bg-violet-600 text-white"
-                : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
-            }`}
+            className={`px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-2.5 text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${activeFilter === "startup"
+              ? "bg-violet-600 text-white"
+              : "bg-white text-violet-600 border-2 border-violet-600 hover:bg-violet-50"
+              }`}
           >
-            <span className="hidden sm:inline">Startup Mentoring</span>
-            <span className="sm:hidden">Startup</span>
+            Startup Mentoring
           </button>
         </div>
 

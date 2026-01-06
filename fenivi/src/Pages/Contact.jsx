@@ -15,10 +15,10 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center py-20 md:py-24 px-5 md:px-8">
-      <div className="w-full max-w-6xl">
+      <div className="w-full max-w-[1440px] mx-auto lg:px-10">
         {/* Header Section */}
         <div className="text-center pb-6">
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-purple-700 mb-2 md:mb-3">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-700 mb-2 md:mb-3">
             Contact Us
           </h1>
           <p className="text-base md:text-lg text-gray-700">
@@ -279,19 +279,27 @@ export default function Contact() {
                       "Service",
                       "Internship",
                       "Partnership",
-                    ].map((subject, index) => (
+                      "Course",
+                    ].map((item) => (
                       <label
-                        key={index}
-                        className="flex items-center gap-2 cursor-pointer"
+                        key={item}
+                        className="flex items-center gap-2 text-xs sm:text-sm text-gray-700 cursor-pointer hover:text-purple-600 transition-colors"
                       >
                         <input
                           type="radio"
-                          name="Subject"
-                          value={subject}
-                          defaultChecked={index === 0}
-                          className="w-4 h-4 text-purple-600"
+                          name="subject"
+                          value={item}
+                          className="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500"
+                          onChange={(e) => {
+                            if (e.target.value === "Course") {
+                              const messageArea = document.querySelector('textarea[name="message"]');
+                              if (messageArea && !messageArea.value) {
+                                messageArea.value = "I am interested in such and such course";
+                              }
+                            }
+                          }}
                         />
-                        <span className="text-sm text-gray-700">{subject}</span>
+                        {item}
                       </label>
                     ))}
                   </div>

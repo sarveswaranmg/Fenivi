@@ -20,6 +20,8 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
 import EditArticle from "./Pages/Admin/EditArticle.jsx";
 import EditProject from "./Pages/Admin/EditProject.jsx";
 import EditEvent from "./Pages/Admin/EditEvent.jsx";
+import EditBlog from "./Pages/Admin/EditBlog.jsx"; // Import EditBlog
+import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Import ProtectedRoute
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
 import ProjectDetails from "./Pages/ProjectDetails";
@@ -54,10 +56,46 @@ function AppContent() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/edit-article/:id" element={<EditArticle />} />
-        <Route path="/admin/edit-project/:id" element={<EditProject />} />
-        <Route path="/admin/edit-event/:id" element={<EditEvent />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-article/:id"
+          element={
+            <ProtectedRoute>
+              <EditArticle />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-project/:id"
+          element={
+            <ProtectedRoute>
+              <EditProject />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-event/:id"
+          element={
+            <ProtectedRoute>
+              <EditEvent />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-blog/:id"
+          element={
+            <ProtectedRoute>
+              <EditBlog />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />

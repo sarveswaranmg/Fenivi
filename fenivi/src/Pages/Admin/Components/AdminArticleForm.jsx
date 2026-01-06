@@ -133,14 +133,14 @@ export default function AdminArticleForm() {
           article.thumbnailUrl.split("/o/")[1].split("?")[0]
         );
         const thumbRef = storageRefFn(storage, thumbPath);
-        await deleteObject(thumbRef).catch(() => {});
+        await deleteObject(thumbRef).catch(() => { });
       }
 
       if (article.gallery && article.gallery.length > 0) {
         for (const url of article.gallery) {
           const gPath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
           const gRef = storageRefFn(storage, gPath);
-          await deleteObject(gRef).catch(() => {});
+          await deleteObject(gRef).catch(() => { });
         }
       }
 
@@ -262,19 +262,27 @@ export default function AdminArticleForm() {
               key={a.id}
               className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-3 sm:p-4 rounded-lg sm:rounded-xl shadow hover:shadow-md transition gap-2 sm:gap-0"
             >
-              <Link to={`/article/${a.id}`} className="flex flex-col">
+              <div className="flex flex-col">
                 <span className="font-semibold text-sm sm:text-base">{a.title}</span>
                 <span className="text-xs sm:text-sm text-gray-600">
                   {a.author} {a.place ? `• ${a.place}` : ""}
                 </span>
-              </Link>
+              </div>
 
-              <button
-                onClick={() => setConfirmDelete(a)}
-                className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm self-start sm:self-auto"
-              >
-                🗑️ Delete
-              </button>
+              <div className="flex gap-4 items-center">
+                <Link
+                  to={`/admin/edit-article/${a.id}`}
+                  className="text-purple-600 hover:text-purple-800 text-xs sm:text-sm font-medium"
+                >
+                  ✏️ Edit
+                </Link>
+                <button
+                  onClick={() => setConfirmDelete(a)}
+                  className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm"
+                >
+                  🗑️ Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

@@ -8,45 +8,29 @@ const slides = [
         id: 1,
         title: (
             <>
-                Advancing Sustainable Development
+                Advancing sustainable development
                 <br />
-                Through Data-Driven Insights,
+                through data-driven insights,
                 <br />
-                Convergence Approaches and
+                convergence approaches,
                 <br />
-                Community Engagement
+                and community engagement
             </>
         ),
-        description:
-            "To be a trusted research partner delivering community-based evidence that informs policy, improves governance, and advances social well-being",
     },
     {
         id: 2,
         title: (
             <>
-                Empowering Communities <br /> through Evidence-Based <br /> Decision Making
+                To be a trusted research partner delivering community-based evidence that informs policy, improves governance, and advances social well-being
             </>
         ),
-        description:
-            "Bridging the gap between policy and practice by providing actionable insights that drive sustainable growth and social impact.",
-    },
-    {
-        id: 3,
-        title: (
-            <>
-                Strategic Advisory for <br /> Global Impact and <br /> Institutional Growth
-            </>
-        ),
-        description:
-            "Partnering with governments, NGOs, and corporates to design scalable solutions for complex development challenges.",
     },
 ];
 
 const HeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const slideRef = useRef(null);
     const textRef = useRef(null);
-    const imageRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -55,30 +39,23 @@ const HeroCarousel = () => {
         return () => clearInterval(interval);
     }, [currentSlide]);
 
-    const animateSlide = (direction = "next") => {
-        const tl = gsap.timeline();
-
-        // Fade out elements
-        tl.to(textRef.current, {
+    const animateSlide = () => {
+        gsap.to(textRef.current, {
             opacity: 0,
             y: -20,
             duration: 0.5,
             ease: "power2.in",
             onComplete: () => {
-                // Update state after fade out
                 setCurrentSlide((prev) => (prev + 1) % slides.length);
-
-                // Reset position for fade in
                 gsap.set(textRef.current, { y: 20 });
+                gsap.to(textRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                });
             }
-        })
-            .to(textRef.current, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                stagger: 0.2
-            });
+        });
     };
 
     const handleNext = () => {
@@ -86,65 +63,64 @@ const HeroCarousel = () => {
     };
 
     return (
-        <div className="min-h-fit md:min-h-[60vh] w-full bg-gradient-to-r from-[#f7f5ff] via-[#eae1ff] to-[#f7f5ff] overflow-hidden relative">
-            <section className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-5 min-h-fit w-full px-5 md:px-10 lg:px-16 xl:px-24 2xl:px-32 pt-24 md:pt-28 pb-8 md:pb-12">
-
-                {/* Image - Shows first on mobile, second on desktop */}
-                <div ref={imageRef} className="flex justify-center order-1 md:order-2">
-                    <img
-                        src={newLogo}
-                        alt="Homepage visual"
-                        className="w-44 sm:w-56 md:w-72 lg:w-96 xl:w-150 object-cover"
-                    />
+        <div className="min-h-[50vh] md:min-h-[60vh] w-full bg-[#f9f8ff] overflow-hidden relative flex items-center">
+            {/* Background Diagonal Image - Right 40% */}
+            <div className="absolute top-0 right-0 w-full h-full pointer-events-none z-0">
+                <div
+                    className="absolute top-0 right-0 w-[45%] h-full bg-cover bg-center"
+                    style={{
+                        backgroundImage: `url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop')`,
+                        clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)'
+                    }}
+                >
+                    <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-white/40"></div>
                 </div>
+            </div>
 
+            <section className="relative z-10 w-full max-w-7xl mx-auto px-8 lg:px-12 grid grid-cols-1 md:grid-cols-2 items-center gap-12 py-12 pb-6">
                 {/* Text Content */}
-                <div ref={textRef} className="w-full md:max-w text-left order-2 md:order-1">
-                    <h1 className="text-[15px] sm:text-xl md:text-lg lg:text-xl xl:text-3xl font-bold text-gray-900 leading-snug min-h-[120px] md:min-h-[160px] flex items-center">
-                        <span>{slides[currentSlide].title}</span>
-                    </h1>
+                <div className="flex flex-col justify-center">
+                    <div className="min-h-[180px] md:min-h-[220px] flex flex-col justify-center">
+                        <h1 ref={textRef} className="text-lg md:text-2xl font-semibold leading-snug text-gray-900">
+                            {slides[currentSlide].title}
+                        </h1>
+                    </div>
 
-                    <p className="text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-gray-700 mt-3 md:mt-4 lg:mt-5 max-w-lg leading-relaxed min-h-[80px]">
-                        {slides[currentSlide].description}
-                    </p>
-
-                    <div className="mt-5 md:mt-8 flex flex-row gap-2 sm:gap-4 justify-start">
+                    {/* Stationary Buttons */}
+                    <div className="flex flex-row flex-wrap justify-start gap-4 mt-10">
                         <Link to="/contact">
-                            <button className="relative px-3 py-1.5 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 rounded-full font-medium overflow-hidden group transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-xl animate-gradient-premium focus:outline-none focus:ring-2 focus:ring-purple-200 bg-white/10 backdrop-blur-md border border-white/30 text-white cursor-pointer">
-                                <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white/10 via-white/6 to-transparent opacity-0 group-hover:opacity-40 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-                                <span className="relative text-white font-sans font-semibold text-sm sm:text-sm lg:text-base">
-                                    Partner With Us
-                                </span>
+                            <button
+                                className="px-8 py-3.5 rounded-full font-bold bg-gradient-to-r from-purple-600 to-violet-800 hover:from-purple-500 hover:to-violet-700 hover:scale-105 transition-all duration-500 ease-out transform text-white shadow-lg shadow-purple-500/20">
+                                Partner With Us
                             </button>
                         </Link>
 
                         <Link to="/services">
-                            <button className="relative px-3 py-1.5 sm:px-6 sm:py-2.5 lg:px-8 lg:py-3 rounded-full font-semibold overflow-hidden transform transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-purple-200 group bg-white/20 backdrop-blur-lg border border-white/20 text-gray-900 shadow-sm hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl z-10 cursor-pointer">
-                                <span className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/100 to-transparent opacity-0 group-hover:opacity-30 transform -translate-x-6 group-hover:translate-x-0 transition-all duration-400"></span>
-                                <span className="relative z-10 tracking-wide text-sm sm:text-sm lg:text-base">
-                                    Schedule an Appointment
-                                </span>
+                            <button className="px-8 py-3.5 rounded-full font-bold bg-white text-gray-900 border border-gray-100 hover:bg-gray-50 hover:scale-105 shadow-md shadow-gray-200/50 transition-all duration-500 ease-out transform">
+                                Schedule an Appointment
                             </button>
                         </Link>
                     </div>
 
-                    {/* Dots to indicate current slide */}
-                    <div className="flex gap-2 mt-6">
+                    {/* Dots */}
+                    <div className="flex gap-3 mt-10">
                         {slides.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => {
-                                    setCurrentSlide(index);
-                                    // Optional: Trigger animation manually if needed, or just set state
-                                    gsap.fromTo(textRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
+                                    if (currentSlide !== index) {
+                                        animateSlide();
+                                    }
                                 }}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-purple-600 w-6" : "bg-purple-200 hover:bg-purple-300"
+                                className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-purple-600 w-8" : "bg-purple-200 hover:bg-purple-300"
                                     }`}
                             />
                         ))}
                     </div>
-
                 </div>
+
+                {/* Empty element for grid spacing, ensuring text stays left */}
+                <div className="hidden md:block"></div>
             </section>
         </div>
     );

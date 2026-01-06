@@ -16,6 +16,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import { Link } from "react-router-dom";
 
 export default function AdminProjectForm() {
   const [title, setTitle] = useState("");
@@ -119,14 +120,14 @@ export default function AdminProjectForm() {
           project.thumbnailUrl.split("/o/")[1].split("?")[0]
         );
         const thumbRef = storageRefFn(storage, thumbPath);
-        await deleteObject(thumbRef).catch(() => {});
+        await deleteObject(thumbRef).catch(() => { });
       }
 
       if (project.gallery && project.gallery.length > 0) {
         for (const url of project.gallery) {
           const gPath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
           const gRef = storageRefFn(storage, gPath);
-          await deleteObject(gRef).catch(() => {});
+          await deleteObject(gRef).catch(() => { });
         }
       }
 
@@ -245,12 +246,21 @@ export default function AdminProjectForm() {
                 <span className="font-semibold text-sm sm:text-base">{p.title}</span>
                 <span className="text-xs sm:text-sm text-gray-600">{p.city}</span>
               </div>
-              <button
-                onClick={() => setConfirmDelete(p)}
-                className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm self-start sm:self-auto"
-              >
-                🗑️ Delete
-              </button>
+
+              <div className="flex gap-4 items-center">
+                <Link
+                  to={`/admin/edit-project/${p.id}`}
+                  className="text-purple-600 hover:text-purple-800 text-xs sm:text-sm font-medium"
+                >
+                  ✏️ Edit
+                </Link>
+                <button
+                  onClick={() => setConfirmDelete(p)}
+                  className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm"
+                >
+                  🗑️ Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
