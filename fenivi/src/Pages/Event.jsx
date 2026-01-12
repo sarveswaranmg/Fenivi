@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -78,26 +82,97 @@ export default function Events() {
 
   const filteredEvents = getFilteredAndSortedEvents();
 
+  // GSAP Animations
+  useEffect(() => {
+    // Animate header
+    gsap.fromTo(
+      ".events-header h1, .events-header h2, .events-header p",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        delay: 0.2,
+        ease: "power2.out",
+      }
+    );
+
+    // Animate filter buttons
+    gsap.fromTo(
+      ".event-filter-btn",
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        delay: 0.4,
+        ease: "power2.out",
+      }
+    );
+
+    // Animate sort dropdown
+    gsap.fromTo(
+      ".event-sort-dropdown",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.6, ease: "power2.out" }
+    );
+
+    // Animate search bar
+    gsap.fromTo(
+      ".event-search-bar",
+      { opacity: 0, x: -30 },
+      { opacity: 1, x: 0, duration: 0.6, delay: 0.5, ease: "power2.out" }
+    );
+
+    // Animate event cards on scroll
+    const eventCards = gsap.utils.toArray(".event-list-card");
+    eventCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: index * 0.08,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "top 50%",
+            scrub: false,
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [filteredEvents]);
+
   return (
     <div className="w-full bg-white text-gray-900 min-h-screen">
       {/* ===== Header Section ===== */}
-      <section className="w-full py-24 px-6 text-center max-w-7xl mx-auto lg:px-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          Grow Your Network & Skills
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-          with Our Events
-        </h2>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-          Explore upcoming and past events organized by Fenivi Research
-          Solutions — from conferences and policy dialogues to community-driven
-          initiatives that bridge science and society.
-        </p>
-        <div className="w-20 h-[3px] bg-gradient-to-r from-purple-600 to-indigo-600 mx-auto mt-6 rounded-full" />
+      <section className="events-header w-full pt-28 pb-16 md:pt-32 md:pb-20 text-center bg-white">
+        <div className="page-container">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">
+            Grow Your Network & Skills
+          </h1>
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
+            with Our Events
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+            Explore upcoming and past events organized by Fenivi Research
+            Solutions — from conferences and policy dialogues to community-driven
+            initiatives that bridge science and society.
+          </p>
+        </div>
       </section>
 
       {/* ===== Event Filter Buttons & Search ===== */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
+      <div className="page-container mb-12">
         {/* Filter Buttons */}
         <div className="flex justify-center items-center gap-3 flex-wrap mb-6">
           {[
@@ -108,7 +183,7 @@ export default function Events() {
             <button
               key={btn.value}
               onClick={() => setFilterType(btn.value)}
-              className={`px-5 py-2 rounded-full border text-sm font-medium transition ${filterType === btn.value
+              className={`event-filter-btn px-5 py-2 rounded-full border text-sm font-medium transition hover-scale ${filterType === btn.value
                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-transparent"
                 : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700"
                 }`}
@@ -121,7 +196,7 @@ export default function Events() {
         {/*Search and Sort Controls*/}
         <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
           {/* Search Bar*/}
-          <div className="relative w-full md:w-96">
+          <div className="event-search-bar relative w-full md:w-96">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -147,10 +222,10 @@ export default function Events() {
           </div>
 
           {/* Sort Dropdown */}
-          <div className="relative">
+          <div className="event-sort-dropdown relative">
             <button
               onClick={() => setShowSortMenu(!showSortMenu)}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm"
+              className="flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm hover-scale"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
@@ -214,7 +289,7 @@ export default function Events() {
       </div>
 
       {/* ===== Event List ===== */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-24">
+      <section className="page-container pb-24">
         {loading && (
           <p className="text-center text-gray-500 text-lg">Loading events...</p>
         )}
@@ -235,7 +310,7 @@ export default function Events() {
           {filteredEvents.map((event) => (
             <div
               key={event.id}
-              className="flex flex-col md:flex-row gap-6 p-6 border border-gray-100 rounded-3xl shadow-sm hover:shadow-lg transition-all bg-white"
+              className="event-list-card flex flex-col md:flex-row gap-6 p-6 border border-gray-100 rounded-3xl shadow-sm hover:shadow-lg transition-all bg-white hover-lift"
             >
               {/* Event Image */}
               <div className="md:w-1/3 w-full overflow-hidden rounded-2xl relative">

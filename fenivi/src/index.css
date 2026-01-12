@@ -5,16 +5,180 @@
 /* Tailwind import */
 @import "tailwindcss";
 
+/* ========================================
+   GLOBAL DESIGN SYSTEM
+   ======================================== */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #7c3aed;
+  --color-primary-dark: #6d28d9;
+  --color-primary-light: #8b5cf6;
+
+  /* Neutral Colors */
+  --color-text: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+
+  /* Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-accent: #faf5ff;
+
+  /* Consistent Spacing - Page Margins */
+  --page-padding-mobile: 1.5rem;      /* 24px */
+  --page-padding-tablet: 2rem;        /* 32px */
+  --page-padding-desktop: 3rem;       /* 48px */
+
+  /* Container */
+  --container-max-width: 80rem;       /* 1280px */
+
+  /* Section Spacing */
+  --section-padding-y-mobile: 4rem;   /* 64px */
+  --section-padding-y-desktop: 6rem;  /* 96px */
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;                 /* 12px */
+  --text-sm: 0.875rem;                /* 14px */
+  --text-base: 1rem;                  /* 16px */
+  --text-lg: 1.125rem;                /* 18px */
+  --text-xl: 1.25rem;                 /* 20px */
+  --text-2xl: 1.5rem;                 /* 24px */
+  --text-3xl: 1.875rem;               /* 30px */
+  --text-4xl: 2.25rem;                /* 36px */
+  --text-5xl: 3rem;                   /* 48px */
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;                /* 8px */
+  --radius-md: 0.75rem;               /* 12px */
+  --radius-lg: 1rem;                  /* 16px */
+  --radius-xl: 1.5rem;                /* 24px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
 /* Apply fonts */
 body {
   font-family: "Poppins", ui-sans-serif, system-ui;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #KNH {
   font-family: "Instrument Sans", ui-sans-serif, system-ui;
 }
 
-/* Shimmer animation for liquid glass effect */
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Page Container - consistent margins across all pages */
+.page-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-padding-mobile);
+  padding-right: var(--page-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    padding-left: var(--page-padding-tablet);
+    padding-right: var(--page-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: var(--page-padding-desktop);
+    padding-right: var(--page-padding-desktop);
+  }
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: var(--section-padding-y-mobile);
+  padding-bottom: var(--section-padding-y-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: var(--section-padding-y-desktop);
+    padding-bottom: var(--section-padding-y-desktop);
+  }
+}
+
+/* Primary Button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-accent);
+}
+
+/* Card Base */
+.card {
+  background-color: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%) skewX(-15deg);
@@ -23,6 +187,7 @@ body {
     transform: translateX(200%) skewX(-15deg);
   }
 }
+
 @keyframes gradient-luxury {
   0% {
     background-position: 0% 50%;
@@ -34,7 +199,6 @@ body {
     background-position: 0% 50%;
   }
 }
-
 
 .animate-gradient-premium {
   background: radial-gradient(
@@ -48,26 +212,6 @@ body {
   animation: gradient-luxury 12s ease-in-out infinite;
 }
 
-@keyframes gradient-luxury {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-
-@keyframes gradient-luxury {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .animate-gradient-shape {
   background: radial-gradient(
     circle at 30% 20%,
@@ -78,9 +222,156 @@ body {
   );
   background-size: 200% 200%;
   animation: gradient-luxury 15s ease-in-out infinite;
-
   -webkit-mask: url("/wave-shape.svg") no-repeat center;
   -webkit-mask-size: cover;
   mask: url("/wave-shape.svg") no-repeat center;
   mask-size: cover;
+}
+
+/* ========================================
+   GSAP ANIMATION UTILITIES
+   ======================================== */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Bounce In */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.8);
+  }
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulse Animation */
+@keyframes pulse-custom {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* GSAP-friendly classes for scroll triggers */
+.scroll-trigger-fade {
+  opacity: 0;
+}
+
+.scroll-trigger-slide-up {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.scroll-trigger-scale {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* Hover animations */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+}
+
+.hover-scale {
+  transition: all 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
 }

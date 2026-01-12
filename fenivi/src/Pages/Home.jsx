@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
 import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
 import HeroCarousel from "../Components/HeroCarousel";
+
+gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
@@ -59,6 +63,133 @@ const Home = () => {
     };
   }, []);
 
+  // GSAP Animations for intro section
+  useEffect(() => {
+    // Animate intro text
+    gsap.fromTo(
+      ".intro-text",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "power2.out" }
+    );
+
+    // Animate stats grid boxes with stagger
+    gsap.fromTo(
+      ".stat-box",
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        delay: 0.4,
+        ease: "back.out",
+      }
+    );
+  }, []);
+
+  // GSAP Animations for scroll-triggered sections
+  useEffect(() => {
+    // Events cards scroll animation
+    const eventCards = gsap.utils.toArray(".event-card");
+    eventCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: index * 0.1,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "top 50%",
+            scrub: false,
+          },
+        }
+      );
+    });
+
+    // Articles cards scroll animation
+    const articleCards = gsap.utils.toArray(".article-card");
+    articleCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, scale: 0.9 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          delay: index * 0.08,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "top 50%",
+            scrub: false,
+          },
+        }
+      );
+    });
+
+    // Blogs cards scroll animation
+    const blogCards = gsap.utils.toArray(".blog-card");
+    blogCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, x: index % 2 === 0 ? -40 : 40 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: index * 0.08,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "top 50%",
+            scrub: false,
+          },
+        }
+      );
+    });
+
+    // Real World Evidence section
+    gsap.fromTo(
+      ".rwe-content",
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: ".rwe-content",
+          start: "top 80%",
+          end: "top 50%",
+          scrub: false,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      ".rwe-image",
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: ".rwe-image",
+          start: "top 80%",
+          end: "top 50%",
+          scrub: false,
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [events, articles, blogs]);
+
   return (
     <div className="w-full">
 
@@ -68,15 +199,15 @@ const Home = () => {
 
       {/* Intro Section - Moved Up */}
       <section
-        className="w-full relative py-16 md:py-24"
+        className="w-full relative section-padding"
         onMouseMove={handleMouseMove}
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
           transition: "background 0.3s ease-out",
         }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-2 items-center gap-16">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 items-center gap-12 lg:gap-16">
           {/* LEFT CONTENT */}
-          <div className="flex flex-col justify-center">
+          <div className="intro-text flex flex-col justify-center">
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-6">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory
               organization committed to bridging the gap between policy,
@@ -91,7 +222,7 @@ const Home = () => {
           {/* 2x2 STATS GRID (SYNCED WITH KNOWLEDGE HUB) */}
           <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5 xl:gap-6 w-full max-w-[650px] aspect-[4/3] md:aspect-square">
             {/* Box 1: Image + Label */}
-            <div className="overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white relative group">
+            <div className="stat-box overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white relative group hover-lift">
               <img
                 src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
                 alt="Impact Footprint"
@@ -104,7 +235,7 @@ const Home = () => {
             </div>
 
             {/* Box 2: Publications */}
-            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
               <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-600">
                 <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
               </div>
@@ -113,7 +244,7 @@ const Home = () => {
             </div>
 
             {/* Box 3: Years of Impact */}
-            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
               <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-indigo-600">
                 <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
               </div>
@@ -122,7 +253,7 @@ const Home = () => {
             </div>
 
             {/* Box 4: Strategic Reports */}
-            <div className="p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center">
+            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
               <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-700">
                 <FileText className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
               </div>
@@ -134,15 +265,15 @@ const Home = () => {
       </section>
 
       {/* ===== Events Section ===== */}
-      <section className="w-full py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      <section className="w-full section-padding bg-gray-50/50">
+        <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
                 Events
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
                 Join our global community for insightful workshops, hands-on
                 masterclasses, and networking events designed to boost your skills
                 and connections.
@@ -150,14 +281,14 @@ const Home = () => {
             </div>
 
             <Link to="/events">
-              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+              <button className="btn-primary mt-4 md:mt-0">
                 Explore more →
               </button>
             </Link>
           </div>
 
           {/* Events Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {eventsLoading && (
               <p className="col-span-4 text-center text-gray-500">
                 Loading events...
@@ -173,16 +304,16 @@ const Home = () => {
             {events.map((e) => (
               <div
                 key={e.id}
-                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                className="event-card card flex flex-col hover-lift">
                 {/* Image */}
-                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                <div className="relative h-44 w-full overflow-hidden">
                   <img
                     src={e.thumbnailUrl}
                     alt={e.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   {e.date && (
-                    <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                    <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
                       {new Date(e.date).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -193,11 +324,11 @@ const Home = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
-                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {e.title}
                   </h3>
-                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
                     {e.description}
                   </p>
                   {e.registrationUrl ? (
@@ -205,13 +336,13 @@ const Home = () => {
                       href={e.registrationUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                      className="btn-primary w-full text-center">
                       Register
                     </a>
                   ) : (
                     <Link
                       to={`/events/${e.id}`}
-                      className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                      className="btn-primary w-full text-center">
                       View Details
                     </Link>
                   )}
@@ -226,29 +357,29 @@ const Home = () => {
       </section>
 
       {/* ===== Articles Section ===== */}
-      <section className="w-full py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      <section className="w-full section-padding">
+        <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
                 Recent Evidence-Driven Projects
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
                 Discover our latest research studies, field insights, and
                 innovations driving sustainable and community-led development
                 across sectors.
               </p>
             </div>
             <Link to="/knowledge-hub">
-              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+              <button className="btn-primary mt-4 md:mt-0">
                 Explore more →
               </button>
             </Link>
           </div>
 
           {/* Articles Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {loading && (
               <p className="col-span-4 text-center text-gray-500">
                 Loading articles...
@@ -264,16 +395,16 @@ const Home = () => {
             {articles.map((a) => (
               <div
                 key={a.id}
-                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                className="article-card card flex flex-col hover-lift">
                 {/* Image */}
-                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                <div className="relative h-44 w-full overflow-hidden">
                   <img
                     src={a.thumbnailUrl}
                     alt={a.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   {a.publishedAt && (
-                    <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-purple-600 text-white text-xs md:text-[11px] px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
+                    <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
                       {new Date(a.publishedAt).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -284,17 +415,15 @@ const Home = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
-                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {a.title}
                   </h3>
-                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
                     {a.description}
                   </p>
-                  <Link to={`/article/${a.id}`} className="block w-full">
-                    <button className="w-full mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition">
-                      Read More
-                    </button>
+                  <Link to={`/article/${a.id}`} className="btn-primary w-full text-center">
+                    Read More
                   </Link>
                 </div>
               </div>
@@ -303,30 +432,30 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ===== Latest Blogs Section (Synced with Events) ===== */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      {/* ===== Latest Blogs Section ===== */}
+      <section className="w-full section-padding bg-white">
+        <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8 lg:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
                 Latest Blogs
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base md:text-sm lg:text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
                 Explore our latest insights, professional stories, and research updates
                 designed to keep you informed and inspired.
               </p>
             </div>
 
             <Link to="/knowledge-hub">
-              <button className="mt-4 md:mt-0 bg-blue-500 text-white font-medium px-5 md:px-5 lg:px-6 py-2.5 md:py-2 text-base md:text-sm lg:text-base rounded-full shadow-md hover:scale-105 transition-transform">
+              <button className="btn-primary mt-4 md:mt-0">
                 Explore more →
               </button>
             </Link>
           </div>
 
           {/* Blogs Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {blogsLoading && (
               <p className="col-span-4 text-center text-gray-500">
                 Loading blogs...
@@ -335,39 +464,37 @@ const Home = () => {
 
             {!blogsLoading && blogs.length === 0 && (
               <p className="col-span-4 text-center text-gray-500">
-                No articles available.
+                No blogs available.
               </p>
             )}
 
             {blogs.slice(0, 4).map((blog) => (
               <div
                 key={blog.id}
-                className="bg-white rounded-lg md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+                className="blog-card card flex flex-col hover-lift">
                 {/* Image */}
-                <div className="relative h-40 md:h-40 lg:h-44 w-full overflow-hidden">
+                <div className="relative h-44 w-full overflow-hidden">
                   <img
                     src={blog.thumbnailUrl}
                     alt={blog.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute top-2 left-2 md:top-3 md:left-3">
-                    <span className="bg-indigo-600 text-white text-xs md:text-[10px] uppercase font-bold px-2.5 md:px-3 py-1 md:py-1 rounded-full shadow-md">
-                      Blog
-                    </span>
-                  </div>
+                  <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full shadow-md">
+                    Blog
+                  </span>
                 </div>
 
                 {/* Content */}
-                <div className="p-4 md:p-4 lg:p-5 flex flex-col flex-1">
-                  <h3 className="text-base md:text-base lg:text-lg font-semibold text-gray-900 mb-1.5 line-clamp-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {blog.title}
                   </h3>
-                  <p className="text-sm md:text-sm text-gray-600 mb-3 md:mb-4 line-clamp-3">
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
                     {blog.description}
                   </p>
                   <Link
                     to={`/article/${blog.id}`}
-                    className="mt-auto bg-blue-500 text-white text-sm md:text-sm font-medium py-2 md:py-2 rounded-full hover:opacity-90 transition text-center block">
+                    className="btn-primary w-full text-center">
                     Read More
                   </Link>
                 </div>
@@ -378,15 +505,15 @@ const Home = () => {
       </section>
 
       {/* ===== Real World Evidence Section ===== */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="w-full section-padding bg-gray-50">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
-          <div>
-            <h2 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+          <div className="rwe-content">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Real-World Evidence
             </h2>
 
-            <p className="text-gray-700 text-lg leading-relaxed mb-8 text-left md:text-justify">
+            <p className="text-gray-600 text-lg leading-relaxed mb-8">
               Real-World Evidence (RWE) integrates clinical insights, hospital
               workflows, and large-scale health datasets to generate actionable
               knowledge for policymakers, researchers, and clinicians. The
@@ -402,13 +529,13 @@ const Home = () => {
                   "_blank"
                 )
               }
-              className="bg-blue-500 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-transform">
+              className="btn-primary">
               Learn More →
             </button>
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden shadow-xl">
+          <div className="rwe-image w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
             <img
               src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
               alt="Real World Evidence"

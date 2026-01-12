@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -110,6 +114,69 @@ export default function Projects() {
 
   const filteredProjects = getFilteredAndSortedProjects();
 
+  // GSAP Animations
+  useEffect(() => {
+    // Animate flip projects
+    gsap.fromTo(
+      ".flip-project",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        delay: 0.2,
+        ease: "power2.out",
+      }
+    );
+
+    // Animate project header
+    gsap.fromTo(
+      ".projects-header h2, .projects-header p",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        delay: 0.3,
+        ease: "power2.out",
+      }
+    );
+
+    // Animate search and sort controls
+    gsap.fromTo(
+      ".projects-controls",
+      { opacity: 0, x: 30 },
+      { opacity: 1, x: 0, duration: 0.6, delay: 0.5, ease: "power2.out" }
+    );
+
+    // Animate project cards on scroll
+    const projectCards = gsap.utils.toArray(".project-grid-card");
+    projectCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: (index % 4) * 0.1,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "top 50%",
+            scrub: false,
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [filteredProjects]);
+
   return (
     <div className="w-full min-h-screen">
       {/* === Static Flip Projects === */}
@@ -121,7 +188,7 @@ export default function Projects() {
           {staticProjects.map((p) => (
             <div
               key={p.id}
-              className="group relative h-[60vh] md:h-full w-full"
+              className="flip-project group relative h-[60vh] md:h-full w-full"
             >
               <div
                 className="relative h-full w-full transition-transform duration-700 ease-out group-hover:[transform:rotateY(180deg)]"
@@ -187,18 +254,18 @@ export default function Projects() {
 
 
       {/* === Dynamic Projects (from Firestore) === */}
-      <section className="w-full py-8 sm:py-12 md:py-14 lg:py-16 xl:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="w-full section-padding bg-gray-50">
+        <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 sm:mb-8 md:mb-10 gap-4 sm:gap-6">
+          <div className="projects-header flex flex-col md:flex-row md:items-start md:justify-between mb-8 md:mb-10 gap-6">
             <div>
-              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-semibold text-gray-900 mb-2 sm:mb-3">
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
                 Projects & Impact
               </h2>
-              <p className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-base lg:text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
                 Shaping Change Through Research and Collaboration
               </p>
-              <p className="text-gray-600 max-w-3xl mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-sm lg:text-sm leading-relaxed">
+              <p className="text-gray-500 max-w-3xl mt-3 text-sm leading-relaxed">
                 Fenivi's projects span hydrology, public health, sustainability,
                 and social development — combining technical expertise with local
                 knowledge to deliver measurable impact.
@@ -206,7 +273,7 @@ export default function Projects() {
             </div>
 
             {/* Search and Sort Controls */}
-            <div className="flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
+            <div className="projects-controls flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
               {/* Search Bar - Always Visible */}
               <div className="relative w-full md:w-96">
                 <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
@@ -303,7 +370,7 @@ export default function Projects() {
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {loading && (
               <p className="col-span-4 text-center text-gray-500">
                 Loading projects...
@@ -319,17 +386,17 @@ export default function Projects() {
             {filteredProjects.map((p) => (
               <div
                 key={p.id}
-                className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+                className="project-grid-card card flex flex-col hover-lift"
               >
                 {/* Image */}
-                <div className="relative h-36 sm:h-44 lg:h-48 xl:h-52 w-full overflow-hidden">
+                <div className="relative h-44 w-full overflow-hidden">
                   <img
                     src={p.thumbnailUrl}
                     alt={p.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   {p.date && (
-                    <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-purple-600 text-white text-[10px] sm:text-[11px] px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
+                    <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
                       {new Date(p.date).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -344,9 +411,9 @@ export default function Projects() {
                         e.preventDefault();
                         navigate(`/admin/edit-project/${p.id}`);
                       }}
-                      className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white hover:bg-gray-100 text-gray-800 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-medium shadow-lg transition-all flex items-center gap-1"
+                      className="absolute top-3 right-3 bg-white hover:bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-xs font-medium shadow-lg transition-all flex items-center gap-1"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                       </svg>
                       Edit
@@ -355,16 +422,16 @@ export default function Projects() {
                 </div>
 
                 {/* Content */}
-                <div className="p-3 sm:p-4 lg:p-4 xl:p-5 flex flex-col flex-1">
-                  <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {p.title}
                   </h3>
-                  <p className="text-xs sm:text-sm lg:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3">
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
                     {p.description}
                   </p>
                   <Link
                     to={`/projects/${p.id}`}
-                    className="mt-auto bg-black text-white text-xs sm:text-sm font-medium py-1.5 sm:py-2 rounded-full hover:opacity-90 transition text-center block"
+                    className="btn-primary w-full text-center"
                   >
                     View Project
                   </Link>

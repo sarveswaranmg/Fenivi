@@ -14,14 +14,14 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center py-20 md:py-24 px-5 md:px-8">
-      <div className="w-full max-w-[1440px] mx-auto lg:px-10">
+    <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center section-padding">
+      <div className="w-full page-container">
         {/* Header Section */}
-        <div className="text-center pb-6">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-700 mb-2 md:mb-3">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-purple-700 mb-3">
             Contact Us
           </h1>
-          <p className="text-base md:text-lg text-gray-700">
+          <p className="text-lg text-gray-700">
             Any question or remarks? Just write us a message!
           </p>
         </div>
