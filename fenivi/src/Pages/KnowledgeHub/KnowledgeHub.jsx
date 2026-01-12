@@ -3,7 +3,10 @@ import ArticleCard from "./Components/ArticleCard.jsx";
 import { db } from "../../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { gsap } from "gsap";
-import { BookOpen, FileText, BarChart3, Newspaper } from "lucide-react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BookOpen, FileText, BarChart3, Newspaper, ArrowUpRight } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function KnowledgeHub() {
   const [articles, setArticles] = useState([]);
@@ -18,7 +21,6 @@ export default function KnowledgeHub() {
   const [blogSearchQuery, setBlogSearchQuery] = useState("");
   const [blogSortOrder, setBlogSortOrder] = useState("newest");
   const [showBlogSortMenu, setShowBlogSortMenu] = useState(false);
-  const rowRefs = useRef([]);
 
   // Firestore fetching
   useEffect(() => {
@@ -101,55 +103,82 @@ export default function KnowledgeHub() {
   const filteredArticles = getProcessedItems(articles, searchQuery, sortOrder);
   const filteredBlogs = getProcessedItems(blogs, blogSearchQuery, blogSortOrder);
 
-  // GSAP animation
+  // GSAP Animations
   useEffect(() => {
-    const rows = rowRefs.current.filter(Boolean);
-    if (rows.length === 0) return;
-
-    const hoverCapable = window.matchMedia("(hover: hover)").matches;
-
-    const cleanups = rows.map((row) => {
-      const wrapper = row.querySelector(".flip-wrapper");
-      const front = row.querySelector(".flip-front");
-      const back = row.querySelector(".flip-back");
-
-      gsap.set(row, { perspective: 1000 });
-      gsap.set(wrapper, { transformStyle: "preserve-3d" });
-      gsap.set(front, { backfaceVisibility: "hidden", rotateX: 0 });
-      gsap.set(back, { backfaceVisibility: "hidden", rotateX: 180 });
-
-      const toFront = () =>
-        gsap.to(wrapper, { rotateX: 0, duration: 0.6, ease: "power3.out" });
-      const toBack = () =>
-        gsap.to(wrapper, { rotateX: 180, duration: 0.6, ease: "power3.out" });
-
-      let onEnter, onLeave, onClick;
-
-      if (hoverCapable) {
-        onEnter = () => toBack();
-        onLeave = () => toFront();
-        row.addEventListener("mouseenter", onEnter);
-        row.addEventListener("mouseleave", onLeave);
-      } else {
-        onClick = () => {
-          const flipped = row.classList.toggle("is-flipped");
-          flipped ? toBack() : toFront();
-        };
-        row.addEventListener("click", onClick);
-      }
-
-      return () => {
-        if (hoverCapable) {
-          row.removeEventListener("mouseenter", onEnter);
-          row.removeEventListener("mouseleave", onLeave);
-        } else {
-          row.removeEventListener("click", onClick);
+    const ctx = gsap.context(() => {
+      // Hero Animation
+      const tl = gsap.timeline();
+      tl.fromTo(
+        ".hero-text-element",
+        { y: 30, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
         }
-      };
+      ).fromTo(
+        ".hero-card-element",
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+        "-=0.5"
+      );
+
+      // RWE Section Animation
+      gsap.fromTo(
+        ".rwe-text",
+        { x: -50, autoAlpha: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#rwe-section",
+            start: "top 80%",
+          },
+          x: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
+      gsap.fromTo(
+        ".rwe-image",
+        { x: 50, autoAlpha: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#rwe-section",
+            start: "top 80%",
+          },
+          x: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.2,
+        }
+      );
+
+      // Section Headers
+      gsap.utils.toArray(".section-header").forEach((header) => {
+        gsap.from(header, {
+          scrollTrigger: {
+            trigger: header,
+            start: "top 85%",
+          },
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      });
     });
 
-    return () => cleanups.forEach((fn) => fn && fn());
-  }, [filteredArticles]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div className="w-full min-h-screen text-gray-800">
@@ -159,10 +188,10 @@ export default function KnowledgeHub() {
         <div className="page-container flex flex-col md:flex-row items-center gap-12 lg:gap-20">
           {/* LEFT */}
           <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+            <h1 className="hero-text-element text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
               Turning Data into Knowledge
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
+            <p className="hero-text-element text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
               Fenivi Research Solutions bridges the gap between policy, practice,
               and community needs through actionable research and evidence-based
               insights that drive sustainable change.
@@ -173,27 +202,48 @@ export default function KnowledgeHub() {
           <div className="w-full md:w-1/2 flex justify-center items-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-[650px]">
               {/* IMAGE CARD */}
-              <div className="relative overflow-hidden rounded-3xl shadow-sm bg-gray-50 group cursor-pointer hover-lift h-[280px]">
+              <div
+                onClick={() => {
+                  const element = document.getElementById("blogs-section");
+                  if (element) {
+                    const offset = 100;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - offset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
+                className="hero-card-element relative overflow-hidden rounded-3xl shadow-md bg-gray-900 group cursor-pointer h-[280px]"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
                   alt="Knowledge Hub"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-60"
                 />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <button
-                    onClick={() => {
-                      const element = document.getElementById("blogs-section");
-                      if (element) element.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="bg-white text-gray-900 font-bold px-5 py-2 rounded-full text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all"
-                  >
-                    Read Blogs
-                  </button>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <div className="flex items-end justify-between w-full">
+                    <div className="flex flex-col">
+                      <h3 className="text-white text-3xl font-bold leading-tight drop-shadow-sm">
+                        Blogs
+                      </h3>
+                      <p className="text-gray-300 text-sm mt-1 font-medium max-w-[120px]">
+                        Stories from the field
+                      </p>
+                    </div>
+
+                    <button className="bg-white text-gray-900 font-bold px-6 py-2.5 rounded-full text-sm shadow-xl hover:bg-gray-100 transition-all transform hover:scale-105 whitespace-nowrap">
+                      Read Now
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* CARD 1: Publications */}
-              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -206,7 +256,7 @@ export default function KnowledgeHub() {
               </div>
 
               {/* CARD 2: Conference */}
-              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <BarChart3 className="w-8 h-8 text-indigo-600 mb-4" />
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -219,7 +269,7 @@ export default function KnowledgeHub() {
               </div>
 
               {/* CARD 3: Reports */}
-              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <FileText className="w-8 h-8 text-purple-700 mb-4" />
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -236,11 +286,11 @@ export default function KnowledgeHub() {
       </section>
 
       {/* Content Section */}
-      <section id="articles-section" className="w-full py-12 md:py-16 lg:py-20">
+      <section id="rwe-section" className="w-full py-12 md:py-16 lg:py-20">
         <div className="page-container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* LEFT CONTENT - REAL WORLD EVIDENCE */}
-            <div>
+            <div className="rwe-text">
               <h2 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                 Real-World Evidence
               </h2>
@@ -268,7 +318,7 @@ export default function KnowledgeHub() {
             </div>
 
             {/* RIGHT - IMAGE HIGHLIGHT */}
-            <div className="relative rounded-3xl overflow-hidden shadow-xl h-[400px]">
+            <div className="rwe-image relative rounded-3xl overflow-hidden shadow-xl h-[400px]">
               <img
                 src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1000&auto=format&fit=crop"
                 alt="Real World Evidence"
@@ -283,7 +333,7 @@ export default function KnowledgeHub() {
       <section id="articles-section" className="page-container pb-12 sm:pb-16 lg:pb-20">
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
-          <div>
+          <div className="section-header">
             <h2 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold text-gray-900">
               Latest Articles
             </h2>
@@ -423,7 +473,7 @@ export default function KnowledgeHub() {
       <section id="blogs-section" className="page-container pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100">
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
-          <div>
+          <div className="section-header">
             <h2 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold text-gray-900">
               Latest Blogs
             </h2>
