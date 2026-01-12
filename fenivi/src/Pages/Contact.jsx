@@ -85,7 +85,9 @@ export default function Contact() {
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                     </div>
-                    <span className="text-sm md:text-sm">+91-81486 99354</span>
+                    <a href="tel:+919840287857" className="text-sm md:text-sm hover:text-purple-200 transition-colors">
+                      +91 98402 87857
+                    </a>
                   </div>
 
                   {/* Email */}
@@ -100,7 +102,9 @@ export default function Contact() {
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                       </svg>
                     </div>
-                    <span className="text-sm md:text-sm">demo@gmail.com</span>
+                    <a href="mailto:demo@fenivi.com" className="text-sm md:text-sm hover:text-purple-200 transition-colors">
+                      demo@fenivi.com
+                    </a>
                   </div>
 
                   {/* Address */}
@@ -118,11 +122,16 @@ export default function Contact() {
                         />
                       </svg>
                     </div>
-                    <span className="text-sm md:text-sm leading-relaxed">
-                      Fenivi Research Solutions Pvt. Ltd. <br />
-                      9/56C, ISRO Road, Kavalkinaru Junction, Tirunelveli
-                      District, Pin: 627105
-                    </span>
+                    <div className="flex flex-col gap-4">
+                      <div className="text-sm md:text-sm leading-relaxed">
+                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">Main Office</p>
+                        9/56C, ISRO Road, Kavalkinaru Junction, Tirunelveli District, Pin: 627105
+                      </div>
+                      <div className="text-sm md:text-sm leading-relaxed">
+                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">Admin Office</p>
+                        No 68, Svastika Star Apartment, A Block G1, Krishnaveni Ammal Nagar, Iyyapanthangal, Chennai - 600056
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -194,7 +203,7 @@ export default function Contact() {
 
                   {/* Email */}
                   <a
-                    href="mailto:demo@gmail.com"
+                    href="mailto:demo@fenivi.com"
                     className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
                   >
                     <svg
@@ -216,7 +225,7 @@ export default function Contact() {
             {/* Right Side - Contact Form */}
             <div className="lg:col-span-3 p-5 md:p-8">
               <form
-                action="https://formsubmit.co/sarveswaranmg@gmail.com"
+                action="https://formsubmit.co/demo@fenivi.com"
                 method="POST"
                 className="space-y-4 md:space-y-5"
               >

@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import vidhubala from "../../../assets/Team/Vidhubala.png";
 import femil from "../../../assets/Team/Femil.jpeg";
 
 export default function TeamSection() {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const cardsRefs = useRef([]);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -10% 0px'
+    };
+
+    const animateOnScroll = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+
+    if (titleRef.current) observer.observe(titleRef.current);
+    if (subtitleRef.current) observer.observe(subtitleRef.current);
+    cardsRefs.current.forEach(card => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const team = [
     { name: "Dr. Vidhubala E", role: "Founder & Director", img: vidhubala },
     { name: "Dr. E. S. Femil", role: "Director", img: femil },
@@ -15,11 +44,17 @@ export default function TeamSection() {
     <section className="w-full py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
       {/* Header */}
       <div className="text-center mb-10 sm:mb-12 md:mb-14">
-
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mt-2">
+        <h2
+          ref={titleRef}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mt-2 opacity-0 translate-y-8 transition-all duration-700 ease-out"
+        >
           Our Dedicated Research & Development Team
         </h2>
-        <p className="text-gray-600 mt-3 md:mt-4 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed px-4">
+        <p
+          ref={subtitleRef}
+          className="text-gray-600 mt-3 md:mt-4 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed px-4 opacity-0 translate-y-6 transition-all duration-700 ease-out"
+          style={{ transitionDelay: '200ms' }}
+        >
           A passionate group of scientists, data experts, and social researchers
           working together to translate evidence into sustainable change.
         </p>
@@ -30,7 +65,9 @@ export default function TeamSection() {
         {team.map((member, index) => (
           <div
             key={index}
-            className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-md bg-white"
+            ref={el => cardsRefs.current[index] = el}
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-md bg-white opacity-0 translate-y-10 transition-all duration-700 ease-out"
+            style={{ transitionDelay: `${300 + index * 100}ms` }}
           >
             <img
               src={member.img}

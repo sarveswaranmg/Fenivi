@@ -419,3 +419,12 @@ body {
 .hover-glow:hover {
   box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
 }
+
+/* ========================================
+   SCROLL ANIMATIONS FOR ABOUT PAGE
+   ======================================== */
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+}

@@ -149,7 +149,7 @@ export default function Footer() {
           <ul className="space-y-1.5">
             <li>
               <a
-                href="mailto:sarveswaranmg@gmail.com"
+                href="mailto:demo@fenivi.com"
                 className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
                 Email Us
               </a>

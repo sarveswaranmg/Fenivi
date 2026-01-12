@@ -1,15 +1,50 @@
+import React, { useEffect, useRef } from "react";
 import { FaInstagram, FaLinkedinIn, FaEnvelope } from "react-icons/fa";
 import vidhubalaImg from "../../../assets/Team/Vidhubala.png";
 
 export default function Vidhubala() {
+  const cardRef = useRef(null);
+  const imageRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -10% 0px'
+    };
+
+    const animateOnScroll = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+
+    if (cardRef.current) observer.observe(cardRef.current);
+    if (imageRef.current) observer.observe(imageRef.current);
+    if (textRef.current) observer.observe(textRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="w-full bg-white py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
+    <section className="w-full py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {/* SINGLE BOX WITH IMAGE LEFT AND TEXT RIGHT */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8">
+        <div
+          ref={cardRef}
+          className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 opacity-0 scale-95 transition-all duration-1000 ease-out"
+        >
 
           {/* LEFT - IMAGE SECTION */}
-          <div className="flex flex-col items-center space-y-3 md:space-y-4 md:w-64 lg:w-72 flex-shrink-0">
+          <div
+            ref={imageRef}
+            className="flex flex-col items-center space-y-3 md:space-y-4 md:w-64 lg:w-72 flex-shrink-0 opacity-0 -translate-x-8 transition-all duration-1000 ease-out"
+            style={{ transitionDelay: '200ms' }}
+          >
             <img
               src={vidhubalaImg}
               alt="Dr. E. Vidhubala"
@@ -43,7 +78,11 @@ export default function Vidhubala() {
           </div>
 
           {/* RIGHT - TEXT SECTION */}
-          <div className="flex-1 space-y-3 md:space-y-4">
+          <div
+            ref={textRef}
+            className="flex-1 space-y-3 md:space-y-4 opacity-0 translate-x-8 transition-all duration-1000 ease-out"
+            style={{ transitionDelay: '400ms' }}
+          >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900">
               Dr. E. Vidhubala
             </h2>
