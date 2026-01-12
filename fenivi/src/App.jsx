@@ -28,6 +28,7 @@ import ProjectDetails from "./Pages/ProjectDetails";
 import Home1 from "./Pages/Home1.jsx";
 import Courses from "./Pages/Courses.jsx";
 import ContactButton from "./Components/ContactButton.jsx";
+import MouseGlow from "./Components/MouseGlow.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 function AppContent() {
@@ -41,6 +42,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
+      <MouseGlow />
       {!isAdminPage && <Navbar />}
       {!isAdminPage && <ContactButton />}
       <Routes>

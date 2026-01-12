@@ -87,7 +87,7 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-white">
+    <section className="w-full min-h-screen">
       {/* Hero Section */}
       <div className="services-hero page-container pt-28 pb-16 md:pt-32 md:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">

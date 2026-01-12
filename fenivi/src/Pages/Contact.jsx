@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const [formData, setFormData] = useState({
+    subject: "General Inquiry",
+    message: ""
+  });
+
   useEffect(() => {
     // Check if redirected back with success parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -11,10 +16,24 @@ export default function Contact() {
       // Clear the URL parameter
       window.history.replaceState({}, "", window.location.pathname);
     }
+
+    // Pre-fill from query parameters
+    const subjectParam = urlParams.get("subject");
+    const courseParam = urlParams.get("course");
+
+    if (subjectParam || courseParam) {
+      setFormData(prev => ({
+        ...prev,
+        subject: subjectParam || prev.subject,
+        message: courseParam
+          ? `I would like to inquire about the ${courseParam}.`
+          : prev.message
+      }));
+    }
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-purple-100 to-pink-100 flex items-center justify-center section-padding">
+    <div className="min-h-screen w-full flex items-center justify-center section-padding">
       <div className="w-full page-container">
         {/* Header Section */}
         <div className="text-center mb-8">
@@ -289,12 +308,13 @@ export default function Contact() {
                           type="radio"
                           name="subject"
                           value={item}
+                          checked={formData.subject === item}
                           className="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500"
                           onChange={(e) => {
+                            setFormData(prev => ({ ...prev, subject: e.target.value }));
                             if (e.target.value === "Course") {
-                              const messageArea = document.querySelector('textarea[name="message"]');
-                              if (messageArea && !messageArea.value) {
-                                messageArea.value = "I am interested in such and such course";
+                              if (!formData.message) {
+                                setFormData(prev => ({ ...prev, message: "I am interested in such and such course" }));
                               }
                             }
                           }}
@@ -314,6 +334,8 @@ export default function Contact() {
                     name="message"
                     placeholder="Write your message.."
                     rows="3"
+                    value={formData.message}
+                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                     className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm resize-none transition-colors"
                   ></textarea>
                 </div>

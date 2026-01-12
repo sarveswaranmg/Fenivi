@@ -254,7 +254,7 @@ export default function Projects() {
 
 
       {/* === Dynamic Projects (from Firestore) === */}
-      <section className="w-full section-padding bg-gray-50">
+      <section className="w-full section-padding">
         <div className="page-container">
           {/* Header */}
           <div className="projects-header flex flex-col md:flex-row md:items-start md:justify-between mb-8 md:mb-10 gap-6">

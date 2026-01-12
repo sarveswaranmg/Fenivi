@@ -26,33 +26,52 @@
   --color-bg-accent: #faf5ff;
 
   /* Consistent Spacing - Page Margins */
-  --page-padding-mobile: 1.5rem;      /* 24px */
-  --page-padding-tablet: 2rem;        /* 32px */
-  --page-padding-desktop: 3rem;       /* 48px */
+  --page-padding-mobile: 1.5rem;
+  /* 24px */
+  --page-padding-tablet: 2rem;
+  /* 32px */
+  --page-padding-desktop: 3rem;
+  /* 48px */
 
   /* Container */
-  --container-max-width: 80rem;       /* 1280px */
+  --container-max-width: 80rem;
+  /* 1280px */
 
   /* Section Spacing */
-  --section-padding-y-mobile: 4rem;   /* 64px */
-  --section-padding-y-desktop: 6rem;  /* 96px */
+  --section-padding-y-mobile: 4rem;
+  /* 64px */
+  --section-padding-y-desktop: 6rem;
+  /* 96px */
 
   /* Typography Scale */
-  --text-xs: 0.75rem;                 /* 12px */
-  --text-sm: 0.875rem;                /* 14px */
-  --text-base: 1rem;                  /* 16px */
-  --text-lg: 1.125rem;                /* 18px */
-  --text-xl: 1.25rem;                 /* 20px */
-  --text-2xl: 1.5rem;                 /* 24px */
-  --text-3xl: 1.875rem;               /* 30px */
-  --text-4xl: 2.25rem;                /* 36px */
-  --text-5xl: 3rem;                   /* 48px */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.875rem;
+  /* 14px */
+  --text-base: 1rem;
+  /* 16px */
+  --text-lg: 1.125rem;
+  /* 18px */
+  --text-xl: 1.25rem;
+  /* 20px */
+  --text-2xl: 1.5rem;
+  /* 24px */
+  --text-3xl: 1.875rem;
+  /* 30px */
+  --text-4xl: 2.25rem;
+  /* 36px */
+  --text-5xl: 3rem;
+  /* 48px */
 
   /* Border Radius */
-  --radius-sm: 0.5rem;                /* 8px */
-  --radius-md: 0.75rem;               /* 12px */
-  --radius-lg: 1rem;                  /* 16px */
-  --radius-xl: 1.5rem;                /* 24px */
+  --radius-sm: 0.5rem;
+  /* 8px */
+  --radius-md: 0.75rem;
+  /* 12px */
+  --radius-lg: 1rem;
+  /* 16px */
+  --radius-xl: 1.5rem;
+  /* 24px */
   --radius-full: 9999px;
 
   /* Shadows */
@@ -69,12 +88,15 @@
 
 /* Apply fonts */
 body {
-  font-family: "Poppins", ui-sans-serif, system-ui;
+  font-family: "Poppins",
+    ui-sans-serif,
+    system-ui;
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 #KNH {
   font-family: "Instrument Sans", ui-sans-serif, system-ui;
@@ -115,6 +137,13 @@ body {
 }
 
 @media (min-width: 768px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
   .section-padding {
     padding-top: var(--section-padding-y-desktop);
     padding-bottom: var(--section-padding-y-desktop);
@@ -183,6 +212,7 @@ body {
   0% {
     transform: translateX(-100%) skewX(-15deg);
   }
+
   100% {
     transform: translateX(200%) skewX(-15deg);
   }
@@ -192,34 +222,32 @@ body {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
 
 .animate-gradient-premium {
-  background: radial-gradient(
-    circle at 30% 20%,
-    #7b2ff7,
-    #9d50bb 30%,
-    #5304a3 60%,
-    #2e026d 90%
-  );
+  background: radial-gradient(circle at 30% 20%,
+      #7b2ff7,
+      #9d50bb 30%,
+      #5304a3 60%,
+      #2e026d 90%);
   background-size: 200% 200%;
   animation: gradient-luxury 12s ease-in-out infinite;
 }
 
 .animate-gradient-shape {
-  background: radial-gradient(
-    circle at 30% 20%,
-    #7b2ff7,
-    #9d50bb 30%,
-    #5304a3 60%,
-    #2e026d 90%
-  );
+  background: radial-gradient(circle at 30% 20%,
+      #7b2ff7,
+      #9d50bb 30%,
+      #5304a3 60%,
+      #2e026d 90%);
   background-size: 200% 200%;
   animation: gradient-luxury 15s ease-in-out infinite;
   -webkit-mask: url("/wave-shape.svg") no-repeat center;
@@ -237,6 +265,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -248,6 +277,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -260,6 +290,7 @@ body {
     opacity: 0;
     transform: translateX(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -272,6 +303,7 @@ body {
     opacity: 0;
     transform: translateX(50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -284,6 +316,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -296,9 +329,11 @@ body {
     opacity: 0;
     transform: scale(0.8);
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -307,9 +342,12 @@ body {
 
 /* Glow Animation */
 @keyframes glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
   }
+
   50% {
     box-shadow: 0 0 20px rgba(124, 58, 237, 0.8);
   }
@@ -317,9 +355,12 @@ body {
 
 /* Float Animation */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -327,9 +368,12 @@ body {
 
 /* Pulse Animation */
 @keyframes pulse-custom {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }

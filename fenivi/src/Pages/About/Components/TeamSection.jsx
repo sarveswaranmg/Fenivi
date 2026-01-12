@@ -12,7 +12,7 @@ export default function TeamSection() {
   ];
 
   return (
-    <section className="w-full bg-gray-50 py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
+    <section className="w-full py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
       {/* Header */}
       <div className="text-center mb-10 sm:mb-12 md:mb-14">
 

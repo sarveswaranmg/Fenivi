@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutOverview() {
   return (
-    <section className="w-full bg-white py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
+    <section className="w-full py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 items-stretch">
         {/* LEFT: TEXT CARD */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6 md:p-7 lg:p-8 h-full flex flex-col">

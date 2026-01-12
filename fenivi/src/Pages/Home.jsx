@@ -12,20 +12,12 @@ import HeroCarousel from "../Components/HeroCarousel";
 
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [articles, setArticles] = useState([]);
   const [events, setEvents] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventsLoading, setEventsLoading] = useState(true);
   const [blogsLoading, setBlogsLoading] = useState(true);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePosition({ x, y });
-  };
 
   useEffect(() => {
     if (!db) {
@@ -198,13 +190,7 @@ const Home = () => {
       <HeroCarousel />
 
       {/* Intro Section - Moved Up */}
-      <section
-        className="w-full relative section-padding"
-        onMouseMove={handleMouseMove}
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #f0e8f8 0%, #ffffff 50%)`,
-          transition: "background 0.3s ease-out",
-        }}>
+      <section className="w-full relative py-12 lg:py-20">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 items-center gap-12 lg:gap-16">
           {/* LEFT CONTENT */}
           <div className="intro-text flex flex-col justify-center">
@@ -265,7 +251,7 @@ const Home = () => {
       </section>
 
       {/* ===== Events Section ===== */}
-      <section className="w-full section-padding bg-gray-50/50">
+      <section className="w-full py-12 lg:py-20">
         <div className="page-container">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
@@ -352,12 +338,12 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="w-full pt-8 md:pt-12">
+      <section className="w-full py-4 lg:py-8">
         <StatsShowcase />
       </section>
 
       {/* ===== Articles Section ===== */}
-      <section className="w-full section-padding">
+      <section className="w-full py-12 lg:py-20">
         <div className="page-container">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
@@ -433,7 +419,7 @@ const Home = () => {
       </section>
 
       {/* ===== Latest Blogs Section ===== */}
-      <section className="w-full section-padding bg-white">
+      <section className="w-full py-12 lg:py-20">
         <div className="page-container">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
@@ -505,7 +491,7 @@ const Home = () => {
       </section>
 
       {/* ===== Real World Evidence Section ===== */}
-      <section className="w-full section-padding bg-gray-50">
+      <section className="w-full py-12 lg:py-20">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
           <div className="rwe-content">

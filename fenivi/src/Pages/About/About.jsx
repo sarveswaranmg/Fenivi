@@ -8,7 +8,7 @@ export default function About() {
   return (
     <div className="w-full min-h-screen">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative w-full pt-28 pb-16 md:pt-32 md:pb-20 bg-white overflow-hidden">
+      <section className="relative w-full pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
         <div className="page-container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Text Side */}
           <div className="relative z-10">
@@ -40,7 +40,7 @@ export default function About() {
       <TeamSection />
 
       {/* ===== PARTNERS SECTION ===== */}
-      <section className="w-full section-padding bg-gray-50">
+      <section className="w-full section-padding">
         <div className="page-container">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">Our Partners</h2>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">

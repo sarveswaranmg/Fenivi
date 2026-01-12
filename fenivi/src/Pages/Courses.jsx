@@ -50,9 +50,7 @@ export default function Courses() {
                   professionals.
                 </p>
 
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium p-6 bg-purple-50 rounded-3xl border border-purple-100">
-                  Our comprehensive curriculum bridges the gap between theoretical knowledge and practical application, empowering aspiring researchers with the essential tools, methodologies, and ethical frameworks needed to excel in today's dynamic scientific landscape.
-                </p>
+
               </div>
             </div>
 
@@ -110,8 +108,12 @@ export default function Courses() {
                   </div>
                 </div>
 
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Explore the psychological impact of cancer and master research techniques to improve patient care and psychosocial outcomes.
+                </p>
+
                 <a
-                  href="/courses/psycho-oncology-research"
+                  href="/contact?subject=Course&course=Certificate Course in Psycho-Oncology Research"
                   className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-purple-600 rounded-lg font-medium text-xs sm:text-sm hover:bg-purple-50 transition"
                 >
                   Learn More
@@ -158,8 +160,12 @@ export default function Courses() {
                   </div>
                 </div>
 
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Master the art of designing robust studies, analyzing data, and crafting high-impact scientific manuscripts for international journals.
+                </p>
+
                 <a
-                  href="/courses/research-methodology-scientific-writing"
+                  href="/contact?subject=Course&course=Certificate Course in Research Methodology %26 Scientific Writing"
                   className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-purple-600 rounded-lg font-medium text-xs sm:text-sm hover:bg-purple-50 transition"
                 >
                   Learn More
@@ -205,8 +211,12 @@ export default function Courses() {
                   </div>
                 </div>
 
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Intensive, hands-on sessions focusing on specific tools like SPSS, R programming, ethical reviews, and systematic literature reviews.
+                </p>
+
                 <a
-                  href="/courses/research-skill-workshops"
+                  href="/contact?subject=Course&course=Short-Term Research Skill Workshops"
                   className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-purple-600 rounded-lg font-medium text-xs sm:text-sm hover:bg-purple-50 transition"
                 >
                   Learn More
@@ -252,8 +262,12 @@ export default function Courses() {
                   </div>
                 </div>
 
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Empowering educators and institutions with advanced pedagogical tools, research leadership skills, and strategies for academic excellence.
+                </p>
+
                 <a
-                  href="/courses/faculty-development-programs"
+                  href="/contact?subject=Course&course=Faculty Development %26 Institutional Programs"
                   className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-purple-600 rounded-lg font-medium text-xs sm:text-sm hover:bg-purple-50 transition"
                 >
                   Learn More
@@ -299,8 +313,12 @@ export default function Courses() {
                   </div>
                 </div>
 
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Personalized guidance from experts to help you navigate thesis development, secure research funding, and publish in top-tier journals.
+                </p>
+
                 <a
-                  href="/courses/mentorship-programs"
+                  href="/contact?subject=Course&course=Mentorship for Thesis, Grant Writing %26 Publications"
                   className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-purple-600 rounded-lg font-medium text-xs sm:text-sm hover:bg-purple-50 transition"
                 >
                   Learn More
@@ -347,6 +365,10 @@ export default function Courses() {
                     </p>
                   </div>
                 </div>
+
+                <p className="text-gray-200 text-[11px] sm:text-xs mb-4 line-clamp-3 leading-relaxed">
+                  Stay tuned for more specialized programs in clinical research, data science, and academic professional development.
+                </p>
 
                 <button
                   disabled
@@ -425,10 +447,10 @@ export default function Courses() {
                       </a>
                     )}
                     <a
-                      href={`/courses/${course.id}`}
+                      href={`/contact?subject=Course&course=${encodeURIComponent(course.title)}`}
                       className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-full font-medium text-xs sm:text-sm hover:bg-gray-100 transition"
                     >
-                      Learn More
+                      Enquire More
                     </a>
                   </div>
                 </div>

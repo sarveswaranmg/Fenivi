@@ -153,9 +153,9 @@ export default function Events() {
   }, [filteredEvents]);
 
   return (
-    <div className="w-full bg-white text-gray-900 min-h-screen">
+    <div className="w-full text-gray-900 min-h-screen">
       {/* ===== Header Section ===== */}
-      <section className="events-header w-full pt-28 pb-16 md:pt-32 md:pb-20 text-center bg-white">
+      <section className="events-header w-full pt-28 pb-16 md:pt-32 md:pb-20 text-center">
         <div className="page-container">
           <h1 className="text-3xl md:text-4xl font-bold mb-3">
             Grow Your Network & Skills

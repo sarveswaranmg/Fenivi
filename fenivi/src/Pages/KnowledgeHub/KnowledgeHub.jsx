@@ -152,78 +152,83 @@ export default function KnowledgeHub() {
   }, [filteredArticles]);
 
   return (
-    <div className="w-full min-h-screen bg-white text-gray-800">
+    <div className="w-full min-h-screen text-gray-800">
       {/* HERO */}
-      <section className="min-h-screen md:h-[110vh] w-full bg-gradient-to-r from-[#f8f9ff] to-[#f3f4fc] flex flex-col md:flex-row items-center justify-center px-4 sm:px-6 md:px-12 lg:px-12 pt-20 md:pt-0 pb-8 md:pb-0">
-        {/* LEFT */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-4 md:space-y-6 mb-6 md:mb-0 max-w-[1440px] mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl font-extrabold text-gray-900 leading-tight">
-            Turning Data into Knowledge
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-lg xl:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
-            Fenivi Research Solutions bridges the gap between policy, practice,
-            and community needs through actionable research and evidence-based
-            insights that drive sustainable change.
-          </p>
-        </div>
+      {/* HERO */}
+      <section className="min-h-screen md:h-[90vh] w-full flex items-center pt-24 pb-12">
+        <div className="page-container flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+          {/* LEFT */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+              Turning Data into Knowledge
+            </h1>
+            <p className="text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
+              Fenivi Research Solutions bridges the gap between policy, practice,
+              and community needs through actionable research and evidence-based
+              insights that drive sustainable change.
+            </p>
+          </div>
 
-        {/* RIGHT */}
-        <div className="w-full md:w-1/2 flex justify-center items-center">
-          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5 xl:gap-6 w-[95%] sm:w-[90%] max-w-[650px] h-[380px] sm:h-[420px] lg:h-[460px] xl:h-[520px]">
-            <div className="relative overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white group cursor-pointer">
-              <img
-                src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-                alt="Knowledge Hub"
-                className="w-full h-full object-cover rounded-3xl group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 text-center">
-                <button
-                  onClick={() => {
-                    const element = document.getElementById("blogs-section");
-                    if (element) element.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="bg-white text-gray-900 font-bold px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm hover:bg-purple-600 hover:text-white transition-all transform hover:scale-105 shadow-xl"
-                >
-                  Go to Blogs
-                </button>
+          {/* RIGHT */}
+          <div className="w-full md:w-1/2 flex justify-center items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-[650px]">
+              {/* IMAGE CARD */}
+              <div className="relative overflow-hidden rounded-3xl shadow-sm bg-gray-50 group cursor-pointer hover-lift h-[280px]">
+                <img
+                  src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
+                  alt="Knowledge Hub"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <button
+                    onClick={() => {
+                      const element = document.getElementById("blogs-section");
+                      if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-white text-gray-900 font-bold px-5 py-2 rounded-full text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all"
+                  >
+                    Read Blogs
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* Cards */}
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-purple-600 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  200+ Publications
-                </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
-                  Research papers, policy briefs, and scientific articles.
-                </p>
+              {/* CARD 1: Publications */}
+              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+                <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    200+ Publications
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Access our extensive library of peer-reviewed research papers, policy briefs, and scientific articles.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-indigo-600 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  Conference Leadership
-                </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
-                  Leading the National Conference on Real-World Evidence in
-                  Oncology.
-                </p>
+              {/* CARD 2: Conference */}
+              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+                <BarChart3 className="w-8 h-8 text-indigo-600 mb-4" />
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Conference Leadership
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Organizing the annual "National Conference on Real-World Evidence in Oncology" for clinicians & researchers.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="p-3 sm:p-4 lg:p-5 xl:p-7 bg-white rounded-2xl sm:rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-between">
-              <FileText className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-purple-700 mb-2 sm:mb-3 lg:mb-3 xl:mb-4" />
-              <div>
-                <h3 className="text-sm sm:text-base lg:text-base xl:text-lg font-semibold mb-1 sm:mb-1.5 lg:mb-1.5 xl:mb-2 text-gray-900">
-                  Reports & Studies
-                </h3>
-                <p className="text-gray-600 text-[10px] sm:text-xs lg:text-xs xl:text-sm leading-snug">
-                  Comprehensive environmental & social studies.
-                </p>
+              {/* CARD 3: Reports */}
+              <div className="p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
+                <FileText className="w-8 h-8 text-purple-700 mb-4" />
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Reports & Studies
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Evidence-based field studies covering environmental sustainability, social impact, and public health.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -231,8 +236,8 @@ export default function KnowledgeHub() {
       </section>
 
       {/* Content Section */}
-      <section id="articles-section" className="w-full bg-white py-12 md:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section id="articles-section" className="w-full py-12 md:py-16 lg:py-20">
+        <div className="page-container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* LEFT CONTENT - REAL WORLD EVIDENCE */}
             <div>
@@ -275,7 +280,7 @@ export default function KnowledgeHub() {
       </section>
 
       {/* ARTICLES GRID */}
-      <section id="articles-section" className="max-w-7xl mx-auto px-6 lg:px-12 pb-12 sm:pb-16 lg:pb-20">
+      <section id="articles-section" className="page-container pb-12 sm:pb-16 lg:pb-20">
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div>
@@ -415,7 +420,7 @@ export default function KnowledgeHub() {
       </section>
 
       {/* BLOGS GRID */}
-      <section id="blogs-section" className="max-w-7xl mx-auto px-6 lg:px-12 pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100">
+      <section id="blogs-section" className="page-container pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100">
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div>
