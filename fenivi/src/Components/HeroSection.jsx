@@ -40,7 +40,7 @@ const HeroSection = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-100% h-[95vh] mx-3 my-3 rounded-3xl overflow-hidden">
+      className="relative w-100% h-[45vh] md:h-[95vh] mx-3 my-3 rounded-3xl overflow-hidden">
       {/* Background Video */}
       <video
         ref={videoRef}
@@ -56,7 +56,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center  justify-center text-center  text-white h-full px-6">
-        <h1 className="text-2xl absolute bottom-45 left-1/2 -translate-x-1/2 md:text-4xl font-semibold leading-snug ">
+        <h1 className="text-2xl absolute bottom-40 left-1/2 -translate-x-1/2 md:text-3xl lg:text-2xl lg:pt-56 font-semibold leading-snug ">
           Advancing sustainable development
           <br />
           through data-driven insights, convergence approaches,
@@ -64,7 +64,7 @@ const HeroSection = () => {
           and community engagement
         </h1>
 
-        <div className="flex flex-wrap justify-center gap-4 mt-8 absolute bottom-20 left-1/2 -translate-x-1/2">
+        <div className="flex flex-wrap justify-center gap-4 mt-8 absolute bottom-10 left-1/2 -translate-x-1/2 lg:pt-52">
           <button
             className="px-6 py-3 rounded-full font-semibold bg-gradient-to-r from-fuchsia-900 to-fuchsia-900 hover:from-fuchsia-600 hover:fuchsia-900 hover:scale-105 hover:shadow-fuchsia-500/30 
              transition-all duration-500 ease-out transform">

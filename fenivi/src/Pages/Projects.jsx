@@ -182,13 +182,13 @@ export default function Projects() {
       {/* === Static Flip Projects === */}
       <section className="relative w-full h-auto md:h-screen overflow-hidden pt-0">
         <div
-          className="grid grid-cols-1 md:grid-cols-4 w-full h-full"
+          className="grid grid-cols-2 md:grid-cols-4 w-full h-full"
           style={{ perspective: "1400px" }}
         >
           {staticProjects.map((p) => (
             <div
               key={p.id}
-              className="flip-project group relative h-[60vh] md:h-full w-full"
+              className="flip-project group relative h-[50vh] md:h-full w-full"
             >
               <div
                 className="relative h-full w-full transition-transform duration-700 ease-out group-hover:[transform:rotateY(180deg)]"
@@ -252,9 +252,8 @@ export default function Projects() {
         </div>
       </section>
 
-
       {/* === Dynamic Projects (from Firestore) === */}
-      <section className="w-full section-padding">
+      <section className="w-full pt-16 pb-8 sm:py-12 md:py-20 lg:py-24">
         <div className="page-container">
           {/* Header */}
           <div className="projects-header flex flex-col md:flex-row md:items-start md:justify-between mb-8 md:mb-10 gap-6">
@@ -370,7 +369,7 @@ export default function Projects() {
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {loading && (
               <p className="col-span-4 text-center text-gray-500">
                 Loading projects...

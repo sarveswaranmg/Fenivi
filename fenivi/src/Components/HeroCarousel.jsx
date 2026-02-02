@@ -94,12 +94,6 @@ const HeroCarousel = () => {
                                 Partner With Us
                             </button>
                         </Link>
-
-                        <Link to="/services">
-                            <button className="px-8 py-3.5 rounded-full font-bold bg-white text-gray-900 border border-gray-100 hover:bg-gray-50 hover:scale-105 shadow-md shadow-gray-200/50 transition-all duration-500 ease-out transform">
-                                Schedule an Appointment
-                            </button>
-                        </Link>
                     </div>
 
                     {/* Dots */}

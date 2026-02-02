@@ -33,8 +33,8 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center section-padding">
-      <div className="w-full page-container">
+    <div className="w-full flex md:items-center justify-center min-h-screen py-24 md:py-12 px-2 sm:px-12 md:px-0">
+      <div className="w-full page-container !px-0 sm:!px-8 md:!px-12">
         {/* Header Section */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-purple-700 mb-3">

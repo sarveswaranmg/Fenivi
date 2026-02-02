@@ -38,7 +38,7 @@ export default function KeyResponsibilities() {
   ];
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="w-full bg-white py-12 sm:py-16 md:py-20 px-6 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto text-center relative">
         {/* Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-10 sm:mb-12 md:mb-14">
@@ -68,10 +68,9 @@ export default function KeyResponsibilities() {
                 key={i}
                 onClick={() => setActiveIndex(i)}
                 className={`relative z-10 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300
-                  ${
-                    i <= activeIndex
-                      ? "bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md scale-110"
-                      : "bg-gray-300 hover:bg-gray-400"
+                  ${i <= activeIndex
+                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md scale-110"
+                    : "bg-gray-300 hover:bg-gray-400"
                   }`}
                 aria-label={`Go to responsibility ${i + 1}`}
               >

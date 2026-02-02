@@ -97,6 +97,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Box sizing for all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 
 #KNH {
   font-family: "Instrument Sans", ui-sans-serif, system-ui;
@@ -422,9 +427,17 @@ body {
 
 /* ========================================
    SCROLL ANIMATIONS FOR ABOUT PAGE
-   ======================================== */
+    ======================================== */
 
 .animate-in {
   opacity: 1 !important;
   transform: translate(0, 0) scale(1) !important;
+}
+
+/* ========================================
+   CONTACT PAGE - NO SCROLL
+    ======================================== */
+
+.contact-page-no-scroll {
+  overflow: hidden !important;
 }

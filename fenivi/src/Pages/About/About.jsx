@@ -36,20 +36,20 @@ export default function About() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen overflow-x-hidden">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative w-full pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
-        <div className="page-container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative w-full pt-24 pb-12 md:pt-32 md:pb-20 overflow-hidden">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Text Side */}
           <div
             ref={heroLeftRef}
             className="relative z-10 opacity-0 translate-y-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '100ms' }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
               About Us
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs. Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.
             </p>
           </div>
@@ -57,7 +57,7 @@ export default function About() {
           {/* Right Image Side */}
           <div
             ref={heroRightRef}
-            className="relative h-[300px] md:h-[450px] rounded-2xl overflow-hidden shadow-xl opacity-0 translate-x-12 transition-all duration-1000 ease-out"
+            className="relative h-[220px] sm:h-[280px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl opacity-0 translate-y-12 xl:translate-y-0 xl:translate-x-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '300ms' }}
           >
             <img
