@@ -29,6 +29,7 @@ export default function EditEvent() {
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [gallery, setGallery] = useState([]);
   const [newGalleryFiles, setNewGalleryFiles] = useState([]);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -46,6 +47,7 @@ export default function EditEvent() {
           setTicketUrl(data.ticketUrl || "");
           setRegistrationUrl(data.registrationUrl || "");
           setRegistrationFormUrl(data.registrationFormUrl || "");
+          setRegistrationOpen(data.registrationOpen || false);
           setThumbnailUrl(data.thumbnailUrl || "");
           setGallery(data.gallery || []);
           if (data.date) {
@@ -113,6 +115,7 @@ export default function EditEvent() {
         ticketUrl: ticketUrl || "",
         registrationUrl: registrationUrl || "",
         registrationFormUrl: registrationFormUrl || "",
+        registrationOpen: registrationOpen,
         thumbnailUrl: newThumbnailUrl,
         gallery: [...gallery, ...newGalleryUrls],
       };
@@ -293,6 +296,25 @@ export default function EditEvent() {
             <p className="text-xs text-gray-500 mt-1">
               Paste your Google Forms link here. It will be used for future
               event registration.
+            </p>
+          </div>
+
+          <div>
+            <label className="flex items-center space-x-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={registrationOpen}
+                onChange={(e) => setRegistrationOpen(e.target.checked)}
+                className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                Registration Open
+              </span>
+            </label>
+            <p className="text-xs text-gray-500 mt-2">
+              {registrationOpen
+                ? "✓ Registration is OPEN - A 'Register Now' button will appear for attendees"
+                : "✗ Registration is CLOSED - No registration button will be shown"}
             </p>
           </div>
 

@@ -77,7 +77,9 @@ export default function EventDetails() {
           </p>
 
           {/* Register Button */}
-          {isEventInFuture && event.registrationFormUrl ? (
+          {isEventInFuture &&
+          event.registrationOpen &&
+          event.registrationFormUrl ? (
             <a
               href={event.registrationFormUrl}
               target="_blank"
@@ -86,7 +88,9 @@ export default function EventDetails() {
             >
               Register Now →
             </a>
-          ) : isEventInFuture && event.registrationUrl ? (
+          ) : isEventInFuture &&
+            event.registrationOpen &&
+            event.registrationUrl ? (
             <a
               href={event.registrationUrl}
               target="_blank"

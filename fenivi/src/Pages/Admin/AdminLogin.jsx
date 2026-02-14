@@ -32,13 +32,16 @@ export default function AdminLogin() {
     }
     setLoading(true);
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       // success
-      navigate("/admin/dashboard");
+      navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);
       // Friendly error messages
-      if (err.code === "auth/wrong-password" || err.code === "auth/user-not-found") {
+      if (
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/user-not-found"
+      ) {
         setError("Invalid email or password.");
       } else if (err.code === "auth/too-many-requests") {
         setError("Too many attempts. Try again later.");
@@ -52,7 +55,10 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white p-6 rounded shadow">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm bg-white p-6 rounded shadow"
+      >
         <h2 className="text-xl font-bold mb-4">Admin Login</h2>
         {error && <div className="mb-3 text-red-600">{error}</div>}
         <label className="block mb-2">
@@ -82,7 +88,9 @@ export default function AdminLogin() {
         >
           {loading ? "Signing in..." : "Sign in"}
         </button>
-        <p className="mt-3 text-xs text-gray-500">Make sure Email/Password auth is enabled in Firebase console.</p>
+        <p className="mt-3 text-xs text-gray-500">
+          Make sure Email/Password auth is enabled in Firebase console.
+        </p>
       </form>
     </div>
   );

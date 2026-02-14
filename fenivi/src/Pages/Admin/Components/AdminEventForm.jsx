@@ -25,6 +25,7 @@ export default function AdminEventForm() {
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [galleryFiles, setGalleryFiles] = useState([]);
   const [registrationFormUrl, setRegistrationFormUrl] = useState("");
+  const [registrationOpen, setRegistrationOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [events, setEvents] = useState([]);
@@ -86,6 +87,7 @@ export default function AdminEventForm() {
         thumbnailUrl,
         gallery: galleryUrls,
         registrationFormUrl: registrationFormUrl || "",
+        registrationOpen: registrationOpen,
         createdAt: serverTimestamp(),
       };
 
@@ -98,6 +100,7 @@ export default function AdminEventForm() {
       setThumbnailFile(null);
       setGalleryFiles([]);
       setRegistrationFormUrl("");
+      setRegistrationOpen(false);
       document.getElementById("event-thumb").value = "";
       document.getElementById("event-gallery").value = "";
     } catch (err) {
@@ -180,6 +183,23 @@ export default function AdminEventForm() {
           value={registrationFormUrl}
           onChange={(e) => setRegistrationFormUrl(e.target.value)}
         />
+
+        <label className="flex items-center space-x-3 cursor-pointer mt-3 sm:mt-4">
+          <input
+            type="checkbox"
+            checked={registrationOpen}
+            onChange={(e) => setRegistrationOpen(e.target.checked)}
+            className="w-4 h-4 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+          />
+          <span className="text-sm sm:text-base font-medium text-gray-700">
+            Registration Open
+          </span>
+        </label>
+        <p className="text-xs text-gray-500 mt-1.5 sm:mt-2">
+          {registrationOpen
+            ? "✓ Registration is OPEN - A 'Register Now' button will appear for attendees"
+            : "✗ Registration is CLOSED - No registration button will be shown"}
+        </p>
 
         <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mt-3 sm:mt-4 items-start">
           <div className="flex-1 w-full">
