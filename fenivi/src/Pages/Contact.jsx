@@ -5,7 +5,7 @@ export default function Contact() {
 
   const [formData, setFormData] = useState({
     subject: "General Inquiry",
-    message: ""
+    message: "",
   });
 
   useEffect(() => {
@@ -22,12 +22,12 @@ export default function Contact() {
     const courseParam = urlParams.get("course");
 
     if (subjectParam || courseParam) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         subject: subjectParam || prev.subject,
         message: courseParam
           ? `I would like to inquire about the ${courseParam}.`
-          : prev.message
+          : prev.message,
       }));
     }
   }, []);
@@ -67,7 +67,9 @@ export default function Contact() {
             {/* Left Side - Contact Information */}
             <div className="lg:col-span-2 animate-gradient-premium text-white p-5 md:p-8 relative overflow-hidden">
               <div className="relative z-10">
-                <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">Contact Information</h2>
+                <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">
+                  Contact Information
+                </h2>
                 <p className="text-purple-100 mb-6 md:mb-8 text-sm">
                   Say something to start a live chat!
                 </p>
@@ -85,7 +87,10 @@ export default function Contact() {
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                     </div>
-                    <a href="tel:+919840287857" className="text-sm md:text-sm hover:text-purple-200 transition-colors">
+                    <a
+                      href="tel:+919840287857"
+                      className="text-sm md:text-sm hover:text-purple-200 transition-colors"
+                    >
                       +91 98402 87857
                     </a>
                   </div>
@@ -102,8 +107,11 @@ export default function Contact() {
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                       </svg>
                     </div>
-                    <a href="mailto:demo@fenivi.com" className="text-sm md:text-sm hover:text-purple-200 transition-colors">
-                      demo@fenivi.com
+                    <a
+                      href="mailto:feniviresearch@gmail.com"
+                      className="text-sm md:text-sm hover:text-purple-200 transition-colors"
+                    >
+                      feniviresearch@gmail.com
                     </a>
                   </div>
 
@@ -124,12 +132,18 @@ export default function Contact() {
                     </div>
                     <div className="flex flex-col gap-4">
                       <div className="text-sm md:text-sm leading-relaxed">
-                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">Main Office</p>
-                        9/56C, ISRO Road, Kavalkinaru Junction, Tirunelveli District, Pin: 627105
+                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">
+                          Main Office
+                        </p>
+                        9/56C, ISRO Road, Kavalkinaru Junction, Tirunelveli
+                        District, Pin: 627105
                       </div>
                       <div className="text-sm md:text-sm leading-relaxed">
-                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">Admin Office</p>
-                        No 68, Svastika Star Apartment, A Block G1, Krishnaveni Ammal Nagar, Iyyapanthangal, Chennai - 600056
+                        <p className="font-bold text-gray-200 text-xs mb-1 opacity-80 uppercase tracking-wider">
+                          Admin Office
+                        </p>
+                        No 68, Svastika Star Apartment, A Block G1, Krishnaveni
+                        Ammal Nagar, Iyyapanthangal, Chennai - 600056
                       </div>
                     </div>
                   </div>
@@ -203,7 +217,7 @@ export default function Contact() {
 
                   {/* Email */}
                   <a
-                    href="mailto:demo@fenivi.com"
+                    href="mailto:feniviresearch@gmail.com"
                     className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
                   >
                     <svg
@@ -225,7 +239,7 @@ export default function Contact() {
             {/* Right Side - Contact Form */}
             <div className="lg:col-span-3 p-5 md:p-8">
               <form
-                action="https://formsubmit.co/demo@fenivi.com"
+                action="https://formsubmit.co/feniviresearch@gmail.com"
                 method="POST"
                 className="space-y-4 md:space-y-5"
               >
@@ -320,10 +334,17 @@ export default function Contact() {
                           checked={formData.subject === item}
                           className="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500"
                           onChange={(e) => {
-                            setFormData(prev => ({ ...prev, subject: e.target.value }));
+                            setFormData((prev) => ({
+                              ...prev,
+                              subject: e.target.value,
+                            }));
                             if (e.target.value === "Course") {
                               if (!formData.message) {
-                                setFormData(prev => ({ ...prev, message: "I am interested in such and such course" }));
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  message:
+                                    "I am interested in such and such course",
+                                }));
                               }
                             }
                           }}
@@ -344,7 +365,12 @@ export default function Contact() {
                     placeholder="Write your message.."
                     rows="3"
                     value={formData.message}
-                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        message: e.target.value,
+                      }))
+                    }
                     className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm resize-none transition-colors"
                   ></textarea>
                 </div>

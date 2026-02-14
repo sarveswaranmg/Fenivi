@@ -13,16 +13,38 @@ export default function Navbar() {
   const linksRef = useRef([]);
   const mobileMenuRef = useRef(null);
   const indicatorRef = useRef(null);
+  const servicesDropdownRef = useRef(null);
+
+  // Handle click outside services dropdown
+  React.useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target)
+      ) {
+        setServicesDropdownOpen(false);
+      }
+    }
+
+    if (servicesDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [servicesDropdownOpen]);
 
   // Modern Sliding Pill Animation
   React.useEffect(() => {
-    const activeIndex = links.findIndex(link => link.path === location.pathname);
+    const activeIndex = links.findIndex(
+      (link) => link.path === location.pathname,
+    );
     const activeEl = linksRef.current[activeIndex];
 
     if (activeEl && indicatorRef.current) {
       // Get the link element (child of the wrapper) for precise measurement
       // We target the 'a' tag (first child) to match the padding/rounded shape perfectly
-      const linkEl = activeEl.querySelector('a');
+      const linkEl = activeEl.querySelector("a");
 
       if (linkEl) {
         gsap.to(indicatorRef.current, {
@@ -32,7 +54,7 @@ export default function Navbar() {
           y: activeEl.offsetTop + linkEl.offsetTop,
           opacity: 1,
           duration: 0.5,
-          ease: "elastic.out(1, 0.75)"
+          ease: "elastic.out(1, 0.75)",
         });
       }
     } else if (indicatorRef.current) {
@@ -48,7 +70,7 @@ export default function Navbar() {
         y: -100,
         opacity: 0,
         duration: 1,
-        ease: "power4.out"
+        ease: "power4.out",
       });
 
       // Logo fade in
@@ -57,7 +79,7 @@ export default function Navbar() {
         opacity: 0,
         duration: 0.8,
         delay: 0.5,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       // Links staggered fade in
@@ -67,7 +89,7 @@ export default function Navbar() {
         stagger: 0.05,
         duration: 0.5,
         delay: 0.8,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
 
@@ -76,9 +98,10 @@ export default function Navbar() {
 
   useLayoutEffect(() => {
     if (open && mobileMenuRef.current) {
-      gsap.fromTo(mobileMenuRef.current,
+      gsap.fromTo(
+        mobileMenuRef.current,
         { height: 0, opacity: 0 },
-        { height: "auto", opacity: 1, duration: 0.4, ease: "power2.inOut" }
+        { height: "auto", opacity: 1, duration: 0.4, ease: "power2.inOut" },
       );
     }
   }, [open]);
@@ -113,8 +136,16 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* LOGO - Hidden on mobile/tablet, shown on desktop */}
-        <Link to="/" ref={logoRef} className="hidden lg:flex items-center shrink-0">
-          <img src={newLogo} alt="Fenivi Logo" className="h-10 lg:h-12 w-auto object-contain py-1" />
+        <Link
+          to="/"
+          ref={logoRef}
+          className="hidden lg:flex items-center shrink-0"
+        >
+          <img
+            src={newLogo}
+            alt="Fenivi Logo"
+            className="h-10 lg:h-12 w-auto object-contain py-1"
+          />
         </Link>
 
         {/* DESKTOP NAVBAR - Right-aligned and compact */}
@@ -123,13 +154,18 @@ export default function Navbar() {
           <div
             ref={indicatorRef}
             className="absolute bg-purple-100 rounded-full z-0 pointer-events-none"
-            style={{ height: '0px', width: '0px', opacity: 0 }}
+            style={{ height: "0px", width: "0px", opacity: 0 }}
           />
 
           {links.map((link, index) => (
             <div
               key={link.name}
-              ref={el => linksRef.current[index] = el}
+              ref={(el) => {
+                linksRef.current[index] = el;
+                if (link.hasDropdown) {
+                  servicesDropdownRef.current = el;
+                }
+              }}
               className="relative group z-10" // z-10 to stay above pill
             >
               <Link
@@ -140,10 +176,11 @@ export default function Navbar() {
                     setServicesDropdownOpen(!servicesDropdownOpen);
                   }
                 }}
-                className={`text-[13px] xl:text-[14px] font-bold uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${location.pathname === link.path && !link.hasDropdown
-                  ? "text-purple-700"
-                  : "text-gray-700 hover:text-purple-600"
-                  }`}
+                className={`text-[13px] xl:text-[14px] font-bold uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${
+                  location.pathname === link.path && !link.hasDropdown
+                    ? "text-purple-700"
+                    : "text-gray-700 hover:text-purple-600"
+                }`}
               >
                 {link.name}
                 {link.hasDropdown && (
@@ -157,10 +194,11 @@ export default function Navbar() {
               {/* Services Dropdown */}
               {link.hasDropdown && (
                 <div
-                  className={`absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 transition-all duration-300 ${servicesDropdownOpen
-                    ? "opacity-100 visible translate-y-0"
-                    : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                    }`}
+                  className={`absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 transition-all duration-300 ${
+                    servicesDropdownOpen
+                      ? "opacity-100 visible translate-y-0"
+                      : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                  }`}
                 >
                   {serviceSections.map((section) => (
                     <Link
@@ -219,17 +257,29 @@ export default function Navbar() {
                   }}
                   className={`
                     flex items-center justify-between text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl
-                    ${location.pathname === link.path && !link.hasDropdown
-                      ? "text-purple-700 bg-purple-50"
-                      : "text-gray-700 hover:bg-gray-50 uppercase tracking-wide"
+                    ${
+                      location.pathname === link.path && !link.hasDropdown
+                        ? "text-purple-700 bg-purple-50"
+                        : "text-gray-700 hover:bg-gray-50 uppercase tracking-wide"
                     }
                   `}
                 >
                   {link.name}
                   {link.hasDropdown && (
                     <div className="p-1 text-purple-600">
-                      <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-5 w-5 transition-transform ${servicesDropdownOpen ? "rotate-180" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </div>
                   )}

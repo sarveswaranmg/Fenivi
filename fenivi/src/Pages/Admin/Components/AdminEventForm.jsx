@@ -24,6 +24,7 @@ export default function AdminEventForm() {
   const [date, setDate] = useState("");
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [galleryFiles, setGalleryFiles] = useState([]);
+  const [registrationFormUrl, setRegistrationFormUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [events, setEvents] = useState([]);
@@ -61,7 +62,7 @@ export default function AdminEventForm() {
     try {
       const thumbRef = storageRefFn(
         storage,
-        `events/thumbnails/${Date.now()}-${thumbnailFile.name}`
+        `events/thumbnails/${Date.now()}-${thumbnailFile.name}`,
       );
       await uploadBytes(thumbRef, thumbnailFile);
       const thumbnailUrl = await getDownloadURL(thumbRef);
@@ -71,7 +72,7 @@ export default function AdminEventForm() {
         const f = galleryFiles[i];
         const gRef = storageRefFn(
           storage,
-          `events/gallery/${Date.now()}-${i}-${f.name}`
+          `events/gallery/${Date.now()}-${i}-${f.name}`,
         );
         await uploadBytes(gRef, f);
         const url = await getDownloadURL(gRef);
@@ -84,6 +85,7 @@ export default function AdminEventForm() {
         date: date ? new Date(date).toISOString() : new Date().toISOString(),
         thumbnailUrl,
         gallery: galleryUrls,
+        registrationFormUrl: registrationFormUrl || "",
         createdAt: serverTimestamp(),
       };
 
@@ -95,6 +97,7 @@ export default function AdminEventForm() {
       setDate("");
       setThumbnailFile(null);
       setGalleryFiles([]);
+      setRegistrationFormUrl("");
       document.getElementById("event-thumb").value = "";
       document.getElementById("event-gallery").value = "";
     } catch (err) {
@@ -111,17 +114,17 @@ export default function AdminEventForm() {
     try {
       if (event.thumbnailUrl) {
         const thumbPath = decodeURIComponent(
-          event.thumbnailUrl.split("/o/")[1].split("?")[0]
+          event.thumbnailUrl.split("/o/")[1].split("?")[0],
         );
         const thumbRef = storageRefFn(storage, thumbPath);
-        await deleteObject(thumbRef).catch(() => { });
+        await deleteObject(thumbRef).catch(() => {});
       }
 
       if (event.gallery && event.gallery.length > 0) {
         for (const url of event.gallery) {
           const gPath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
           const gRef = storageRefFn(storage, gPath);
-          await deleteObject(gRef).catch(() => { });
+          await deleteObject(gRef).catch(() => {});
         }
       }
 
@@ -170,6 +173,14 @@ export default function AdminEventForm() {
           required
         />
 
+        <input
+          type="url"
+          placeholder="Registration Form URL (Google Docs form link) - optional"
+          className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+          value={registrationFormUrl}
+          onChange={(e) => setRegistrationFormUrl(e.target.value)}
+        />
+
         <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mt-3 sm:mt-4 items-start">
           <div className="flex-1 w-full">
             <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -184,7 +195,9 @@ export default function AdminEventForm() {
               required
             />
             {thumbnailFile && (
-              <div className="text-xs sm:text-sm mt-1.5 sm:mt-2 truncate">{thumbnailFile.name}</div>
+              <div className="text-xs sm:text-sm mt-1.5 sm:mt-2 truncate">
+                {thumbnailFile.name}
+              </div>
             )}
           </div>
 
@@ -216,12 +229,18 @@ export default function AdminEventForm() {
           {loading ? "Uploading..." : "Upload Event"}
         </button>
 
-        {message && <p className="mt-3 sm:mt-4 text-center text-sm sm:text-base">{message}</p>}
+        {message && (
+          <p className="mt-3 sm:mt-4 text-center text-sm sm:text-base">
+            {message}
+          </p>
+        )}
       </form>
 
       {/* Event list */}
       <div className="w-full max-w-4xl px-3 sm:px-4 md:px-0">
-        <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Your Events</h2>
+        <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
+          Your Events
+        </h2>
         <div className="grid grid-cols-1 gap-2 sm:gap-3">
           {events.map((e) => (
             <div
@@ -229,7 +248,9 @@ export default function AdminEventForm() {
               className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-3 sm:p-4 rounded-lg sm:rounded-xl shadow hover:shadow-md transition gap-2 sm:gap-0"
             >
               <div className="flex flex-col">
-                <span className="font-semibold text-sm sm:text-base">{e.title}</span>
+                <span className="font-semibold text-sm sm:text-base">
+                  {e.title}
+                </span>
                 <span className="text-xs sm:text-sm text-gray-600">
                   {new Date(e.date).toLocaleDateString()}
                 </span>
@@ -257,7 +278,9 @@ export default function AdminEventForm() {
       {confirmDelete && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white p-4 sm:p-6 rounded-xl w-full max-w-sm sm:w-80 shadow-xl text-center">
-            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Delete Event?</h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">
+              Delete Event?
+            </h3>
             <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">
               Are you sure you want to delete <b>{confirmDelete.title}</b>?
             </p>

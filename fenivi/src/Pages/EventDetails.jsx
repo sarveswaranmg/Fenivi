@@ -27,6 +27,9 @@ export default function EventDetails() {
     fetchEvent();
   }, [id]);
 
+  // Check if event is in future
+  const isEventInFuture = event && new Date(event.date) >= new Date();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-500">
@@ -74,7 +77,16 @@ export default function EventDetails() {
           </p>
 
           {/* Register Button */}
-          {event.registrationUrl ? (
+          {isEventInFuture && event.registrationFormUrl ? (
+            <a
+              href={event.registrationFormUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3 rounded-full font-semibold text-lg shadow-md hover:shadow-lg hover:scale-105 transition-all"
+            >
+              Register Now →
+            </a>
+          ) : isEventInFuture && event.registrationUrl ? (
             <a
               href={event.registrationUrl}
               target="_blank"
@@ -124,7 +136,7 @@ export default function EventDetails() {
               </p>
             )}
           </div>
-          {event.ticketUrl && (
+          {isEventInFuture && event.ticketUrl && (
             <a
               href={event.ticketUrl}
               target="_blank"

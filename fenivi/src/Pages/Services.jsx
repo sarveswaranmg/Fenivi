@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,23 +8,27 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ServicesSection() {
   const [searchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("all");
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     const filterFromUrl = searchParams.get("filter");
     if (filterFromUrl) {
       setActiveFilter(filterFromUrl);
-      // Wait for DOM update then scroll to filter section
-      setTimeout(() => {
+      // Scroll after state update using requestAnimationFrame
+      requestAnimationFrame(() => {
         const element = document.getElementById("services-browse");
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      }, 100);
+      });
     }
   }, [searchParams]);
 
-  // GSAP Animations
+  // GSAP Animations - Only on first load
   useEffect(() => {
+    if (hasAnimatedRef.current) return;
+    hasAnimatedRef.current = true;
+
     // Animate hero section
     gsap.fromTo(
       ".services-hero h1, .services-hero h2, .services-hero p",
@@ -36,14 +40,14 @@ export default function ServicesSection() {
         stagger: 0.15,
         delay: 0.2,
         ease: "power2.out",
-      }
+      },
     );
 
     // Animate hero image
     gsap.fromTo(
       ".services-hero-image",
       { opacity: 0, x: 50 },
-      { opacity: 1, x: 0, duration: 0.8, delay: 0.5, ease: "power2.out" }
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.5, ease: "power2.out" },
     );
 
     // Animate filter buttons
@@ -57,34 +61,27 @@ export default function ServicesSection() {
         stagger: 0.08,
         delay: 0.3,
         ease: "power2.out",
-      }
+      },
     );
+  }, []);
 
-    // Animate service cards on scroll
+  // Smooth card animations when filter changes
+  useEffect(() => {
     const serviceCards = gsap.utils.toArray(".service-card");
-    serviceCards.forEach((card, index) => {
+    if (serviceCards.length > 0) {
       gsap.fromTo(
-        card,
-        { opacity: 0, y: 40 },
+        serviceCards,
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          delay: (index % 3) * 0.1,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            end: "top 50%",
-            scrub: false,
-          },
-        }
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power2.out",
+        },
       );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+    }
+  }, [activeFilter]);
 
   return (
     <section className="w-full min-h-screen">
@@ -101,9 +98,9 @@ export default function ServicesSection() {
             </h2>
 
             <p className="text-gray-600 mt-6 text-lg leading-relaxed max-w-xl">
-              From field-based research to high-impact consulting and mentorship,
-              our services empower organizations, institutions, and entrepreneurs
-              to create measurable change.
+              From field-based research to high-impact consulting and
+              mentorship, our services empower organizations, institutions, and
+              entrepreneurs to create measurable change.
             </p>
           </div>
 
@@ -124,37 +121,41 @@ export default function ServicesSection() {
         <div className="flex flex-wrap justify-center gap-3 mb-10 md:mb-12">
           <button
             onClick={() => setActiveFilter("all")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${activeFilter === "all"
-              ? "bg-purple-600 text-white shadow-lg"
-              : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-              }`}
+            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
+              activeFilter === "all"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
+            }`}
           >
             All
           </button>
           <button
             onClick={() => setActiveFilter("research")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${activeFilter === "research"
-              ? "bg-purple-600 text-white shadow-lg"
-              : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-              }`}
+            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
+              activeFilter === "research"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
+            }`}
           >
             Research & Field Services
           </button>
           <button
             onClick={() => setActiveFilter("training")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${activeFilter === "training"
-              ? "bg-purple-600 text-white shadow-lg"
-              : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-              }`}
+            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
+              activeFilter === "training"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
+            }`}
           >
             Training & Education
           </button>
           <button
             onClick={() => setActiveFilter("startup")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${activeFilter === "startup"
-              ? "bg-purple-600 text-white shadow-lg"
-              : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-              }`}
+            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
+              activeFilter === "startup"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
+            }`}
           >
             Startup Mentoring
           </button>
@@ -164,11 +165,11 @@ export default function ServicesSection() {
           {/* Research & Field Services */}
           {(activeFilter === "all" || activeFilter === "research") && (
             <>
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Research Consultations
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We offer one-on-one research consultation sessions—both online
                   and in person—for individual researchers, academic
                   institutions, NGOs, CSR initiatives, and government agencies.
@@ -179,11 +180,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Third-Party Assessments & Audits (Government / NGO / CSR)
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We provide independent, evidence-based evaluations to assess
                   programme performance, compliance, and impact. Our assessments
                   help governments, NGOs, and CSR foundations strengthen
@@ -192,11 +193,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Feasibility and Pre-Feasibility Studies
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   Our feasibility studies examine technical, financial, social,
                   and environmental viability to help clients make strategic
                   investment and implementation decisions. We deliver clear,
@@ -205,11 +206,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Need Analysis & Situation Assessments
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We conduct structured need assessments to understand community
                   priorities, gaps in service delivery, and emerging challenges.
                   Our situation assessments provide a clear picture of ground
@@ -217,11 +218,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Large-Scale Surveys & Community Consultations
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   Using robust methodologies, we design and implement
                   large-scale surveys and participatory consultations to capture
                   diverse community perspectives. Our data collection processes
@@ -230,11 +231,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Environmental, Hydrological & Urban Development Studies
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We offer GIS-based hydrological analysis, environmental
                   assessments, and urban development studies to support climate
                   resilience and sustainable planning. Our work integrates field
@@ -243,11 +244,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Policy Advisory & Program Design
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We translate real-world evidence into policy insights and
                   programme strategies. Our advisory support helps clients
                   design effective, context-sensitive interventions that align
@@ -261,11 +262,11 @@ export default function ServicesSection() {
           {/* Training & Education */}
           {(activeFilter === "all" || activeFilter === "training") && (
             <>
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Short-Term Certificate Courses
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We offer intensive, application-oriented certificate courses
                   designed to build foundational and advanced skills. Each
                   course integrates theory with real-world case studies,
@@ -274,11 +275,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Certificate Course in Psycho-Oncology
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   Focused on the intersection of mental health and cancer care,
                   this course trains participants in understanding the
                   psychological needs of patients, caregivers, and healthcare
@@ -288,11 +289,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Certificate Course in Research Methodology
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   Designed for beginners and emerging researchers, this course
                   covers essential research skills including study design, data
                   collection, qualitative and quantitative methods, and academic
@@ -302,12 +303,12 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Certificate Course in Practice-Based Research & Evidence
                   Translation
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   This course is designed to help professionals convert
                   real-world programme data into meaningful evidence that can
                   improve policy and practice. Participants learn how to
@@ -320,12 +321,12 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Workshops on Data-Driven Governance, River Restoration,
                   Sustainability, and Policy Design
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   Our workshops provide hands-on training in emerging areas of
                   governance and sustainability. Participants learn to apply
                   data, scientific frameworks, and policy principles to address
@@ -333,11 +334,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Field-Based Learning & Research Mentorship Programs
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We provide immersive field-learning opportunities and guided
                   mentorship to help students and professionals strengthen their
                   research skills. These programs offer direct exposure to
@@ -346,11 +347,11 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Institutional Capacity Building & Faculty Development
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We support institutions through structured training programs
                   aimed at enhancing faculty competencies, research
                   capabilities, and organizational systems. Our
@@ -364,11 +365,11 @@ export default function ServicesSection() {
           {/* Startup Mentoring */}
           {(activeFilter === "all" || activeFilter === "startup") && (
             <>
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Market Validation & Impact Assessments
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We assess the real-world relevance, feasibility, and social
                   impact of startup solutions through field insights, user
                   feedback, and data-driven evaluations. This helps founders
@@ -377,44 +378,44 @@ export default function ServicesSection() {
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Business Plan Development & Growth Strategies
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We support startups in crafting structured business plans with
                   clear value propositions, operational pathways, and scalable
                   growth models tailored to their sector and mission.
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Financial Modeling & Sustainability Practices
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We help entrepreneurs develop realistic financial projections,
                   cost structures, and long-term sustainability frameworks to
                   ensure stable, viable business operations.
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   CSR Partnerships & Funding Guidance
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We connect startups with relevant CSR partners and provide
                   advisory support for funding applications, proposal
                   development, and strategic collaborations.
                 </p>
               </div>
 
-              <div className="service-card card p-6 h-[300px] flex flex-col border-purple-100 hover-lift">
+              <div className="service-card card p-6 flex flex-col border-purple-100 hover-lift min-h-[300px]">
                 <h4 className="text-lg font-bold text-gray-900 mb-3">
                   Ecosystem Support with Incubators & Accelerators
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600 flex-1 overflow-y-auto">
+                <p className="text-sm leading-relaxed text-gray-600 flex-1">
                   We guide startups in navigating the innovation ecosystem,
                   helping them access incubators, accelerators, technical
                   mentors, and strategic networks essential for scaling.

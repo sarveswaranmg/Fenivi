@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
@@ -16,6 +16,8 @@ export default function Projects() {
   const [showSortMenu, setShowSortMenu] = useState(false);
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
+  const sortDropdownRef = useRef(null);
+  const hasAnimatedRef = useRef(false);
 
   const staticProjects = [
     {
@@ -52,6 +54,25 @@ export default function Projects() {
     },
   ];
 
+  // Handle click outside sort dropdown
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        sortDropdownRef.current &&
+        !sortDropdownRef.current.contains(event.target)
+      ) {
+        setShowSortMenu(false);
+      }
+    }
+
+    if (showSortMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [showSortMenu]);
+
   // 🔥 Firestore Fetch
   useEffect(() => {
     const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
@@ -65,7 +86,7 @@ export default function Projects() {
       (err) => {
         console.error("Error fetching projects:", err);
         setLoading(false);
-      }
+      },
     );
     return () => unsubscribe();
   }, []);
@@ -79,7 +100,7 @@ export default function Projects() {
       filtered = filtered.filter(
         (p) =>
           p.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.description?.toLowerCase().includes(searchQuery.toLowerCase())
+          p.description?.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -114,8 +135,20 @@ export default function Projects() {
 
   const filteredProjects = getFilteredAndSortedProjects();
 
-  // GSAP Animations
+  // GSAP Animations - Only on first load
   useEffect(() => {
+    if (hasAnimatedRef.current) return;
+    hasAnimatedRef.current = true;
+
+    // Clear any existing animations to prevent conflicts
+    gsap.killTweensOf([
+      ".flip-project",
+      ".projects-header h2",
+      ".projects-header p",
+      ".projects-controls",
+      ".project-grid-card",
+    ]);
+
     // Animate flip projects
     gsap.fromTo(
       ".flip-project",
@@ -123,11 +156,11 @@ export default function Projects() {
       {
         opacity: 1,
         y: 0,
-        duration: 0.7,
-        stagger: 0.15,
+        duration: 0.6,
+        stagger: 0.08,
         delay: 0.2,
         ease: "power2.out",
-      }
+      },
     );
 
     // Animate project header
@@ -137,45 +170,41 @@ export default function Projects() {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        stagger: 0.15,
+        duration: 0.7,
+        stagger: 0.1,
         delay: 0.3,
         ease: "power2.out",
-      }
+      },
     );
 
     // Animate search and sort controls
     gsap.fromTo(
       ".projects-controls",
       { opacity: 0, x: 30 },
-      { opacity: 1, x: 0, duration: 0.6, delay: 0.5, ease: "power2.out" }
+      { opacity: 1, x: 0, duration: 0.5, delay: 0.4, ease: "power2.out" },
     );
 
-    // Animate project cards on scroll
+    // Animate project cards - simplified for better performance
     const projectCards = gsap.utils.toArray(".project-grid-card");
-    projectCards.forEach((card, index) => {
+    if (projectCards.length > 0) {
       gsap.fromTo(
-        card,
-        { opacity: 0, y: 40 },
+        projectCards,
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          delay: (index % 4) * 0.1,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            end: "top 50%",
-            scrub: false,
-          },
-        }
+          duration: 0.5,
+          stagger: 0.04,
+          delay: 0.5,
+          ease: "power2.out",
+        },
       );
-    });
+    }
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [filteredProjects]);
+  }, []);
 
   return (
     <div className="w-full min-h-screen">
@@ -218,7 +247,9 @@ export default function Projects() {
                         {p.city}
                       </p>
                     </div>
-                    <span className="text-white text-xl sm:text-2xl md:text-3xl">↗</span>
+                    <span className="text-white text-xl sm:text-2xl md:text-3xl">
+                      ↗
+                    </span>
                   </div>
                 </div>
 
@@ -234,13 +265,17 @@ export default function Projects() {
                     <h3 className="text-lg sm:text-2xl md:text-3xl font-semibold">
                       {p.title}
                     </h3>
-                    <span className="text-white/60 text-xs sm:text-sm">{p.city}</span>
+                    <span className="text-white/60 text-xs sm:text-sm">
+                      {p.city}
+                    </span>
                   </div>
                   <p className="text-sm sm:text-base md:text-lg leading-relaxed">
                     {p.brief}
                   </p>
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="text-white/60 text-xs sm:text-sm">Project #{p.id}</span>
+                    <span className="text-white/60 text-xs sm:text-sm">
+                      Project #{p.id}
+                    </span>
                     <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/80 text-black text-xs sm:text-sm font-medium">
                       Static Project
                     </span>
@@ -266,18 +301,29 @@ export default function Projects() {
               </p>
               <p className="text-gray-500 max-w-3xl mt-3 text-sm leading-relaxed">
                 Fenivi's projects span hydrology, public health, sustainability,
-                and social development — combining technical expertise with local
-                knowledge to deliver measurable impact.
+                and social development — combining technical expertise with
+                local knowledge to deliver measurable impact.
               </p>
             </div>
 
             {/* Search and Sort Controls */}
-            <div className="projects-controls flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
+            <div className="projects-controls flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto relative z-40">
               {/* Search Bar - Always Visible */}
               <div className="relative w-full md:w-96">
                 <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
                   </svg>
                 </div>
                 <input
@@ -292,43 +338,79 @@ export default function Projects() {
                     onClick={() => setSearchQuery("")}
                     className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 sm:h-5 sm:w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 )}
               </div>
 
               {/* Sort Dropdown */}
-              <div className="relative w-full sm:w-auto">
+              <div className="relative w-full sm:w-auto" ref={sortDropdownRef}>
                 <button
                   onClick={() => setShowSortMenu(!showSortMenu)}
-                  className="flex items-center justify-between sm:justify-start gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
+                  className="flex items-center justify-between sm:justify-start gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto whitespace-nowrap"
                 >
-                  <div className="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                  <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                      />
                     </svg>
-                    <span>
-                      {sortOrder === "newest" && "Newest First"}
-                      {sortOrder === "oldest" && "Oldest First"}
+                    <span className="truncate">
+                      {sortOrder === "newest" && "Newest"}
+                      {sortOrder === "oldest" && "Oldest"}
                       {sortOrder === "a-z" && "A-Z"}
                       {sortOrder === "z-a" && "Z-A"}
                     </span>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform ${showSortMenu ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform flex-shrink-0 ${showSortMenu ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
                 {showSortMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10">
+                  <div className="absolute right-0 mt-2 w-56 sm:w-60 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-50 origin-top-right overflow-hidden">
                     <button
                       onClick={() => {
                         setSortOrder("newest");
                         setShowSortMenu(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "newest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                        }`}
+                      className={`w-full text-left px-4 sm:px-5 py-2.5 text-sm hover:bg-purple-50 transition-colors whitespace-nowrap overflow-hidden text-ellipsis ${
+                        sortOrder === "newest"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
                     >
                       Newest First
                     </button>
@@ -337,8 +419,11 @@ export default function Projects() {
                         setSortOrder("oldest");
                         setShowSortMenu(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "oldest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                        }`}
+                      className={`w-full text-left px-4 sm:px-5 py-2.5 text-sm hover:bg-purple-50 transition-colors whitespace-nowrap overflow-hidden text-ellipsis ${
+                        sortOrder === "oldest"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
                     >
                       Oldest First
                     </button>
@@ -347,8 +432,11 @@ export default function Projects() {
                         setSortOrder("a-z");
                         setShowSortMenu(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "a-z" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                        }`}
+                      className={`w-full text-left px-4 sm:px-5 py-2.5 text-sm hover:bg-purple-50 transition-colors whitespace-nowrap overflow-hidden text-ellipsis ${
+                        sortOrder === "a-z"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
                     >
                       A-Z
                     </button>
@@ -357,8 +445,11 @@ export default function Projects() {
                         setSortOrder("z-a");
                         setShowSortMenu(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "z-a" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                        }`}
+                      className={`w-full text-left px-4 sm:px-5 py-2.5 text-sm hover:bg-purple-50 transition-colors whitespace-nowrap overflow-hidden text-ellipsis ${
+                        sortOrder === "z-a"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
                     >
                       Z-A
                     </button>
@@ -378,7 +469,9 @@ export default function Projects() {
 
             {!loading && filteredProjects.length === 0 && (
               <p className="col-span-4 text-center text-gray-500">
-                {searchQuery ? "No projects found matching your search." : "No projects available."}
+                {searchQuery
+                  ? "No projects found matching your search."
+                  : "No projects available."}
               </p>
             )}
 
@@ -412,8 +505,19 @@ export default function Projects() {
                       }}
                       className="absolute top-3 right-3 bg-white hover:bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-xs font-medium shadow-lg transition-all flex items-center gap-1"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3.5 w-3.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        />
                       </svg>
                       Edit
                     </button>

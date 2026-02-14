@@ -25,7 +25,7 @@ import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Import Protecte
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
 import ProjectDetails from "./Pages/ProjectDetails";
-import Home1 from "./Pages/Home1.jsx";
+
 import Courses from "./Pages/Courses.jsx";
 import ContactButton from "./Components/ContactButton.jsx";
 import MouseGlow from "./Components/MouseGlow.jsx";
@@ -48,7 +48,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/home1" element={<Home1 />} />
+
         <Route path="/courses" element={<Courses />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />

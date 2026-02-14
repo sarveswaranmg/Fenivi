@@ -4,7 +4,13 @@ import { db } from "../../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BookOpen, FileText, BarChart3, Newspaper, ArrowUpRight } from "lucide-react";
+import {
+  BookOpen,
+  FileText,
+  BarChart3,
+  Newspaper,
+  ArrowUpRight,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +19,8 @@ export default function KnowledgeHub() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [blogsLoading, setBlogsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [blogsError, setBlogsError] = useState(null);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("newest");
@@ -22,53 +30,146 @@ export default function KnowledgeHub() {
   const [blogSortOrder, setBlogSortOrder] = useState("newest");
   const [showBlogSortMenu, setShowBlogSortMenu] = useState(false);
 
-  // Firestore fetching
+  const hasAnimatedRef = useRef(false);
+  const sortMenuRef = useRef(null);
+  const blogSortMenuRef = useRef(null);
+
+  // Click outside handlers for dropdowns
   useEffect(() => {
+    function handleClickOutside(event) {
+      if (sortMenuRef.current && !sortMenuRef.current.contains(event.target)) {
+        setShowSortMenu(false);
+      }
+      if (
+        blogSortMenuRef.current &&
+        !blogSortMenuRef.current.contains(event.target)
+      ) {
+        setShowBlogSortMenu(false);
+      }
+    }
+
+    if (showSortMenu || showBlogSortMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [showSortMenu, showBlogSortMenu]);
+
+  // Helper function to safely convert date
+  const getDateValue = (date) => {
+    if (!date) return new Date(0);
+    if (typeof date === "string") return new Date(date);
+    if (date.toDate) return date.toDate(); // Firestore Timestamp
+    return new Date(date);
+  };
+
+  // Firestore fetching - Optimized
+  useEffect(() => {
+    console.log("KnowledgeHub mounting, db:", db);
+
     if (!db) {
+      console.error("Database not initialized!");
+      setError("Database not initialized");
       setLoading(false);
+      setBlogsError("Database not initialized");
       setBlogsLoading(false);
       return;
     }
 
+    // Set timeout to prevent infinite loading (5 seconds)
+    const articlesTimeout = setTimeout(() => {
+      console.warn("Articles listener timeout - no data received after 5s");
+      if (loading) {
+        setLoading(false);
+        setError("Failed to load articles - timeout");
+      }
+    }, 5000);
+
+    const blogsTimeout = setTimeout(() => {
+      console.warn("Blogs listener timeout - no data received after 5s");
+      if (blogsLoading) {
+        setBlogsLoading(false);
+        setBlogsError("Failed to load blogs - timeout");
+      }
+    }, 5000);
+
     // Fetch Articles
-    const qArticles = query(collection(db, "articles"), orderBy("createdAt", "desc"));
+    console.log("Setting up articles listener...");
+    const qArticles = query(
+      collection(db, "articles"),
+      orderBy("createdAt", "desc"),
+    );
     const unsubArticles = onSnapshot(
       qArticles,
       (snapshot) => {
-        const list = snapshot.docs.map((doc, index) => ({
-          no: String(index + 1).padStart(3, "0"),
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setArticles(list);
-        setLoading(false);
+        console.log("Articles listener fired, docs:", snapshot.docs.length);
+        try {
+          const list = snapshot.docs.map((doc, index) => ({
+            no: String(index + 1).padStart(3, "0"),
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setArticles(list);
+          setError(null);
+          setLoading(false);
+          clearTimeout(articlesTimeout);
+        } catch (err) {
+          console.error("Error processing articles:", err);
+          setError("Failed to process articles");
+          setLoading(false);
+          clearTimeout(articlesTimeout);
+        }
       },
-      () => setLoading(false)
+      (err) => {
+        console.error("Error fetching articles:", err);
+        setError(err.message);
+        setLoading(false);
+        clearTimeout(articlesTimeout);
+      },
     );
 
     // Fetch Blogs
+    console.log("Setting up blogs listener...");
     const qBlogs = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
     const unsubBlogs = onSnapshot(
       qBlogs,
       (snapshot) => {
-        const list = snapshot.docs.map((doc, index) => ({
-          no: String(index + 1).padStart(3, "0"),
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setBlogs(list);
-        setBlogsLoading(false);
+        console.log("Blogs listener fired, docs:", snapshot.docs.length);
+        try {
+          const list = snapshot.docs.map((doc, index) => ({
+            no: String(index + 1).padStart(3, "0"),
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setBlogs(list);
+          setBlogsError(null);
+          setBlogsLoading(false);
+          clearTimeout(blogsTimeout);
+        } catch (err) {
+          console.error("Error processing blogs:", err);
+          setBlogsError("Failed to process blogs");
+          setBlogsLoading(false);
+          clearTimeout(blogsTimeout);
+        }
       },
-      () => setBlogsLoading(false)
+      (err) => {
+        console.error("Error fetching blogs:", err);
+        setBlogsError(err.message);
+        setBlogsLoading(false);
+        clearTimeout(blogsTimeout);
+      },
     );
 
     return () => {
+      clearTimeout(articlesTimeout);
+      clearTimeout(blogsTimeout);
       unsubArticles();
       unsubBlogs();
     };
   }, []);
 
-  // Filter and sort items (generic helper)
+  // Filter and sort items (generic helper) - Fixed date handling
   const getProcessedItems = (items, queryText, order) => {
     let filtered = [...items];
 
@@ -77,22 +178,30 @@ export default function KnowledgeHub() {
         (a) =>
           a.title?.toLowerCase().includes(queryText.toLowerCase()) ||
           a.description?.toLowerCase().includes(queryText.toLowerCase()) ||
-          a.author?.toLowerCase().includes(queryText.toLowerCase())
+          a.author?.toLowerCase().includes(queryText.toLowerCase()),
       );
     }
 
     switch (order) {
       case "newest":
-        filtered.sort((a, b) => (b.publishedAt || b.createdAt) - (a.publishedAt || a.createdAt));
+        filtered.sort(
+          (a, b) =>
+            getDateValue(b.publishedAt || b.createdAt) -
+            getDateValue(a.publishedAt || a.createdAt),
+        );
         break;
       case "oldest":
-        filtered.sort((a, b) => (a.publishedAt || a.createdAt) - (b.publishedAt || b.createdAt));
+        filtered.sort(
+          (a, b) =>
+            getDateValue(a.publishedAt || a.createdAt) -
+            getDateValue(b.publishedAt || b.createdAt),
+        );
         break;
       case "a-z":
-        filtered.sort((a, b) => a.title.localeCompare(b.title));
+        filtered.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
         break;
       case "z-a":
-        filtered.sort((a, b) => b.title.localeCompare(a.title));
+        filtered.sort((a, b) => (b.title || "").localeCompare(a.title || ""));
         break;
       default:
         break;
@@ -101,12 +210,19 @@ export default function KnowledgeHub() {
   };
 
   const filteredArticles = getProcessedItems(articles, searchQuery, sortOrder);
-  const filteredBlogs = getProcessedItems(blogs, blogSearchQuery, blogSortOrder);
+  const filteredBlogs = getProcessedItems(
+    blogs,
+    blogSearchQuery,
+    blogSortOrder,
+  );
 
-  // GSAP Animations
+  // GSAP Animations - Optimized, only on first load
   useEffect(() => {
+    if (hasAnimatedRef.current) return;
+    hasAnimatedRef.current = true;
+
     const ctx = gsap.context(() => {
-      // Hero Animation
+      // Hero Animation - Simplified
       const tl = gsap.timeline();
       tl.fromTo(
         ".hero-text-element",
@@ -114,67 +230,35 @@ export default function KnowledgeHub() {
         {
           y: 0,
           autoAlpha: 1,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-        }
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+        },
       ).fromTo(
         ".hero-card-element",
         { y: 40, autoAlpha: 0 },
         {
           y: 0,
           autoAlpha: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power3.out",
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "power2.out",
         },
-        "-=0.5"
+        "-=0.3",
       );
 
-      // RWE Section Animation
+      // Section Headers - Simple fade
       gsap.fromTo(
-        ".rwe-text",
-        { x: -50, autoAlpha: 0 },
+        ".section-header",
+        { opacity: 0, y: 15 },
         {
-          scrollTrigger: {
-            trigger: "#rwe-section",
-            start: "top 80%",
-          },
-          x: 0,
-          autoAlpha: 1,
-          duration: 1,
-          ease: "power3.out",
-        }
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+        },
       );
-      gsap.fromTo(
-        ".rwe-image",
-        { x: 50, autoAlpha: 0 },
-        {
-          scrollTrigger: {
-            trigger: "#rwe-section",
-            start: "top 80%",
-          },
-          x: 0,
-          autoAlpha: 1,
-          duration: 1,
-          ease: "power3.out",
-          delay: 0.2,
-        }
-      );
-
-      // Section Headers
-      gsap.utils.toArray(".section-header").forEach((header) => {
-        gsap.from(header, {
-          scrollTrigger: {
-            trigger: header,
-            start: "top 85%",
-          },
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        });
-      });
     });
 
     return () => ctx.revert();
@@ -192,9 +276,9 @@ export default function KnowledgeHub() {
               Turning Data into Knowledge
             </h1>
             <p className="hero-text-element text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
-              Fenivi Research Solutions bridges the gap between policy, practice,
-              and community needs through actionable research and evidence-based
-              insights that drive sustainable change.
+              Fenivi Research Solutions bridges the gap between policy,
+              practice, and community needs through actionable research and
+              evidence-based insights that drive sustainable change.
             </p>
           </div>
 
@@ -208,7 +292,8 @@ export default function KnowledgeHub() {
                   if (element) {
                     const offset = 100;
                     const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.scrollY - offset;
+                    const offsetPosition =
+                      elementPosition + window.scrollY - offset;
                     window.scrollTo({
                       top: offsetPosition,
                       behavior: "smooth",
@@ -250,7 +335,8 @@ export default function KnowledgeHub() {
                     200+ Publications
                   </h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Access our extensive library of peer-reviewed research papers, policy briefs, and scientific articles.
+                    Access our extensive library of peer-reviewed research
+                    papers, policy briefs, and scientific articles.
                   </p>
                 </div>
               </div>
@@ -263,7 +349,8 @@ export default function KnowledgeHub() {
                     Conference Leadership
                   </h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Organizing the annual "National Conference on Real-World Evidence in Oncology" for clinicians & researchers.
+                    Organizing the annual "National Conference on Real-World
+                    Evidence in Oncology" for clinicians & researchers.
                   </p>
                 </div>
               </div>
@@ -276,7 +363,8 @@ export default function KnowledgeHub() {
                     Reports & Studies
                   </h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Evidence-based field studies covering environmental sustainability, social impact, and public health.
+                    Evidence-based field studies covering environmental
+                    sustainability, social impact, and public health.
                   </p>
                 </div>
               </div>
@@ -297,21 +385,21 @@ export default function KnowledgeHub() {
 
               <p className="text-gray-700 text-lg leading-relaxed mb-8 text-justify">
                 Real-World Evidence (RWE) integrates clinical insights, hospital
-                workflows, and large-scale health datasets to generate actionable
-                knowledge for policymakers, researchers, and clinicians. The
-                initiative has enabled multi-site clinical collaborations,
-                standardized data-sharing practices, and published impactful
-                oncology research across India.
+                workflows, and large-scale health datasets to generate
+                actionable knowledge for policymakers, researchers, and
+                clinicians. The initiative has enabled multi-site clinical
+                collaborations, standardized data-sharing practices, and
+                published impactful oncology research across India.
               </p>
 
               <button
                 onClick={() =>
                   window.open(
                     "https://realworldevidence.in/gallery/2023",
-                    "_blank"
+                    "_blank",
                   )
                 }
-                className="bg-blue-500 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-transform"
+                className="bg-purple-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-purple-700 hover:scale-105 transition-all"
               >
                 Learn More →
               </button>
@@ -330,7 +418,10 @@ export default function KnowledgeHub() {
       </section>
 
       {/* ARTICLES GRID */}
-      <section id="articles-section" className="page-container pb-12 sm:pb-16 lg:pb-20">
+      <section
+        id="articles-section"
+        className="page-container pb-12 sm:pb-16 lg:pb-20"
+      >
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div className="section-header">
@@ -338,8 +429,9 @@ export default function KnowledgeHub() {
               Latest Articles
             </h2>
             <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-xl">
-              Dive into our peer-reviewed papers, detailed reports, and evidence-based studies
-              shaping the future of community and environmental health.
+              Dive into our peer-reviewed papers, detailed reports, and
+              evidence-based studies shaping the future of community and
+              environmental health.
             </p>
           </div>
 
@@ -348,8 +440,19 @@ export default function KnowledgeHub() {
             {/* Search Bar */}
             <div className="relative w-full md:w-96">
               <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </div>
               <input
@@ -364,21 +467,43 @@ export default function KnowledgeHub() {
                   onClick={() => setSearchQuery("")}
                   className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               )}
             </div>
 
             {/* Sort Dropdown */}
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto" ref={sortMenuRef}>
               <button
                 onClick={() => setShowSortMenu(!showSortMenu)}
                 className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                  />
                 </svg>
                 <span>
                   {sortOrder === "newest" && "Newest First"}
@@ -386,19 +511,33 @@ export default function KnowledgeHub() {
                   {sortOrder === "a-z" && "A-Z"}
                   {sortOrder === "z-a" && "Z-A"}
                 </span>
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${showSortMenu ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 transition-transform ${showSortMenu ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
               {showSortMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
                   <button
                     onClick={() => {
                       setSortOrder("newest");
                       setShowSortMenu(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "newest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                      }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                      sortOrder === "newest"
+                        ? "bg-purple-50 text-purple-700 font-semibold"
+                        : "text-gray-700"
+                    }`}
                   >
                     Newest First
                   </button>
@@ -407,8 +546,11 @@ export default function KnowledgeHub() {
                       setSortOrder("oldest");
                       setShowSortMenu(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "oldest" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                      }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                      sortOrder === "oldest"
+                        ? "bg-purple-50 text-purple-700 font-semibold"
+                        : "text-gray-700"
+                    }`}
                   >
                     Oldest First
                   </button>
@@ -417,8 +559,11 @@ export default function KnowledgeHub() {
                       setSortOrder("a-z");
                       setShowSortMenu(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "a-z" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                      }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                      sortOrder === "a-z"
+                        ? "bg-purple-50 text-purple-700 font-semibold"
+                        : "text-gray-700"
+                    }`}
                   >
                     A-Z
                   </button>
@@ -427,8 +572,11 @@ export default function KnowledgeHub() {
                       setSortOrder("z-a");
                       setShowSortMenu(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${sortOrder === "z-a" ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"
-                      }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                      sortOrder === "z-a"
+                        ? "bg-purple-50 text-purple-700 font-semibold"
+                        : "text-gray-700"
+                    }`}
                   >
                     Z-A
                   </button>
@@ -439,9 +587,17 @@ export default function KnowledgeHub() {
         </div>
 
         {/* Articles Grid */}
-        {!loading && filteredArticles.length === 0 && (
+        {error && (
+          <p className="text-center text-red-500 py-10">
+            Error loading articles: {error}
+          </p>
+        )}
+
+        {!loading && !error && filteredArticles.length === 0 && (
           <p className="text-center text-gray-500 py-10">
-            {searchQuery ? "No articles found matching your search." : "No articles available."}
+            {searchQuery
+              ? "No articles found matching your search."
+              : "No articles available."}
           </p>
         )}
 
@@ -464,13 +620,16 @@ export default function KnowledgeHub() {
                 publishedAt={a.publishedAt}
                 imageUrl={a.thumbnailUrl}
               />
-            )
+            ),
           )}
         </div>
       </section>
 
       {/* BLOGS GRID */}
-      <section id="blogs-section" className="page-container pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100">
+      <section
+        id="blogs-section"
+        className="page-container pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100"
+      >
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div className="section-header">
@@ -478,8 +637,8 @@ export default function KnowledgeHub() {
               Latest Blogs
             </h2>
             <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-xl">
-              Stories from the field, professional reflections, and community perspectives
-              that bring our research to life.
+              Stories from the field, professional reflections, and community
+              perspectives that bring our research to life.
             </p>
           </div>
 
@@ -487,8 +646,19 @@ export default function KnowledgeHub() {
             {/* Search Bar */}
             <div className="relative w-full md:w-96">
               <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </div>
               <input
@@ -503,21 +673,43 @@ export default function KnowledgeHub() {
                   onClick={() => setBlogSearchQuery("")}
                   className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               )}
             </div>
 
             {/* Sort Dropdown */}
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto" ref={blogSortMenuRef}>
               <button
                 onClick={() => setShowBlogSortMenu(!showBlogSortMenu)}
                 className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                  />
                 </svg>
                 <span>
                   {blogSortOrder === "newest" && "Newest First"}
@@ -525,12 +717,23 @@ export default function KnowledgeHub() {
                   {blogSortOrder === "a-z" && "A-Z"}
                   {blogSortOrder === "z-a" && "Z-A"}
                 </span>
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${showBlogSortMenu ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 transition-transform ${showBlogSortMenu ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
               {showBlogSortMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
                   {["newest", "oldest", "a-z", "z-a"].map((opt) => (
                     <button
                       key={opt}
@@ -540,7 +743,8 @@ export default function KnowledgeHub() {
                       }}
                       className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors capitalize ${blogSortOrder === opt ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"}`}
                     >
-                      {opt.replace("-", " ")} {opt.includes("est") ? "First" : ""}
+                      {opt.replace("-", " ")}{" "}
+                      {opt.includes("est") ? "First" : ""}
                     </button>
                   ))}
                 </div>
@@ -550,9 +754,17 @@ export default function KnowledgeHub() {
         </div>
 
         {/* Blogs Grid */}
-        {!blogsLoading && filteredBlogs.length === 0 && (
+        {blogsError && (
+          <p className="text-center text-red-500 py-10">
+            Error loading blogs: {blogsError}
+          </p>
+        )}
+
+        {!blogsLoading && !blogsError && filteredBlogs.length === 0 && (
           <p className="text-center text-gray-500 py-10">
-            {blogSearchQuery ? "No blogs found matching your search." : "No blogs available."}
+            {blogSearchQuery
+              ? "No blogs found matching your search."
+              : "No blogs available."}
           </p>
         )}
 
@@ -575,7 +787,7 @@ export default function KnowledgeHub() {
                 publishedAt={b.publishedAt}
                 imageUrl={b.thumbnailUrl}
               />
-            )
+            ),
           )}
         </div>
       </section>

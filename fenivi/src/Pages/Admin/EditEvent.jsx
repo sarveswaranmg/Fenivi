@@ -24,6 +24,7 @@ export default function EditEvent() {
   const [category, setCategory] = useState("");
   const [ticketUrl, setTicketUrl] = useState("");
   const [registrationUrl, setRegistrationUrl] = useState("");
+  const [registrationFormUrl, setRegistrationFormUrl] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [gallery, setGallery] = useState([]);
@@ -44,6 +45,7 @@ export default function EditEvent() {
           setCategory(data.category || "");
           setTicketUrl(data.ticketUrl || "");
           setRegistrationUrl(data.registrationUrl || "");
+          setRegistrationFormUrl(data.registrationFormUrl || "");
           setThumbnailUrl(data.thumbnailUrl || "");
           setGallery(data.gallery || []);
           if (data.date) {
@@ -81,7 +83,7 @@ export default function EditEvent() {
       if (thumbnailFile) {
         const thumbRef = storageRefFn(
           storage,
-          `events/thumbnails/${Date.now()}-${thumbnailFile.name}`
+          `events/thumbnails/${Date.now()}-${thumbnailFile.name}`,
         );
         await uploadBytes(thumbRef, thumbnailFile);
         newThumbnailUrl = await getDownloadURL(thumbRef);
@@ -93,7 +95,7 @@ export default function EditEvent() {
         const f = newGalleryFiles[i];
         const gRef = storageRefFn(
           storage,
-          `events/gallery/${Date.now()}-${i}-${f.name}`
+          `events/gallery/${Date.now()}-${i}-${f.name}`,
         );
         await uploadBytes(gRef, f);
         const url = await getDownloadURL(gRef);
@@ -110,6 +112,7 @@ export default function EditEvent() {
         category: category || "",
         ticketUrl: ticketUrl || "",
         registrationUrl: registrationUrl || "",
+        registrationFormUrl: registrationFormUrl || "",
         thumbnailUrl: newThumbnailUrl,
         gallery: [...gallery, ...newGalleryUrls],
       };
@@ -151,7 +154,9 @@ export default function EditEvent() {
         </div>
 
         {message && (
-          <div className={`mb-4 p-3 rounded-lg ${message.includes("Error") || message.includes("Please") ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}>
+          <div
+            className={`mb-4 p-3 rounded-lg ${message.includes("Error") || message.includes("Please") ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}
+          >
             {message}
           </div>
         )}
@@ -276,6 +281,23 @@ export default function EditEvent() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
+              Registration Form URL - Google Docs (optional)
+            </label>
+            <input
+              type="url"
+              value={registrationFormUrl}
+              onChange={(e) => setRegistrationFormUrl(e.target.value)}
+              placeholder="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Paste your Google Forms link here. It will be used for future
+              event registration.
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Current Thumbnail
             </label>
             {thumbnailUrl && (
@@ -325,7 +347,11 @@ export default function EditEvent() {
               type="file"
               accept="image/*"
               multiple
-              onChange={(e) => setNewGalleryFiles(Array.from(e.target.files || []).slice(0, 10))}
+              onChange={(e) =>
+                setNewGalleryFiles(
+                  Array.from(e.target.files || []).slice(0, 10),
+                )
+              }
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
