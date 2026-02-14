@@ -31,12 +31,12 @@ export default function Vidhubala() {
   }, []);
 
   return (
-    <section className="w-full py-8 sm:py-12 md:py-16 px-6 sm:px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full py-6 sm:py-8 md:py-10">
+      <div className="page-container bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm">
         {/* SINGLE BOX WITH IMAGE LEFT AND TEXT RIGHT */}
         <div
           ref={cardRef}
-          className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5 md:p-12 lg:p-14 pb-10 sm:pb-5 flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-10 opacity-0 scale-95 transition-all duration-1000 ease-out"
+          className="p-5 sm:p-6 md:p-10 lg:p-14 flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-10 opacity-0 scale-95 transition-all duration-1000 ease-out"
         >
 
           {/* LEFT - IMAGE SECTION */}

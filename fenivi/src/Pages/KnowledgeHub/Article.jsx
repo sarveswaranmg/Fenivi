@@ -60,7 +60,7 @@ export default function Article() {
   return (
     <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
       {/* Banner */}
-      <div className="w-full max-w-6xl mx-auto mt-8">
+      <div className="w-full max-w-6xl mx-auto mt-24 md:mt-32">
         <img
           src={mainImg}
           alt="Article banner"

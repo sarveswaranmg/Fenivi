@@ -9,6 +9,7 @@ import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase
 import StatsShowcase from "../Components/StatsShowcase";
 import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
 import HeroCarousel from "../Components/HeroCarousel";
+import ContentCarousel from "../Components/ContentCarousel";
 
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
@@ -28,21 +29,21 @@ const Home = () => {
     }
 
     // Fetch Articles
-    const qArticles = query(collection(db, "articles"), orderBy("createdAt", "desc"), limit(3));
+    const qArticles = query(collection(db, "articles"), orderBy("createdAt", "desc"), limit(10));
     const unsubArticles = onSnapshot(qArticles, (snap) => {
       setArticles(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
       setLoading(false);
     });
 
     // Fetch Events
-    const qEvents = query(collection(db, "events"), orderBy("createdAt", "desc"), limit(3));
+    const qEvents = query(collection(db, "events"), orderBy("createdAt", "desc"), limit(10));
     const unsubEvents = onSnapshot(qEvents, (snap) => {
       setEvents(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
       setEventsLoading(false);
     });
 
     // Fetch Blogs
-    const qBlogs = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(3));
+    const qBlogs = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(10));
     const unsubBlogs = onSnapshot(qBlogs, (snap) => {
       setBlogs(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
       setBlogsLoading(false);
@@ -273,69 +274,69 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Events Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {eventsLoading && (
-              <p className="col-span-4 text-center text-gray-500">
-                Loading events...
-              </p>
-            )}
+          {/* Events Carousel */}
+          {eventsLoading && (
+            <p className="text-center text-gray-500">Loading events...</p>
+          )}
 
-            {!eventsLoading && events.length === 0 && (
-              <p className="col-span-4 text-center text-gray-500">
-                No upcoming events.
-              </p>
-            )}
+          {!eventsLoading && events.length === 0 && (
+            <p className="text-center text-gray-500">No upcoming events.</p>
+          )}
 
-            {events.map((e) => (
-              <div
-                key={e.id}
-                className="event-card card flex flex-col hover-lift">
-                {/* Image */}
-                <div className="relative h-44 w-full overflow-hidden">
-                  <img
-                    src={e.thumbnailUrl}
-                    alt={e.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  {e.date && (
-                    <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
-                      {new Date(e.date).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </span>
-                  )}
+          {!eventsLoading && events.length > 0 && (
+            <ContentCarousel
+              items={events}
+              exploreMoreLink="/events"
+              exploreMoreText="Explore More Events"
+              maxVisibleItems={7}
+              renderCard={(e) => (
+                <div className="event-card card flex flex-col hover-lift h-full">
+                  {/* Image */}
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <img
+                      src={e.thumbnailUrl}
+                      alt={e.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    {e.date && (
+                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                        {new Date(e.date).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {e.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                      {e.description}
+                    </p>
+                    {e.registrationUrl ? (
+                      <a
+                        href={e.registrationUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-primary w-full text-center">
+                        Register
+                      </a>
+                    ) : (
+                      <Link
+                        to={`/events/${e.id}`}
+                        className="btn-primary w-full text-center">
+                        View Details
+                      </Link>
+                    )}
+                  </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                    {e.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
-                    {e.description}
-                  </p>
-                  {e.registrationUrl ? (
-                    <a
-                      href={e.registrationUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-primary w-full text-center">
-                      Register
-                    </a>
-                  ) : (
-                    <Link
-                      to={`/events/${e.id}`}
-                      className="btn-primary w-full text-center">
-                      View Details
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+              )}
+            />
+          )}
         </div>
       </section>
       <section className="w-full py-4 lg:py-8">
@@ -364,57 +365,59 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {loading && (
-              <p className="col-span-4 text-center text-gray-500">
-                Loading articles...
-              </p>
-            )}
+          {/* Articles Carousel */}
+          {loading && (
+            <p className="text-center text-gray-500">Loading articles...</p>
+          )}
 
-            {!loading && articles.length === 0 && (
-              <p className="col-span-4 text-center text-gray-500">
-                No articles available.
-              </p>
-            )}
+          {!loading && articles.length === 0 && (
+            <p className="text-center text-gray-500">No articles available.</p>
+          )}
 
-            {articles.map((a) => (
-              <div
-                key={a.id}
-                className="article-card card flex flex-col hover-lift">
-                {/* Image */}
-                <div className="relative h-44 w-full overflow-hidden">
-                  <img
-                    src={a.thumbnailUrl}
-                    alt={a.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  {a.publishedAt && (
-                    <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
-                      {new Date(a.publishedAt).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </span>
-                  )}
+          {!loading && articles.length > 0 && (
+            <ContentCarousel
+              items={articles}
+              exploreMoreLink="/knowledge-hub"
+              exploreMoreText="Explore More Projects"
+              maxVisibleItems={7}
+              renderCard={(a) => (
+                <div className="article-card card flex flex-col hover-lift h-full">
+                  {/* Image */}
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <img
+                      src={a.thumbnailUrl}
+                      alt={a.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    {a.publishedAt && (
+                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                        {new Date(a.publishedAt).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {a.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                      {a.description}
+                    </p>
+                    <Link
+                      to={`/article/${a.id}`}
+                      className="btn-primary w-full text-center">
+                      Read More
+                    </Link>
+                  </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                    {a.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
-                    {a.description}
-                  </p>
-                  <Link to={`/article/${a.id}`} className="btn-primary w-full text-center">
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+              )}
+            />
+          )}
         </div>
       </section>
 
@@ -440,53 +443,53 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Blogs Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {blogsLoading && (
-              <p className="col-span-4 text-center text-gray-500">
-                Loading blogs...
-              </p>
-            )}
+          {/* Blogs Carousel */}
+          {blogsLoading && (
+            <p className="text-center text-gray-500">Loading blogs...</p>
+          )}
 
-            {!blogsLoading && blogs.length === 0 && (
-              <p className="col-span-4 text-center text-gray-500">
-                No blogs available.
-              </p>
-            )}
+          {!blogsLoading && blogs.length === 0 && (
+            <p className="text-center text-gray-500">No blogs available.</p>
+          )}
 
-            {blogs.slice(0, 4).map((blog) => (
-              <div
-                key={blog.id}
-                className="blog-card card flex flex-col hover-lift">
-                {/* Image */}
-                <div className="relative h-44 w-full overflow-hidden">
-                  <img
-                    src={blog.thumbnailUrl}
-                    alt={blog.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full shadow-md">
-                    Blog
-                  </span>
+          {!blogsLoading && blogs.length > 0 && (
+            <ContentCarousel
+              items={blogs}
+              exploreMoreLink="/knowledge-hub"
+              exploreMoreText="Explore More Blogs"
+              maxVisibleItems={7}
+              renderCard={(blog) => (
+                <div className="blog-card card flex flex-col hover-lift h-full">
+                  {/* Image */}
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <img
+                      src={blog.thumbnailUrl}
+                      alt={blog.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full shadow-md">
+                      Blog
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {blog.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                      {blog.description}
+                    </p>
+                    <Link
+                      to={`/article/${blog.id}`}
+                      className="btn-primary w-full text-center">
+                      Read More
+                    </Link>
+                  </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                    {blog.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
-                    {blog.description}
-                  </p>
-                  <Link
-                    to={`/article/${blog.id}`}
-                    className="btn-primary w-full text-center">
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+              )}
+            />
+          )}
         </div>
       </section>
 
