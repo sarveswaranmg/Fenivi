@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import {
@@ -11,13 +11,18 @@ import {
 
 export default function Article() {
   const { id } = useParams();
+  const location = useLocation();
   const [article, setArticle] = useState(null);
 
   useEffect(() => {
     const fetchArticle = async () => {
       if (!db) return;
       try {
-        const docRef = doc(db, "articles", id);
+        // Determine if fetching from articles or blogs based on current path
+        const collectionName = location.pathname.includes("/blog/")
+          ? "blogs"
+          : "articles";
+        const docRef = doc(db, collectionName, id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setArticle({ id: docSnap.id, ...docSnap.data() });
@@ -27,7 +32,7 @@ export default function Article() {
       }
     };
     fetchArticle();
-  }, [id]);
+  }, [id, location]);
 
   if (!article)
     return (

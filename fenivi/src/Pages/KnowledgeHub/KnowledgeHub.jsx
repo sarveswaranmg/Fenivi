@@ -786,6 +786,7 @@ export default function KnowledgeHub() {
                 place={b.place}
                 publishedAt={b.publishedAt}
                 imageUrl={b.thumbnailUrl}
+                type="blog"
               />
             ),
           )}
