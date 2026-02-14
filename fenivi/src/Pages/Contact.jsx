@@ -33,7 +33,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="w-full flex md:items-center justify-center min-h-screen py-24 md:py-12 px-2 sm:px-12 md:px-0">
+    <div className="w-full flex md:items-center justify-center min-h-screen pt-28 sm:pt-32 md:pt-24 pb-12 px-2 sm:px-12 md:px-0">
       <div className="w-full page-container !px-0 sm:!px-8 md:!px-12">
         {/* Header Section */}
         <div className="text-center mb-8">
