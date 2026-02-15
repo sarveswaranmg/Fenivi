@@ -22,85 +22,85 @@ const HeroSection = () => {
     // Stagger text animations
     gsap.fromTo(
       ".hero-pill",
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 15 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        delay: 0.1,
+        duration: 0.35,
+        delay: 0.05,
         ease: "power2.out",
       },
     );
 
     gsap.fromTo(
       ".hero-title",
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 20 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        delay: 0.2,
+        duration: 0.4,
+        delay: 0.1,
         ease: "power2.out",
       },
     );
 
     gsap.fromTo(
       ".hero-subtitle",
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 20 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        delay: 0.35,
+        duration: 0.4,
+        delay: 0.15,
         ease: "power2.out",
       },
     );
 
     gsap.fromTo(
       ".hero-buttons button, .hero-buttons a",
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 15 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        delay: 0.5,
+        duration: 0.35,
+        stagger: 0.05,
+        delay: 0.2,
         ease: "power2.out",
       },
     );
 
     gsap.fromTo(
       ".hero-stats",
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 15 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        delay: 0.7,
+        duration: 0.35,
+        delay: 0.25,
         ease: "power2.out",
       },
     );
 
     gsap.fromTo(
       ".hero-float",
-      { opacity: 0, x: !isMobile ? 50 : 0, y: isMobile ? 30 : 0 },
+      { opacity: 0, x: !isMobile ? 40 : 0, y: isMobile ? 20 : 0 },
       {
         opacity: 1,
         x: 0,
         y: 0,
-        duration: 0.8,
-        delay: 0.4,
+        duration: 0.5,
+        delay: 0.15,
         ease: "power2.out",
       },
     );
 
     // Floating animation for image
     gsap.to(".hero-float", {
-      y: -15,
-      duration: 2.5,
+      y: -12,
+      duration: 2.2,
       repeat: -1,
       yoyo: true,
-      ease: "power1.inOut",
+      ease: "sine.inOut",
     });
   }, [isMobile]);
 
@@ -201,6 +201,59 @@ const HeroSection = () => {
   );
 };
 
+// ============ FEATURE CARD WITH MOUSE GLOW ============
+const FeatureCardWithGlow = ({ item }) => {
+  const cardRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setPosition({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="feature-card group relative bg-white rounded-2xl border border-gray-100 p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden"
+    >
+      {/* GLOW EFFECT ON MOUSE MOVE */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle 150px at ${position.x}px ${position.y}px, rgba(168, 85, 247, 0.15), transparent 80%)`,
+        }}
+      ></div>
+
+      {/* CONTENT */}
+      <div className="relative z-10">
+        {/* ICON */}
+        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-xl shadow-lg mb-6">
+          {item.icon}
+        </div>
+
+        {/* TITLE */}
+        <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-snug">
+          {item.title}
+        </h3>
+
+        {/* DESCRIPTION */}
+        <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+      </div>
+    </div>
+  );
+};
+
 // ============ FEATURES SECTION ============
 const FeaturesSection = () => {
   const features = [
@@ -227,27 +280,63 @@ const FeaturesSection = () => {
   ];
 
   const sectionRef = useRef(null);
+  const [bgPosition, setBgPosition] = useState({ x: 0, y: 0 });
+
+  const handleSectionMouseMove = (e) => {
+    if (!sectionRef.current) return;
+
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setBgPosition({ x, y });
+  };
+
+  const handleSectionMouseLeave = () => {
+    setBgPosition({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    gsap.from(".feature-card", {
-      scrollTrigger: {
-        trigger: ".feature-card",
-        start: "top 85%",
-        toggleActions: "play none none none",
+    const cards = sectionRef.current.querySelectorAll(".feature-card");
+    if (cards.length === 0) return;
+
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+        ease: "power2.out",
       },
-      opacity: 0,
-      y: 40,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power2.out",
-    });
+    );
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-[#f8f9fc]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleSectionMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
+      className="relative py-24 bg-[#f8f9fc] overflow-hidden will-change-transform"
+    >
+      {/* BACKGROUND GLOW EFFECT */}
+      <div
+        className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-200 hover:opacity-60 will-change-opacity"
+        style={{
+          background: `radial-gradient(circle 300px at ${bgPosition.x}px ${bgPosition.y}px, rgba(168, 85, 247, 0.12), transparent 70%)`,
+        }}
+      ></div>
+
+      {/* CONTENT */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* ===== HEADER ===== */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
@@ -262,25 +351,7 @@ const FeaturesSection = () => {
         {/* ===== CARDS GRID ===== */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((item, i) => (
-            <div
-              key={i}
-              className="feature-card group bg-white rounded-2xl border border-gray-200 p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-            >
-              {/* ICON */}
-              <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-xl shadow-lg mb-6">
-                {item.icon}
-              </div>
-
-              {/* TITLE */}
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-snug">
-                {item.title}
-              </h3>
-
-              {/* DESCRIPTION */}
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
+            <FeatureCardWithGlow key={i} item={item} />
           ))}
         </div>
       </div>
@@ -308,11 +379,11 @@ const CourseCard = ({
 
     gsap.fromTo(
       card,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 25 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
+        duration: 0.45,
         scrollTrigger: {
           trigger: card,
           start: "top 85%",
@@ -438,7 +509,7 @@ const FeaturedCoursesSection = () => {
       {
         opacity: 1,
         x: 0,
-        duration: 0.8,
+        duration: 0.45,
         scrollTrigger: {
           trigger: heading,
           start: "top 80%",
@@ -531,7 +602,7 @@ const MoreProgramsSection = () => {
       {
         opacity: 1,
         x: 0,
-        duration: 0.8,
+        duration: 0.45,
         scrollTrigger: {
           trigger: heading,
           start: "top 80%",
@@ -572,7 +643,7 @@ const CTASection = () => {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.45,
         scrollTrigger: {
           trigger: section,
           start: "top 70%",
