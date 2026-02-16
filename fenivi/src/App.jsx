@@ -21,6 +21,7 @@ import EditArticle from "./Pages/Admin/EditArticle.jsx";
 import EditProject from "./Pages/Admin/EditProject.jsx";
 import EditEvent from "./Pages/Admin/EditEvent.jsx";
 import EditBlog from "./Pages/Admin/EditBlog.jsx"; // Import EditBlog
+import EditCourse from "./Pages/Admin/EditCourse.jsx"; // Import EditCourse
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Import ProtectedRoute
 import Events from "./Pages/Event";
 import EventDetails from "./Pages/EventDetails";
@@ -88,6 +89,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <EditEvent />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-course/:id"
+          element={
+            <ProtectedRoute>
+              <EditCourse />
             </ProtectedRoute>
           }
         />

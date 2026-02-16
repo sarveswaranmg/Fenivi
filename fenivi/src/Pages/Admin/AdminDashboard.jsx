@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AdminArticleForm from "./Components/AdminArticleForm";
 import AdminProjectForm from "./Components/AdminProjectForm";
 import AdminEventForm from "./Components/AdminEventForm";
+import AdminCourseForm from "./Components/AdminCourseForm";
 import AdminBlogForm from "./Components/AdminBlogForm";
 import { Menu, X, LogOut } from "lucide-react";
 import { auth } from "../../firebase";
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
     { id: "blogs", label: "Blogs", icon: "✍️" },
     { id: "projects", label: "Projects", icon: "📁" },
     { id: "events", label: "Events", icon: "📅" },
+    { id: "courses", label: "Courses", icon: "🎓" },
   ];
 
   return (
@@ -104,6 +106,7 @@ export default function AdminDashboard() {
         {activeTab === "blogs" && <AdminBlogForm />}
         {activeTab === "projects" && <AdminProjectForm />}
         {activeTab === "events" && <AdminEventForm />}
+        {activeTab === "courses" && <AdminCourseForm />}
       </div>
     </div>
   );

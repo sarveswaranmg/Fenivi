@@ -8,7 +8,8 @@ import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
 import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
-import HeroCarousel from "../Components/HeroCarousel";
+import CourseHero from "../Components/CourseHero";
+import UpcomingCourses from "../Components/UpcomingCourses";
 import ContentCarousel from "../Components/ContentCarousel";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -187,65 +188,67 @@ const Home = () => {
     <div className="w-full">
 
       {/* Hero Section */}
-      {/* Hero Section */}
-      <HeroCarousel />
+      <CourseHero />
+
+      {/* Upcoming Courses Section */}
+      <UpcomingCourses />
 
       {/* Intro Section - Moved Up */}
-      <section className="w-full relative py-12 lg:py-20">
+      <section className="w-full relative pt-8 pb-12 lg:pt-10 lg:pb-20">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 items-center gap-12 lg:gap-16">
           {/* LEFT CONTENT */}
           <div className="intro-text flex flex-col justify-center">
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-6">
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory
               organization committed to bridging the gap between policy,
               practice, and community needs.
             </p>
-            <p className="text-lg md:text-lg text-gray-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
               Since 2017, we have empowered governments, NGOs, corporates, and startups
               with evidence-based research, feasibility studies, and strategic advisory.
             </p>
           </div>
 
-          {/* 2x2 STATS GRID (SYNCED WITH KNOWLEDGE HUB) */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5 xl:gap-6 w-full max-w-[650px] aspect-[4/3] md:aspect-square">
+          {/* 2x2 STATS GRID (REDUCED SIZE - RIGHT ALIGNED) */}
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[400px] aspect-[4/3] md:aspect-square justify-self-end">
             {/* Box 1: Image + Label */}
-            <div className="stat-box overflow-hidden rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] bg-white relative group hover-lift">
+            <div className="stat-box overflow-hidden rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] bg-white relative group hover-lift">
               <img
                 src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
                 alt="Impact Footprint"
-                className="w-full h-full object-cover rounded-3xl transition-all duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover rounded-2xl transition-all duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-6 flex flex-col justify-end h-full">
-                <p className="text-white text-[10px] sm:text-xs uppercase tracking-widest font-semibold opacity-90 mb-1">Impact Footprint</p>
-                <h4 className="text-white text-lg sm:text-xl xl:text-2xl font-bold">12+ Districts</h4>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4 flex flex-col justify-end h-full">
+                <p className="text-white text-[8px] sm:text-[10px] uppercase tracking-widest font-semibold opacity-90 mb-0.5">Impact Footprint</p>
+                <h4 className="text-white text-base sm:text-lg lg:text-xl font-bold">12+ Districts</h4>
               </div>
             </div>
 
             {/* Box 2: Publications */}
-            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-600">
-                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+            <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-600">
+                <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">200+</h3>
-              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Publications</p>
+              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">200+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Publications</p>
             </div>
 
             {/* Box 3: Years of Impact */}
-            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-indigo-600">
-                <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+            <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-2 text-indigo-600">
+                <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">8+</h3>
-              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Years of Impact</p>
+              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">8+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Years of Impact</p>
             </div>
 
             {/* Box 4: Strategic Reports */}
-            <div className="stat-box p-4 sm:p-6 lg:p-7 xl:p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-purple-700">
-                <FileText className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+            <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-700">
+                <FileText className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">100+</h3>
-              <p className="text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">Strategic Reports</p>
+              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">100+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Strategic Reports</p>
             </div>
           </div>
         </div>
@@ -257,10 +260,10 @@ const Home = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
                 Events
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
                 Join our global community for insightful workshops, hands-on
                 masterclasses, and networking events designed to boost your skills
                 and connections.
@@ -339,9 +342,6 @@ const Home = () => {
           )}
         </div>
       </section>
-      <section className="w-full py-4 lg:py-8">
-        <StatsShowcase />
-      </section>
 
       {/* ===== Articles Section ===== */}
       <section className="w-full py-12 lg:py-20">
@@ -349,10 +349,10 @@ const Home = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
                 Recent Evidence-Driven Projects
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
                 Discover our latest research studies, field insights, and
                 innovations driving sustainable and community-led development
                 across sectors.
@@ -427,10 +427,10 @@ const Home = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
                 Latest Blogs
               </h2>
-              <p className="text-gray-600 max-w-2xl text-base leading-relaxed">
+              <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
                 Explore our latest insights, professional stories, and research updates
                 designed to keep you informed and inspired.
               </p>
@@ -498,11 +498,11 @@ const Home = () => {
         <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
           <div className="rwe-content">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4">
               Real-World Evidence
             </h2>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+            <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-6">
               Real-World Evidence (RWE) integrates clinical insights, hospital
               workflows, and large-scale health datasets to generate actionable
               knowledge for policymakers, researchers, and clinicians. The
