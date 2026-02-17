@@ -3,6 +3,7 @@ import AboutOverview from "./Components/AboutOverview";
 import TeamSection from "./Components/TeamSection";
 import KeyResponsibilities from "./Components/KeyResponsibilities";
 import Vidhubala from "./Components/Vidhubala";
+import newLogo from "../../assets/New_Logo.png";
 
 export default function About() {
   const heroLeftRef = useRef(null);
@@ -57,13 +58,13 @@ export default function About() {
           {/* Right Image Side */}
           <div
             ref={heroRightRef}
-            className="relative h-[220px] sm:h-[280px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl opacity-0 translate-y-12 xl:translate-y-0 xl:translate-x-12 transition-all duration-1000 ease-out"
+            className="flex items-center justify-center opacity-0 translate-y-12 xl:translate-y-0 xl:translate-x-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '300ms' }}
           >
             <img
-              src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-              alt="About illustration"
-              className="w-full h-full object-cover"
+              src={newLogo}
+              alt="Fenivi Logo"
+              className="w-full max-w-sm object-contain"
             />
           </div>
         </div>

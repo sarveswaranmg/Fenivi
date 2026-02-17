@@ -28,8 +28,8 @@ import EventDetails from "./Pages/EventDetails";
 import ProjectDetails from "./Pages/ProjectDetails";
 
 import Courses from "./Pages/Courses.jsx";
+import CourseDetails from "./Pages/CourseDetails.jsx";
 import ContactButton from "./Components/ContactButton.jsx";
-import MouseGlow from "./Components/MouseGlow.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 function AppContent() {
@@ -43,8 +43,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      <MouseGlow />
-      {!isAdminPage && <Navbar />}
+{!isAdminPage && <Navbar />}
       {!isAdminPage && <ContactButton />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -110,6 +109,7 @@ function AppContent() {
         />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
         {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
       </Routes>

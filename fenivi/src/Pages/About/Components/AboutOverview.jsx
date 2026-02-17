@@ -36,7 +36,7 @@ export default function AboutOverview() {
     <section ref={sectionRef} className="w-full py-6 sm:py-8 md:py-10">
       <div className="page-container bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm">
         <div className="p-5 sm:p-6 md:p-10 lg:p-14">
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 items-center">
             {/* LEFT: TEXT */}
             <div
               ref={leftCardRef}
@@ -77,7 +77,7 @@ export default function AboutOverview() {
             {/* RIGHT: IMAGE + STATS */}
             <div
               ref={rightCardRef}
-              className="flex flex-col opacity-0 translate-y-8 xl:translate-y-0 xl:translate-x-8 transition-all duration-1000 ease-out"
+              className="flex flex-col justify-center opacity-0 translate-y-8 xl:translate-y-0 xl:translate-x-8 transition-all duration-1000 ease-out"
               style={{ transitionDelay: '200ms' }}
             >
               {/* IMAGE */}
@@ -89,29 +89,6 @@ export default function AboutOverview() {
                 />
               </div>
 
-              {/* STATS SECTION */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-5">
-                {[
-                  { number: "8+", label: "Years of Impact" },
-                  { number: "200+", label: "Publications" },
-                  { number: "100+", label: "Projects" },
-                  { number: "15+", label: "Partners" }
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    ref={el => statsRefs.current[index] = el}
-                    className="rounded-lg sm:rounded-xl bg-gray-50 shadow-sm p-2.5 sm:p-3 flex flex-col justify-center items-start opacity-0 translate-y-6 transition-all duration-700 ease-out"
-                    style={{ transitionDelay: `${400 + index * 100}ms` }}
-                  >
-                    <div className="text-base sm:text-lg font-extrabold text-gray-900">
-                      {stat.number}
-                    </div>
-                    <div className="text-[9px] sm:text-xs text-gray-600 mt-0.5">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import coursesAndResearch from "../assets/coursesandresearch.png";
 import gsap from "gsap";
+import { PRIMARY, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
 const CourseHero = () => {
     const heroRef = useRef(null);
@@ -110,14 +111,14 @@ const CourseHero = () => {
                     {/* LEFT: TEXT CONTENT */}
                     <div className="space-y-6">
                         <div className="hero-pill inline-block">
-                            <span className="px-4 py-2 bg-purple-100 text-purple-700 text-sm font-semibold rounded-full">
+                            <span className="px-4 py-2 text-sm font-semibold rounded-full" style={{backgroundColor: PRIMARY_BG, color: PRIMARY}}>
                                 Policy . Research . Impact
                             </span>
                         </div>
 
                         <h1 className="hero-title text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 leading-tight">
                             <span className="lg:whitespace-nowrap">Transforming System Through</span> <br />
-                            <span className="text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                            <span className="text-4xl md:text-5xl lg:text-6xl" style={{color: PRIMARY}}>
                                 Research
                             </span>
                         </h1>
@@ -137,7 +138,7 @@ const CourseHero = () => {
                         <div className="hero-buttons flex flex-wrap gap-4 pt-4">
                             <a
                                 href="/contact"
-                                className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105"
+                                className="px-8 py-3.5 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105" style={{background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})`}}
                             >
                                 Partner with us
                             </a>
@@ -151,7 +152,7 @@ const CourseHero = () => {
                                 <p className="text-sm text-gray-600">Clients</p>
                             </div>
                             <div>
-                                <p className="text-2xl md:text-3xl font-bold text-purple-600">
+                                <p className="text-2xl md:text-3xl font-bold" style={{color: PRIMARY}}>
                                     1Cr+
                                 </p>
                                 <p className="text-sm text-gray-600">Data Processed</p>
@@ -175,7 +176,7 @@ const CourseHero = () => {
                             className="absolute
                right-10 top-1/2 -translate-y-1/2
                w-[520px] h-[520px]
-               bg-[radial-gradient(circle_at_center,rgba(168,139,250,0.35),transparent_65%)]
+               bg-[radial-gradient(circle_at_center,rgba(48,51,122,0.15),transparent_65%)]
                blur-2xl"
                         />
 

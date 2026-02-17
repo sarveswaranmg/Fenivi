@@ -36,13 +36,13 @@ export default function Vidhubala() {
         {/* SINGLE BOX WITH IMAGE LEFT AND TEXT RIGHT */}
         <div
           ref={cardRef}
-          className="p-5 sm:p-6 md:p-10 lg:p-14 flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-10 opacity-0 scale-95 transition-all duration-1000 ease-out"
+          className="p-5 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center opacity-0 scale-95 transition-all duration-1000 ease-out"
         >
 
           {/* LEFT - IMAGE SECTION */}
           <div
             ref={imageRef}
-            className="flex flex-col items-center space-y-2 sm:space-y-3 md:pt-6 md:w-64 lg:w-72 flex-shrink-0 opacity-0 translate-y-8 xl:translate-y-0 xl:-translate-x-8 transition-all duration-1000 ease-out"
+            className="flex flex-col items-center space-y-2 md:w-52 lg:w-60 flex-shrink-0 opacity-0 translate-y-8 xl:translate-y-0 xl:-translate-x-8 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '200ms' }}
           >
             <img
@@ -80,7 +80,7 @@ export default function Vidhubala() {
           {/* RIGHT - TEXT SECTION */}
           <div
             ref={textRef}
-            className="flex-1 space-y-2.5 sm:space-y-4 md:pt-6 opacity-0 translate-y-8 xl:translate-y-0 xl:translate-x-8 transition-all duration-1000 ease-out"
+            className="flex-1 space-y-2 sm:space-y-3 opacity-0 translate-y-8 xl:translate-y-0 xl:translate-x-8 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '400ms' }}
           >
             <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900">

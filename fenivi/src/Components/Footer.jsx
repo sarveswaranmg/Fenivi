@@ -1,180 +1,126 @@
-import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-6 px-6">
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8">
-        {/* Company Info */}
-        <div className="col-span-2 sm:col-span-1 text-center md:text-left">
-          <h3 className="text-base font-bold mb-2 text-white">Fenivi Research Solutions</h3>
-          <p className="text-xs text-gray-400 mb-2 leading-relaxed">
-            9/56C, ISRO Road,<br />
-            Kavalkinaru Junction,<br />
-            Tirunelveli District,<br />
-            Tamil Nadu - 627105
-          </p>
-          <p className="text-gray-400 text-sm leading-relaxed mt-4">
-            <span className="text-white font-semibold">Admin Address:</span><br />
-            No 68, svastika star apartment,<br />
-            A Block G1 House, Krishnaveni Ammal Nagar,<br />
-            Iyyapanthangal, Chennai - 600056
-          </p>
-          <div className="flex space-x-3 text-lg justify-center md:justify-start mt-2">
-            <a
-              href="https://www.instagram.com/fenivi2017/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="text-gray-400 hover:text-pink-400 transition-colors duration-300">
-              <FaInstagram />
-            </a>
-            <a
-              href="https://www.facebook.com/Fenivi/?d=%7B%22u%22%3A100005858536869%2C%22f%22%3A1305728356435516%2C%22t%22%3A1763037625%2C%22ed%22%3A[]%7D&s=AWUfivayLGx3e0UpLkQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="text-gray-400 hover:text-blue-400 transition-colors duration-300">
-              <FaFacebookF />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="text-gray-400 hover:text-red-400 transition-colors duration-300">
-              <FaYoutube />
-            </a>
+    <footer className="bg-gray-950 text-white">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+
+          {/* Brand Column */}
+          <div className="lg:col-span-2 space-y-3">
+            <div>
+              <h3 className="text-sm font-bold text-white tracking-tight">Fenivi Research Solutions</h3>
+              <p className="text-[10px] text-gray-500 mt-0.5 uppercase tracking-widest">Policy · Research · Impact</p>
+            </div>
+
+            {/* Contact Details */}
+            <ul className="space-y-1.5">
+              <li className="flex items-start gap-2">
+                <MapPin size={12} className="mt-0.5 shrink-0 text-gray-600" />
+                <div className="text-[11px] text-gray-500 leading-relaxed flex flex-col">
+                  <span>9/56C, ISRO Road,</span>
+                  <span>Kavalkinaru Junction,</span>
+                  <span>Tirunelveli – 627105</span>
+                </div>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone size={12} className="shrink-0 text-gray-600" />
+                <a href="tel:+918148699354" className="text-[11px] text-gray-500 hover:text-white transition-colors">
+                  +91 81486 99354
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail size={12} className="shrink-0 text-gray-600" />
+                <a href="mailto:feniviresearch@gmail.com" className="text-[11px] text-gray-500 hover:text-white transition-colors">
+                  feniviresearch@gmail.com
+                </a>
+              </li>
+            </ul>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-2">
+              <a href="https://www.instagram.com/fenivi2017/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                className="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-500 hover:text-pink-400 hover:border-pink-400 transition-all">
+                <FaInstagram size={14} />
+              </a>
+              <a href="https://www.facebook.com/Fenivi/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                className="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-500 hover:text-blue-400 hover:border-blue-400 transition-all">
+                <FaFacebookF size={14} />
+              </a>
+              <a href="https://www.linkedin.com/company/fenivi-research-solutions/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                className="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-500 hover:text-sky-400 hover:border-sky-400 transition-all">
+                <FaLinkedinIn size={14} />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                className="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-500 hover:text-red-400 hover:border-red-400 transition-all">
+                <FaYoutube size={14} />
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* Column 1 - Company */}
-        <div className="text-center md:text-left">
-          <h4 className="text-xs font-bold mb-2 text-white uppercase tracking-wider">Company</h4>
-          <ul className="space-y-1.5">
-            <li>
-              <a
-                href="/"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/about"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="/services"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="/projects"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Projects
-              </a>
-            </li>
-          </ul>
-        </div>
+          {/* Company */}
+          <div>
+            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-gray-600 mb-3">Company</h4>
+            <ul className="space-y-2">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/about" },
+                { label: "Services", href: "/services" },
+                { label: "Projects", href: "/projects" },
+                { label: "Contact Us", href: "/contact" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} className="text-xs text-gray-400 hover:text-white transition-colors">{label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Column 2 - Resources */}
-        <div className="text-center md:text-left">
-          <h4 className="text-xs font-bold mb-2 text-white uppercase tracking-wider">Resources</h4>
-          <ul className="space-y-1.5">
-            <li>
-              <a
-                href="/knowledge-hub"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Knowledge Hub
-              </a>
-            </li>
-            <li>
-              <a
-                href="/events"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Events
-              </a>
-            </li>
-            <li>
-              <a
-                href="/courses"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Courses
-              </a>
-            </li>
-          </ul>
-        </div>
+          {/* Resources */}
+          <div>
+            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-gray-600 mb-3">Resources</h4>
+            <ul className="space-y-2">
+              {[
+                { label: "Knowledge Hub", href: "/knowledge-hub" },
+                { label: "Events", href: "/events" },
+                { label: "Courses", href: "/courses" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} className="text-xs text-gray-400 hover:text-white transition-colors">{label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Column 3 - Links */}
-        <div className="text-center md:text-left">
-          <h4 className="text-xs font-bold mb-2 text-white uppercase tracking-wider">Links</h4>
-          <ul className="space-y-1.5">
-            <li>
-              <a
-                href="https://realworldevidence.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                RWE Initiative
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/company/fenivi-research-solutions/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                LinkedIn
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Contact Us
-              </a>
-            </li>
-          </ul>
-        </div>
+          {/* External */}
+          <div>
+            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-gray-600 mb-3">External</h4>
+            <ul className="space-y-2">
+              {[
+                { label: "RWE Initiative", href: "https://realworldevidence.in/", external: true },
+                { label: "LinkedIn", href: "https://www.linkedin.com/company/fenivi-research-solutions/", external: true },
+                { label: "Admin Portal", href: "/admin" },
+              ].map(({ label, href, external }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="text-xs text-gray-400 hover:text-white transition-colors"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Column 4 - Contact */}
-        <div className="text-center md:text-left">
-          <h4 className="text-xs font-bold mb-2 text-white uppercase tracking-wider">Contact</h4>
-          <ul className="space-y-1.5">
-            <li>
-              <a
-                href="mailto:demo@fenivi.com"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Email Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="tel:+918148699354"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                +91 98402 87857
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin"
-                className="text-xs text-gray-400 hover:text-white transition-colors duration-300">
-                Admin Portal
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-4 pt-3 border-t border-gray-700">
-        <p className="text-center text-xs text-gray-400">
+      {/* Bottom bar */}
+      <div className="border-t border-gray-800/60 max-w-7xl mx-auto px-6 py-3">
+        <p className="text-center text-[10px] text-gray-700">
           © {new Date().getFullYear()} Fenivi Research Solutions Pvt. Ltd. All rights reserved.
         </p>
       </div>

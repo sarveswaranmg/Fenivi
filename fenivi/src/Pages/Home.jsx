@@ -11,6 +11,8 @@ import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
 import CourseHero from "../Components/CourseHero";
 import UpcomingCourses from "../Components/UpcomingCourses";
 import ContentCarousel from "../Components/ContentCarousel";
+import ServicesSection from "../Components/ServicesSection";
+import { PRIMARY } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
@@ -190,27 +192,27 @@ const Home = () => {
       {/* Hero Section */}
       <CourseHero />
 
-      {/* Upcoming Courses Section */}
+      {/* Learn With Fenivi Section */}
       <UpcomingCourses />
 
       {/* Intro Section - Moved Up */}
-      <section className="w-full relative pt-8 pb-12 lg:pt-10 lg:pb-20">
+      <section className="w-full relative pt-2 pb-4 lg:pt-3 lg:pb-6">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 items-center gap-12 lg:gap-16">
           {/* LEFT CONTENT */}
           <div className="intro-text flex flex-col justify-center">
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
-              Fenivi Research Solutions Pvt. Ltd. is a research and advisory
-              organization committed to bridging the gap between policy,
-              practice, and community needs.
-            </p>
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Since 2017, we have empowered governments, NGOs, corporates, and startups
-              with evidence-based research, feasibility studies, and strategic advisory.
-            </p>
+            <h2 className="text-2xl font-normal text-gray-900 mb-6">
+              Fenivi Research and Solution pvt.Ltd
+            </h2>
+            <div className="space-y-6">
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs.
+
+Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.</p>
+            </div>
           </div>
 
           {/* 2x2 STATS GRID (REDUCED SIZE - RIGHT ALIGNED) */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[400px] aspect-[4/3] md:aspect-square justify-self-end">
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[320px] aspect-[4/3] md:aspect-square justify-self-end">
             {/* Box 1: Image + Label */}
             <div className="stat-box overflow-hidden rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] bg-white relative group hover-lift">
               <img
@@ -254,13 +256,16 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ===== Services Section ===== */}
+      <ServicesSection />
+
       {/* ===== Events Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Events
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -295,14 +300,14 @@ const Home = () => {
               renderCard={(e) => (
                 <div className="event-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={e.thumbnailUrl}
                       alt={e.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {e.date && (
-                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{backgroundColor: PRIMARY}}>
                         {new Date(e.date).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -313,11 +318,11 @@ const Home = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {e.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {e.description}
                     </p>
                     {e.registrationUrl ? (
@@ -344,12 +349,12 @@ const Home = () => {
       </section>
 
       {/* ===== Articles Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Recent Evidence-Driven Projects
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -383,14 +388,14 @@ const Home = () => {
               renderCard={(a) => (
                 <div className="article-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={a.thumbnailUrl}
                       alt={a.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {a.publishedAt && (
-                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{backgroundColor: PRIMARY}}>
                         {new Date(a.publishedAt).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -401,11 +406,11 @@ const Home = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {a.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {a.description}
                     </p>
                     <Link
@@ -422,12 +427,12 @@ const Home = () => {
       </section>
 
       {/* ===== Latest Blogs Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Latest Blogs
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -461,23 +466,23 @@ const Home = () => {
               renderCard={(blog) => (
                 <div className="blog-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={blog.thumbnailUrl}
                       alt={blog.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full shadow-md">
+                    <span className="absolute top-2 left-2 text-white text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full shadow-md" style={{backgroundColor: PRIMARY}}>
                       Blog
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {blog.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {blog.description}
                     </p>
                     <Link
@@ -494,11 +499,11 @@ const Home = () => {
       </section>
 
       {/* ===== Real World Evidence Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
           <div className="rwe-content">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-normal text-gray-900 mb-4">
               Real-World Evidence
             </h2>
 
@@ -524,7 +529,7 @@ const Home = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="rwe-image w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+          <div className="rwe-image w-full h-[200px] md:h-[260px] rounded-2xl overflow-hidden shadow-xl">
             <img
               src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
               alt="Real World Evidence"

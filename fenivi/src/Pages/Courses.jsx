@@ -212,33 +212,29 @@ const CourseCard = ({
       ref={cardRef}
       className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-500 flex flex-col h-full relative"
     >
-      {/* CATEGORY BADGE */}
-      <div className="absolute top-4 left-4 z-10">
-        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${category === 'upcoming' ? 'bg-purple-600 text-white' :
-          category === 'ongoing' ? 'bg-green-600 text-white' :
-            'bg-gray-600 text-white'
-          }`}>
-          {category || 'Upcoming'}
-        </span>
-      </div>
-
-      {/* PRICE BADGE */}
-      <div className="absolute top-4 right-4 z-10">
-        <span className="bg-white/90 backdrop-blur-sm border border-gray-100 px-3 py-1 rounded-full text-[10px] font-bold text-gray-900 shadow-sm">
-          {price || 'Free'}
-        </span>
-      </div>
-
-      {/* IMAGE SECTION */}
-      <div className={`relative h-56 overflow-hidden ${gradient}`}>
+      {/* IMAGE SECTION - Badges inside to prevent title overlap */}
+      <div className={`relative h-52 overflow-hidden ${gradient}`}>
         <img
           src={image}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
-        <div className="absolute bottom-4 left-4">
+        <div className="absolute top-2 left-2 z-10">
+          <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider shadow-sm ${category === 'upcoming' ? 'bg-purple-600 text-white' :
+            category === 'ongoing' ? 'bg-green-600 text-white' :
+              'bg-gray-600 text-white'
+            }`}>
+            {category || 'Upcoming'}
+          </span>
+        </div>
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-white/90 backdrop-blur-sm border border-gray-100 px-2 py-0.5 rounded-full text-[9px] font-bold text-gray-900 shadow-sm">
+            {price || 'Free'}
+          </span>
+        </div>
+        <div className="absolute bottom-3 left-3">
           <span
-            className={`inline-block px-3 py-1 ${badgeColor} font-semibold text-[10px] rounded-full shadow-md`}
+            className={`inline-block px-2 py-0.5 ${badgeColor} font-semibold text-[9px] rounded-full shadow-md`}
           >
             {badge || 'Certificate'}
           </span>
@@ -246,8 +242,8 @@ const CourseCard = ({
       </div>
 
       {/* CONTENT SECTION */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">{title}</h3>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-base font-medium text-gray-900 mb-1.5 line-clamp-1">{title}</h3>
 
         <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
           <MapPin size={12} className="text-purple-500" />
@@ -261,33 +257,39 @@ const CourseCard = ({
           )}
         </div>
 
-        <p className="text-sm text-gray-600 mb-5 line-clamp-2 flex-grow">
+        <p className="text-xs text-gray-600 mb-4 line-clamp-2">
           {description}
         </p>
 
         {/* INFO GRID */}
-        <div className="grid grid-cols-3 gap-3 mb-5 py-4 border-y border-gray-200">
+        <div className="grid grid-cols-3 gap-2 mb-4 py-3 border-y border-gray-100">
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Duration</p>
-            <p className="text-xs font-bold text-gray-900">{duration}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Duration</p>
+            <p className="text-[10px] font-bold text-gray-900">{duration}</p>
           </div>
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Format</p>
-            <p className="text-xs font-bold text-gray-900">{format}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Format</p>
+            <p className="text-[10px] font-bold text-gray-900">{format}</p>
           </div>
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Level</p>
-            <p className="text-xs font-bold text-gray-900">{level}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Level</p>
+            <p className="text-[10px] font-bold text-gray-900">{level}</p>
           </div>
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-3 mt-auto">
+        <div className="flex gap-2.5 mt-auto">
+          <Link
+            to={`/courses/${id}`}
+            className="w-full px-3 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-[10px] hover:shadow-md transition text-center"
+          >
+            Learn More
+          </Link>
           <Link
             to="/contact"
-            className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-xs hover:shadow-lg transition text-center"
+            className="w-full px-3 py-2 border border-purple-200 text-purple-600 rounded-lg font-semibold text-[10px] hover:bg-purple-50 transition text-center"
           >
-            Enroll Now
+            Enroll
           </Link>
         </div>
       </div>
@@ -356,10 +358,10 @@ const DynamicCoursesSection = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="courses-heading mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
             Our <span className="text-purple-600">Programs</span>
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base leading-relaxed">
             Comprehensive courses to advance your research career
           </p>
         </div>

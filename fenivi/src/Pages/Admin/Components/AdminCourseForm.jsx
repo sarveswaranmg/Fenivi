@@ -29,7 +29,7 @@ export default function AdminCourseForm() {
     const [courseDate, setCourseDate] = useState("");
     const [courseTime, setCourseTime] = useState("");
     const [category, setCategory] = useState("upcoming");
-    const [price, setPrice] = useState("Free");
+    const [price, setPrice] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -99,7 +99,7 @@ export default function AdminCourseForm() {
             setCourseDate("");
             setCourseTime("");
             setCategory("upcoming");
-            setPrice("Free");
+            setPrice("");
             setThumbnailFile(null);
             document.getElementById("course-thumb").value = "";
         } catch (err) {
@@ -150,30 +150,57 @@ export default function AdminCourseForm() {
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
-                    <input
-                        type="text"
-                        placeholder="Duration (e.g. 30 Hours)"
-                        className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="text"
-                        placeholder="Format (e.g. Online, Hybrid)"
-                        className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
-                        value={format}
-                        onChange={(e) => setFormat(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="text"
-                        placeholder="Level (e.g. Beginner, Advanced)"
-                        className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
-                        value={level}
-                        onChange={(e) => setLevel(e.target.value)}
-                        required
-                    />
+                    <div className="space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Duration</label>
+                        <select
+                            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+                            value={duration}
+                            onChange={(e) => setDuration(e.target.value)}
+                            required
+                        >
+                            <option value="">Select Duration</option>
+                            <option value="Flexible">Flexible</option>
+                            <option value="Self-paced">Self-paced</option>
+                            <option value="1 Month">1 Month</option>
+                            <option value="3 Months">3 Months</option>
+                            <option value="6 Months">6 Months</option>
+                            <option value="30 Hours">30 Hours</option>
+                            <option value="Course Specific">Course Specific</option>
+                        </select>
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Format</label>
+                        <select
+                            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+                            value={format}
+                            onChange={(e) => setFormat(e.target.value)}
+                            required
+                        >
+                            <option value="">Select Format</option>
+                            <option value="Online">Online</option>
+                            <option value="In-person">In-person</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Workshop">Workshop</option>
+                        </select>
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Level</label>
+                        <select
+                            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+                            value={level}
+                            onChange={(e) => setLevel(e.target.value)}
+                            required
+                        >
+                            <option value="">Select Level</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="All Levels">All Levels</option>
+                            <option value="Expert">Expert</option>
+                        </select>
+                    </div>
                     <input
                         type="text"
                         placeholder="Badge (e.g. Certificate, Workshop)"
@@ -188,18 +215,32 @@ export default function AdminCourseForm() {
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                     />
-                    <input
-                        type="date"
-                        className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
-                        value={courseDate}
-                        onChange={(e) => setCourseDate(e.target.value)}
-                    />
-                    <input
-                        type="time"
-                        className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
-                        value={courseTime}
-                        onChange={(e) => setCourseTime(e.target.value)}
-                    />
+                    <div className="space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Course Date (Optional)</label>
+                        <input
+                            type="date"
+                            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+                            value={courseDate}
+                            onChange={(e) => setCourseDate(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Timing / Start Type</label>
+                        <select
+                            className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
+                            value={courseTime}
+                            onChange={(e) => setCourseTime(e.target.value)}
+                        >
+                            <option value="">Select Time/Type</option>
+                            <option value="Flexible Start">Flexible Start</option>
+                            <option value="Self-paced">Self-paced</option>
+                            <option value="Evening Batches">Evening Batches</option>
+                            <option value="Morning Batches">Morning Batches</option>
+                            <option value="Weekends Only">Weekends Only</option>
+                            <option value="Full-time">Full-time</option>
+                        </select>
+                    </div>
                     <select
                         className="w-full p-2 sm:p-2.5 md:p-3 border rounded-lg sm:rounded-xl text-sm sm:text-base"
                         value={category}
