@@ -119,46 +119,25 @@ export default function ServicesSection() {
       <div id="services-browse" className="page-container section-padding">
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-10 md:mb-12">
-          <button
-            onClick={() => setActiveFilter("all")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
-              activeFilter === "all"
-                ? "bg-purple-600 text-white shadow-lg"
-                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-            }`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setActiveFilter("research")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
-              activeFilter === "research"
-                ? "bg-purple-600 text-white shadow-lg"
-                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-            }`}
-          >
-            Research & Field Services
-          </button>
-          <button
-            onClick={() => setActiveFilter("training")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
-              activeFilter === "training"
-                ? "bg-purple-600 text-white shadow-lg"
-                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-            }`}
-          >
-            Training & Education
-          </button>
-          <button
-            onClick={() => setActiveFilter("startup")}
-            className={`filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale ${
-              activeFilter === "startup"
-                ? "bg-purple-600 text-white shadow-lg"
-                : "bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
-            }`}
-          >
-            Startup Mentoring
-          </button>
+          {[
+            { key: "all", label: "All" },
+            { key: "research", label: "Research & Field Services" },
+            { key: "training", label: "Training & Education" },
+            { key: "startup", label: "Startup Mentoring" },
+          ].map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setActiveFilter(key)}
+              className="filter-btn px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover-scale"
+              style={
+                activeFilter === key
+                  ? { backgroundColor: "#30337A", color: "#fff", boxShadow: "0 4px 14px rgba(48,51,122,0.3)" }
+                  : { backgroundColor: "#fff", color: "#30337A", border: "2px solid #30337A" }
+              }
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

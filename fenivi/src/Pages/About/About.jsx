@@ -47,10 +47,10 @@ export default function About() {
             className="relative z-10 opacity-0 translate-y-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '100ms' }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 leading-tight">
               About Us
             </h1>
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs. Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.
             </p>
           </div>

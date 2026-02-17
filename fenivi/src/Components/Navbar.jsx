@@ -153,8 +153,8 @@ export default function Navbar() {
           {/* Sliding Pill Indicator */}
           <div
             ref={indicatorRef}
-            className="absolute bg-purple-100 rounded-full z-0 pointer-events-none"
-            style={{ height: "0px", width: "0px", opacity: 0 }}
+            className="absolute rounded-full z-0 pointer-events-none"
+            style={{ backgroundColor: "#eeeef7", height: "0px", width: "0px", opacity: 0 }}
           />
 
           {links.map((link, index) => (
@@ -176,11 +176,16 @@ export default function Navbar() {
                     setServicesDropdownOpen(!servicesDropdownOpen);
                   }
                 }}
-                className={`text-[13px] xl:text-[14px] font-bold uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${
+                className={`text-[13px] xl:text-[14px] font-medium uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${
                   location.pathname === link.path && !link.hasDropdown
-                    ? "text-purple-700"
-                    : "text-gray-700 hover:text-purple-600"
+                    ? ""
+                    : "text-gray-700"
                 }`}
+                style={
+                  location.pathname === link.path && !link.hasDropdown
+                    ? { color: "#30337A" }
+                    : {}
+                }
               >
                 {link.name}
                 {link.hasDropdown && (
@@ -256,13 +261,18 @@ export default function Navbar() {
                     }
                   }}
                   className={`
-                    flex items-center justify-between text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl
+                    flex items-center justify-between text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl uppercase tracking-wide
                     ${
                       location.pathname === link.path && !link.hasDropdown
-                        ? "text-purple-700 bg-purple-50"
-                        : "text-gray-700 hover:bg-gray-50 uppercase tracking-wide"
+                        ? "bg-purple-50"
+                        : "text-gray-700 hover:bg-gray-50"
                     }
                   `}
+                  style={
+                    location.pathname === link.path && !link.hasDropdown
+                      ? { color: "#30337A" }
+                      : {}
+                  }
                 >
                   {link.name}
                   {link.hasDropdown && (
