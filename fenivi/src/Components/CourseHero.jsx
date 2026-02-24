@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import coursesAndResearch from "../assets/home image (1).png";
+import coursesAndResearch from "../assets/landing-hero.png";
 import gsap from "gsap";
 import { PRIMARY, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
