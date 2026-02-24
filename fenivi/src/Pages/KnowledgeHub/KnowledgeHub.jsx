@@ -272,7 +272,7 @@ export default function KnowledgeHub() {
         <div className="page-container flex flex-col md:flex-row items-center gap-12 lg:gap-20">
           {/* LEFT */}
           <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
-            <h1 className="hero-text-element text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+            <h1 className="hero-text-element text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight">
               Turning Data into Knowledge
             </h1>
             <p className="hero-text-element text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
@@ -312,15 +312,15 @@ export default function KnowledgeHub() {
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
                   <div className="flex items-end justify-between w-full">
                     <div className="flex flex-col">
-                      <h3 className="text-white text-3xl font-bold leading-tight drop-shadow-sm">
+                      <h3 className="text-white text-2xl font-normal leading-tight drop-shadow-sm">
                         Blogs
                       </h3>
-                      <p className="text-gray-300 text-sm mt-1 font-medium max-w-[120px]">
+                      <p className="text-gray-300 text-xs mt-1 font-medium max-w-[120px]">
                         Stories from the field
                       </p>
                     </div>
 
-                    <button className="bg-white text-gray-900 font-bold px-6 py-2.5 rounded-full text-sm shadow-xl hover:bg-gray-100 transition-all transform hover:scale-105 whitespace-nowrap">
+                    <button className="btn-primary whitespace-nowrap" style={{padding: "0.3rem 0.8rem", fontSize: "0.75rem"}}>
                       Read Now
                     </button>
                   </div>
@@ -331,10 +331,10 @@ export default function KnowledgeHub() {
               <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">
                     200+ Publications
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                     Access our extensive library of peer-reviewed research
                     papers, policy briefs, and scientific articles.
                   </p>
@@ -345,13 +345,21 @@ export default function KnowledgeHub() {
               <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <BarChart3 className="w-8 h-8 text-indigo-600 mb-4" />
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">
                     Conference Leadership
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
                     Organizing the annual "National Conference on Real-World
                     Evidence in Oncology" for clinicians & researchers.
                   </p>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => window.open("https://realworldevidence.in/gallery/2023", "_blank")}
+                      className="btn-primary" style={{padding: "0.3rem 0.8rem", fontSize: "0.75rem"}}
+                    >
+                      Learn More →
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -359,10 +367,10 @@ export default function KnowledgeHub() {
               <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
                 <FileText className="w-8 h-8 text-purple-700 mb-4" />
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">
                     Reports & Studies
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                     Evidence-based field studies covering environmental
                     sustainability, social impact, and public health.
                   </p>
@@ -373,49 +381,6 @@ export default function KnowledgeHub() {
         </div>
       </section>
 
-      {/* Content Section */}
-      <section id="rwe-section" className="w-full py-12 md:py-16 lg:py-20">
-        <div className="page-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* LEFT CONTENT - REAL WORLD EVIDENCE */}
-            <div className="rwe-text">
-              <h2 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                Real-World Evidence
-              </h2>
-
-              <p className="text-gray-700 text-lg leading-relaxed mb-8 text-justify">
-                Real-World Evidence (RWE) integrates clinical insights, hospital
-                workflows, and large-scale health datasets to generate
-                actionable knowledge for policymakers, researchers, and
-                clinicians. The initiative has enabled multi-site clinical
-                collaborations, standardized data-sharing practices, and
-                published impactful oncology research across India.
-              </p>
-
-              <button
-                onClick={() =>
-                  window.open(
-                    "https://realworldevidence.in/gallery/2023",
-                    "_blank",
-                  )
-                }
-                className="bg-purple-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-purple-700 hover:scale-105 transition-all"
-              >
-                Learn More →
-              </button>
-            </div>
-
-            {/* RIGHT - IMAGE HIGHLIGHT */}
-            <div className="rwe-image relative rounded-3xl overflow-hidden shadow-xl h-[400px]">
-              <img
-                src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1000&auto=format&fit=crop"
-                alt="Real World Evidence"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ARTICLES GRID */}
       <section
@@ -425,10 +390,10 @@ export default function KnowledgeHub() {
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div className="section-header">
-            <h2 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold text-gray-900">
+            <h2 className="text-2xl font-normal text-gray-900">
               Latest Articles
             </h2>
-            <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-xl">
+            <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
               Dive into our peer-reviewed papers, detailed reports, and
               evidence-based studies shaping the future of community and
               environmental health.
@@ -601,8 +566,8 @@ export default function KnowledgeHub() {
           </p>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8">
-          {(loading ? [...Array(3)] : filteredArticles).map((a, i) =>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {(loading ? [...Array(4)] : filteredArticles).map((a, i) =>
             loading ? (
               <ArticleCard
                 key={`skeleton-art-${i}`}
@@ -633,10 +598,10 @@ export default function KnowledgeHub() {
         {/* Header with Search and Sort */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
           <div className="section-header">
-            <h2 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold text-gray-900">
+            <h2 className="text-2xl font-normal text-gray-900">
               Latest Blogs
             </h2>
-            <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-xl">
+            <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
               Stories from the field, professional reflections, and community
               perspectives that bring our research to life.
             </p>
@@ -768,8 +733,8 @@ export default function KnowledgeHub() {
           </p>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8">
-          {(blogsLoading ? [...Array(3)] : filteredBlogs).map((b, i) =>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {(blogsLoading ? [...Array(4)] : filteredBlogs).map((b, i) =>
             blogsLoading ? (
               <ArticleCard
                 key={`skeleton-blog-${i}`}

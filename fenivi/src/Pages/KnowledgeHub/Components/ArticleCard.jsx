@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import cardimg from "../../../assets/1.png";
 import { useAuth } from "../../../contexts/AuthContext";
+import { PRIMARY } from "../../../theme";
 
 const ArticleCard = ({
   id,
@@ -40,7 +41,7 @@ const ArticleCard = ({
 
   return (
     <Link to={`/${basePath}/${id}`} className="block">
-      <div className="relative rounded-2xl overflow-hidden h-80 shadow-lg group">
+      <div className="relative rounded-2xl overflow-hidden h-48 shadow-lg group">
         {/* Image */}
         <img
           src={img}
@@ -54,7 +55,7 @@ const ArticleCard = ({
         {/* Date Badge */}
         {formattedDate && (
           <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block bg-gradient-to-br from-[#6b21a8] to-[#8b5cf6] text-white text-sm px-4 py-1 rounded-full shadow">
+            <span className="inline-block text-white text-[10px] px-4 py-1 rounded-full shadow" style={{backgroundColor: PRIMARY}}>
               {formattedDate}
             </span>
           </div>
@@ -85,13 +86,13 @@ const ArticleCard = ({
         )}
 
         {/* Title + Author */}
-        <div className="absolute left-6 right-6 bottom-6 z-10">
-          <h3 className="text-white text-lg md:text-2xl font-extrabold leading-tight drop-shadow-lg">
+        <div className="absolute left-4 right-4 bottom-4 z-10">
+          <h3 className="text-white text-sm font-semibold leading-tight drop-shadow-lg">
             {title}
           </h3>
 
           {(author || place) && (
-            <p className="text-white/90 text-sm mt-1 drop-shadow-lg">
+            <p className="text-white/90 text-xs mt-1 drop-shadow-lg">
               {author} {place ? `• ${place}` : ""}
             </p>
           )}

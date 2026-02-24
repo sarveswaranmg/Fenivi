@@ -3,6 +3,7 @@ import AboutOverview from "./Components/AboutOverview";
 import TeamSection from "./Components/TeamSection";
 import KeyResponsibilities from "./Components/KeyResponsibilities";
 import Vidhubala from "./Components/Vidhubala";
+import SahayaFemil from "./Components/SahayaFemil";
 import newLogo from "../../assets/New_Logo.png";
 
 export default function About() {
@@ -74,6 +75,8 @@ export default function About() {
       <AboutOverview />
 
       <Vidhubala />
+
+      <SahayaFemil />
 
       {/* ===== TEAM SECTION ===== */}
       <TeamSection />

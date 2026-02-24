@@ -7,12 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
-import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
+import { BookOpen, FileText, BarChart3, ArrowRight, Map } from "lucide-react";
 import CourseHero from "../Components/CourseHero";
 import UpcomingCourses from "../Components/UpcomingCourses";
 import ContentCarousel from "../Components/ContentCarousel";
 import ServicesSection from "../Components/ServicesSection";
-import { PRIMARY } from "../theme";
+import { PRIMARY, PRIMARY_DARK, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
@@ -207,7 +207,7 @@ const Home = () => {
               <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                 Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs.
 
-Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.</p>
+                Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.</p>
             </div>
           </div>
 
@@ -216,41 +216,43 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
             {/* Box 1: Image + Label */}
             <div className="stat-box overflow-hidden rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] bg-white relative group hover-lift">
               <img
-                src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-                alt="Impact Footprint"
+                src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1000&auto=format&fit=crop"
+                alt="Publications"
                 className="w-full h-full object-cover rounded-2xl transition-all duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4 flex flex-col justify-end h-full">
-                <p className="text-white text-[8px] sm:text-[10px] uppercase tracking-widest font-semibold opacity-90 mb-0.5">Impact Footprint</p>
-                <h4 className="text-white text-base sm:text-lg lg:text-xl font-bold">12+ Districts</h4>
+                <p className="text-white text-[8px] sm:text-[10px] uppercase tracking-widest font-semibold opacity-90 mb-0.5">Publications</p>
+                <h4 className="text-white text-base sm:text-lg lg:text-xl font-semibold">200+</h4>
               </div>
             </div>
 
-            {/* Box 2: Publications */}
-            <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-600">
-                <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
+            {/* Box 2: Impact Footprints */}
+            <div className="stat-box p-3 lg:p-5 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center mb-3" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY }}>
+                <Map className="w-5 h-5 lg:w-6 lg:h-6" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">200+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Publications</p>
+              <p className="text-gray-900 text-[10px] sm:text-[12px] uppercase tracking-wider leading-tight">
+                <span className="font-bold">Impact Footprints</span><br />
+                <span className="text-[8px] sm:text-[10px] text-gray-500 font-medium">Throughout India</span>
+              </p>
             </div>
 
             {/* Box 3: Years of Impact */}
             <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-2 text-indigo-600">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY_LIGHT }}>
                 <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">8+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Years of Impact</p>
+              <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-0.5">8+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">Years of Impact</p>
             </div>
 
             {/* Box 4: Strategic Reports */}
             <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-700">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY_DARK }}>
                 <FileText className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">100+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Strategic Reports</p>
+              <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-0.5">100+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">Strategic Reports</p>
             </div>
           </div>
         </div>
@@ -307,7 +309,7 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {e.date && (
-                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{backgroundColor: PRIMARY}}>
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{ backgroundColor: PRIMARY }}>
                         {new Date(e.date).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -395,7 +397,7 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {a.publishedAt && (
-                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{backgroundColor: PRIMARY}}>
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{ backgroundColor: PRIMARY }}>
                         {new Date(a.publishedAt).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -472,7 +474,7 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
                       alt={blog.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
-                    <span className="absolute top-2 left-2 text-white text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full shadow-md" style={{backgroundColor: PRIMARY}}>
+                    <span className="absolute top-2 left-2 text-white text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full shadow-md" style={{ backgroundColor: PRIMARY }}>
                       Blog
                     </span>
                   </div>
@@ -486,7 +488,7 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
                       {blog.description}
                     </p>
                     <Link
-                      to={`/article/${blog.id}`}
+                      to={`/blog/${blog.id}`}
                       className="btn-primary w-full text-center">
                       Read More
                     </Link>
@@ -535,6 +537,36 @@ Since 2017, we have empowered governments, NGOs, corporates, and startups with e
               alt="Real World Evidence"
               className="w-full h-full object-cover"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CTA Section ===== */}
+      <section className="w-full py-10 px-4 md:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-2xl px-8 py-8 text-white flex flex-col md:flex-row items-center justify-between gap-6" style={{ backgroundColor: PRIMARY }}>
+            <div className="text-left">
+              <h2 className="text-xl font-semibold mb-1">
+                Ready to Transform Your Research Career?
+              </h2>
+              <p className="text-white/80 text-xs sm:text-sm max-w-xl">
+                Join hundreds of researchers, students, and professionals who have advanced their careers with Fenivi's programs.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
+              <Link
+                to="/contact"
+                className="bg-white font-semibold rounded-full hover:bg-gray-100 transition-all text-xs px-5 py-2" style={{ color: PRIMARY }}
+              >
+                Get Started
+              </Link>
+              <Link
+                to="/courses"
+                className="border border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all text-xs px-5 py-2"
+              >
+                Browse Courses
+              </Link>
+            </div>
           </div>
         </div>
       </section>

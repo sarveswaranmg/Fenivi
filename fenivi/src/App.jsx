@@ -29,6 +29,9 @@ import ProjectDetails from "./Pages/ProjectDetails";
 
 import Courses from "./Pages/Courses.jsx";
 import CourseDetails from "./Pages/CourseDetails.jsx";
+import Terms from "./Pages/Terms.jsx";
+import PrivacyPolicy from "./Pages/PrivacyPolicy.jsx";
+import RefundPolicy from "./Pages/RefundPolicy.jsx";
 import ContactButton from "./Components/ContactButton.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
@@ -43,7 +46,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-{!isAdminPage && <Navbar />}
+      {!isAdminPage && <Navbar />}
       {!isAdminPage && <ContactButton />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -111,6 +114,9 @@ function AppContent() {
         <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
         {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
       </Routes>
       {!isAdminPage && !isContactPage && <Footer />}

@@ -5,6 +5,7 @@ import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PRIMARY } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -212,9 +213,10 @@ export default function Events() {
               onClick={() => setFilterType(btn.value)}
               className={`event-filter-btn px-5 py-2 rounded-full border text-sm font-medium transition hover-scale ${
                 filterType === btn.value
-                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-transparent"
+                  ? "text-white border-transparent"
                   : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700"
               }`}
+              style={filterType === btn.value ? {backgroundColor: PRIMARY} : {}}
             >
               {btn.label}
             </button>
@@ -246,7 +248,7 @@ export default function Events() {
               placeholder="Search events by title, description, or organizer..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-12 py-3 bg-white border-2 border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200"
+              className="w-full pl-11 pr-12 py-3 bg-white border-2 border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-all duration-200"
             />
             {searchQuery && (
               <button
@@ -319,9 +321,9 @@ export default function Events() {
                     setSortOrder("newest");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
                     sortOrder === "newest"
-                      ? "bg-purple-50 text-purple-700 font-semibold"
+                      ? "bg-gray-50 text-gray-900 font-semibold"
                       : "text-gray-700"
                   }`}
                 >
@@ -332,9 +334,9 @@ export default function Events() {
                     setSortOrder("oldest");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
                     sortOrder === "oldest"
-                      ? "bg-purple-50 text-purple-700 font-semibold"
+                      ? "bg-gray-50 text-gray-900 font-semibold"
                       : "text-gray-700"
                   }`}
                 >
@@ -345,9 +347,9 @@ export default function Events() {
                     setSortOrder("a-z");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
                     sortOrder === "a-z"
-                      ? "bg-purple-50 text-purple-700 font-semibold"
+                      ? "bg-gray-50 text-gray-900 font-semibold"
                       : "text-gray-700"
                   }`}
                 >
@@ -358,9 +360,9 @@ export default function Events() {
                     setSortOrder("z-a");
                     setShowSortMenu(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
                     sortOrder === "z-a"
-                      ? "bg-purple-50 text-purple-700 font-semibold"
+                      ? "bg-gray-50 text-gray-900 font-semibold"
                       : "text-gray-700"
                   }`}
                 >
@@ -435,7 +437,7 @@ export default function Events() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   {event.category && (
-                    <span className="inline-block text-xs px-3 py-1 bg-purple-100 text-purple-700 font-medium rounded-full mb-3">
+                    <span className="inline-block text-xs px-3 py-1 bg-gray-100 text-gray-700 font-medium rounded-full mb-3">
                       {event.category}
                     </span>
                   )}
@@ -470,7 +472,7 @@ export default function Events() {
                         href={event.ticketUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full font-medium text-sm hover:opacity-90 transition"
+                        className="btn-primary"
                       >
                         Buy Ticket
                       </a>

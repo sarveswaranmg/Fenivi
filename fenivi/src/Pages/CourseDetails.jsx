@@ -14,8 +14,10 @@ import {
     Award,
     BookOpen,
     Globe,
-    Share2
+    Share2,
+    IndianRupee
 } from "lucide-react";
+import { PRIMARY, PRIMARY_LIGHT, PRIMARY_DARK, PRIMARY_BG } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,9 +105,9 @@ const CourseDetails = () => {
 
     if (!course) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 text-center">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Course not found</h2>
-                <Link to="/courses" className="text-purple-600 flex items-center gap-2 font-semibold">
+                <Link to="/courses" className="flex items-center gap-2 font-semibold transition-colors" style={{ color: PRIMARY }}>
                     <ArrowLeft size={20} /> Back to Courses
                 </Link>
             </div>
@@ -137,31 +139,31 @@ const CourseDetails = () => {
 
                         <div className="course-hero-content space-y-4 max-w-3xl">
                             <div className="flex flex-wrap gap-3">
-                                <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white ${course.category === 'upcoming' ? 'bg-purple-600' :
-                                    course.category === 'ongoing' ? 'bg-green-600' : 'bg-blue-600'
-                                    }`}>
+                                <span className="px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-sm"
+                                    style={{ backgroundColor: course.category === 'ongoing' ? '#059669' : PRIMARY }}>
                                     {course.category || 'Upcoming'}
                                 </span>
-                                <span className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white border border-white/30">
+                                <span className="px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md text-white border border-white/20 shadow-sm flex items-center gap-1">
+                                    {course.price && course.price !== 'Free' && !course.price.toString().includes('₹') && <span>₹</span>}
                                     {course.price || 'Free'}
                                 </span>
                             </div>
 
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
                                 {course.title}
                             </h1>
 
                             <div className="flex flex-wrap items-center gap-6 text-white/90 text-sm md:text-base">
                                 <div className="flex items-center gap-2">
-                                    <Calendar size={18} className="text-purple-400" />
+                                    <Calendar size={18} style={{ color: PRIMARY_LIGHT }} />
                                     <span>{course.courseDate ? new Date(course.courseDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Flexible Start'}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Clock size={18} className="text-purple-400" />
+                                    <Clock size={18} style={{ color: PRIMARY_LIGHT }} />
                                     <span>{course.courseTime || 'Self-paced'}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Globe size={18} className="text-purple-400" />
+                                    <Globe size={18} style={{ color: PRIMARY_LIGHT }} />
                                     <span>{course.format || 'Online'}</span>
                                 </div>
                             </div>
@@ -179,8 +181,8 @@ const CourseDetails = () => {
 
                         {/* OVERVIEW SECTION */}
                         <section className="content-section bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100">
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                                <BookOpen className="text-purple-600" /> Course Overview
+                            <h2 className="text-2xl md:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                                <BookOpen style={{ color: PRIMARY }} /> Course Overview
                             </h2>
                             <div className="prose prose-purple max-w-none text-slate-600 leading-relaxed">
                                 {course.description.split('\n').map((para, i) => (
@@ -189,9 +191,9 @@ const CourseDetails = () => {
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-                                <div className="flex items-start gap-4 p-5 rounded-2xl bg-purple-50 border border-purple-100/50">
+                                <div className="flex items-start gap-4 p-5 rounded-2xl border transition-all" style={{ backgroundColor: PRIMARY_BG, borderColor: PRIMARY_BG }}>
                                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
-                                        <Award className="text-purple-600" />
+                                        <Award style={{ color: PRIMARY }} />
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-slate-900 mb-1">Professional Certification</h4>
@@ -235,7 +237,7 @@ const CourseDetails = () => {
                             <section className="content-section">
                                 <div className="flex justify-between items-end mb-8">
                                     <h2 className="text-2xl font-bold text-slate-900 italic underline">Explore More Programs</h2>
-                                    <Link to="/courses" className="text-purple-600 font-semibold hover:underline">View all</Link>
+                                    <Link to="/courses" className="font-semibold hover:underline" style={{ color: PRIMARY }}>View all</Link>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {relatedCourses.map((related) => (
@@ -252,7 +254,7 @@ const CourseDetails = () => {
                                                 />
                                             </div>
                                             <div className="p-5">
-                                                <h4 className="font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors line-clamp-1">
+                                                <h4 className="font-bold text-slate-900 mb-2 transition-colors line-clamp-1 group-hover:text-primary" style={{ color: 'inherit' }}>
                                                     {related.title}
                                                 </h4>
                                                 <div className="flex items-center gap-4 text-xs text-slate-500">
@@ -277,7 +279,10 @@ const CourseDetails = () => {
                                 <div className="relative z-10">
                                     <div className="mb-6">
                                         <span className="text-sm text-slate-500 font-medium">Course Fee</span>
-                                        <div className="text-4xl font-extrabold text-slate-900 mt-1">{course.price || 'Free'}</div>
+                                        <div className="text-4xl font-extrabold text-slate-900 mt-1 flex items-center gap-1">
+                                            {course.price && course.price !== 'Free' && !course.price.toString().includes('₹') && <span>₹</span>}
+                                            {course.price || 'Free'}
+                                        </div>
                                     </div>
 
                                     <div className="space-y-5 mb-8">
@@ -310,7 +315,8 @@ const CourseDetails = () => {
                                     <div className="space-y-4">
                                         <a
                                             href="/contact"
-                                            className="w-full h-14 flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl font-bold text-lg hover:shadow-lg hover:shadow-purple-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                            className="w-full h-14 flex items-center justify-center text-white rounded-2xl font-bold text-lg hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                            style={{ backgroundColor: PRIMARY }}
                                         >
                                             Enroll Now
                                         </a>
@@ -321,7 +327,7 @@ const CourseDetails = () => {
 
                                     <p className="mt-6 text-center text-xs text-slate-400">
                                         Secure enrollment through our platform. <br />
-                                        Need help? <Link to="/contact" className="text-purple-600 font-medium hover:underline">Contact Admissions</Link>
+                                        Need help? <Link to="/contact" className="font-medium hover:underline" style={{ color: PRIMARY }}>Contact Admissions</Link>
                                     </p>
                                 </div>
                             </div>
