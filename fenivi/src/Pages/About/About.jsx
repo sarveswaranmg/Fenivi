@@ -4,7 +4,7 @@ import TeamSection from "./Components/TeamSection";
 import KeyResponsibilities from "./Components/KeyResponsibilities";
 import Vidhubala from "./Components/Vidhubala";
 import SahayaFemil from "./Components/SahayaFemil";
-import newLogo from "../../assets/New_Logo.png";
+import policyMotto from "../../assets/Policy moto.png";
 
 export default function About() {
   const heroLeftRef = useRef(null);
@@ -63,9 +63,9 @@ export default function About() {
             style={{ transitionDelay: '300ms' }}
           >
             <img
-              src={newLogo}
-              alt="Fenivi Logo"
-              className="w-full max-w-sm object-contain"
+              src={policyMotto}
+              alt="Policy Motto"
+              className="w-full max-w-lg object-contain"
             />
           </div>
         </div>

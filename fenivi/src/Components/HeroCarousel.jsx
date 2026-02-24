@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
-import newLogo from "../assets/New_Logo.png";
+import { PRIMARY, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
 const slides = [
   {
@@ -64,7 +64,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className="min-h-[50vh] md:min-h-[60vh] w-full bg-[#f9f8ff] overflow-hidden relative flex items-center">
+    <div className="min-h-[50vh] md:min-h-[60vh] w-full overflow-hidden relative flex items-center" style={{ backgroundColor: PRIMARY_BG }}>
       {/* Background Diagonal Image - Right 40% */}
       <div className="absolute top-0 right-0 w-full h-full pointer-events-none z-0">
         <div
@@ -93,7 +93,10 @@ const HeroCarousel = () => {
           {/* Stationary Buttons */}
           <div className="flex flex-row flex-wrap justify-start gap-4 mt-10">
             <Link to="/contact">
-              <button className="px-8 py-3.5 rounded-full font-bold bg-gradient-to-r from-purple-600 to-violet-800 hover:from-purple-500 hover:to-violet-700 hover:scale-105 transition-all duration-500 ease-out transform text-white shadow-lg shadow-purple-500/20">
+              <button
+                className="px-8 py-3.5 rounded-full font-bold hover:scale-105 transition-all duration-500 ease-out transform text-white shadow-lg shadow-primary/20"
+                style={{ background: `linear-gradient(to r, ${PRIMARY_LIGHT}, ${PRIMARY})` }}
+              >
                 Partner With Us
               </button>
             </Link>
@@ -109,11 +112,11 @@ const HeroCarousel = () => {
                     animateSlide();
                   }
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentSlide === index
-                    ? "bg-purple-600 w-8"
-                    : "bg-purple-200 hover:bg-purple-300"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index
+                  ? "w-8"
+                  : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                style={currentSlide === index ? { backgroundColor: PRIMARY } : {}}
               />
             ))}
           </div>

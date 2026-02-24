@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import gsap from "gsap";
-import newLogo from "../assets/New_Logo.png";
+import navLogo from "../assets/Nav_Logo.png";
 
 export default function Navbar() {
   const location = useLocation();
@@ -142,7 +142,7 @@ export default function Navbar() {
           className="hidden lg:flex items-center shrink-0"
         >
           <img
-            src={newLogo}
+            src={navLogo}
             alt="Fenivi Logo"
             className="h-10 lg:h-12 w-auto object-contain py-1"
           />
@@ -176,11 +176,10 @@ export default function Navbar() {
                     setServicesDropdownOpen(!servicesDropdownOpen);
                   }
                 }}
-                className={`text-[13px] xl:text-[14px] font-medium uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${
-                  location.pathname === link.path && !link.hasDropdown
-                    ? ""
-                    : "text-gray-700"
-                }`}
+                className={`text-[13px] xl:text-[14px] font-medium uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${location.pathname === link.path && !link.hasDropdown
+                  ? ""
+                  : "text-gray-700"
+                  }`}
                 style={
                   location.pathname === link.path && !link.hasDropdown
                     ? { color: "#30337A" }
@@ -199,11 +198,10 @@ export default function Navbar() {
               {/* Services Dropdown */}
               {link.hasDropdown && (
                 <div
-                  className={`absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 transition-all duration-300 ${
-                    servicesDropdownOpen
-                      ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                  }`}
+                  className={`absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 transition-all duration-300 ${servicesDropdownOpen
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                    }`}
                 >
                   {serviceSections.map((section) => (
                     <Link
@@ -224,7 +222,7 @@ export default function Navbar() {
         {/* MOBILE/TABLET HEADER */}
         <div className="lg:hidden flex items-center w-full px-4 justify-between">
           <Link to="/" className="flex items-center">
-            <img src={newLogo} alt="Fenivi Logo" className="h-12 w-auto py-1" />
+            <img src={navLogo} alt="Fenivi Logo" className="h-12 w-auto py-1" />
           </Link>
 
           <div className="flex items-center gap-4">
@@ -262,10 +260,9 @@ export default function Navbar() {
                   }}
                   className={`
                     flex items-center justify-between text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl uppercase tracking-wide
-                    ${
-                      location.pathname === link.path && !link.hasDropdown
-                        ? "bg-purple-50"
-                        : "text-gray-700 hover:bg-gray-50"
+                    ${location.pathname === link.path && !link.hasDropdown
+                      ? "bg-purple-50"
+                      : "text-gray-700 hover:bg-gray-50"
                     }
                   `}
                   style={
