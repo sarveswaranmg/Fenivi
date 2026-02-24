@@ -3,6 +3,8 @@ import AboutOverview from "./Components/AboutOverview";
 import TeamSection from "./Components/TeamSection";
 import KeyResponsibilities from "./Components/KeyResponsibilities";
 import Vidhubala from "./Components/Vidhubala";
+import SahayaFemil from "./Components/SahayaFemil";
+import newLogo from "../../assets/New_Logo.png";
 
 export default function About() {
   const heroLeftRef = useRef(null);
@@ -46,10 +48,10 @@ export default function About() {
             className="relative z-10 opacity-0 translate-y-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '100ms' }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 leading-tight">
               About Us
             </h1>
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl">
               Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs. Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.
             </p>
           </div>
@@ -57,13 +59,13 @@ export default function About() {
           {/* Right Image Side */}
           <div
             ref={heroRightRef}
-            className="relative h-[220px] sm:h-[280px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl opacity-0 translate-y-12 xl:translate-y-0 xl:translate-x-12 transition-all duration-1000 ease-out"
+            className="flex items-center justify-center opacity-0 translate-y-12 xl:translate-y-0 xl:translate-x-12 transition-all duration-1000 ease-out"
             style={{ transitionDelay: '300ms' }}
           >
             <img
-              src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-              alt="About illustration"
-              className="w-full h-full object-cover"
+              src={newLogo}
+              alt="Fenivi Logo"
+              className="w-full max-w-sm object-contain"
             />
           </div>
         </div>
@@ -73,6 +75,8 @@ export default function About() {
       <AboutOverview />
 
       <Vidhubala />
+
+      <SahayaFemil />
 
       {/* ===== TEAM SECTION ===== */}
       <TeamSection />

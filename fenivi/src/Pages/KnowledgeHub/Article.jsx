@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import {
@@ -8,38 +8,73 @@ import {
   FaTwitter,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { ArrowLeft } from "lucide-react";
+import { PRIMARY } from "../../theme";
 
 export default function Article() {
   const { id } = useParams();
   const location = useLocation();
   const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchArticle = async () => {
-      if (!db) return;
+      if (!db) {
+        setLoading(false);
+        return;
+      }
       try {
+        setLoading(true);
         // Determine if fetching from articles or blogs based on current path
-        const collectionName = location.pathname.includes("/blog/")
-          ? "blogs"
-          : "articles";
+        const isBlog = location.pathname.includes("/blog/");
+        const collectionName = isBlog ? "blogs" : "articles";
+
         const docRef = doc(db, collectionName, id);
         const docSnap = await getDoc(docRef);
+
         if (docSnap.exists()) {
           setArticle({ id: docSnap.id, ...docSnap.data() });
+          setError(null);
+        } else {
+          setError(`${isBlog ? 'Blog' : 'Article'} not found`);
         }
       } catch (err) {
         console.error("Fetch article error:", err);
+        setError("Failed to load content. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchArticle();
-  }, [id, location]);
+  }, [id, location.pathname]);
 
-  if (!article)
+  if (loading)
     return (
-      <div className="flex items-center justify-center min-h-screen text-xl">
-        Loading...
+      <div className="flex items-center justify-center min-h-screen py-20">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-gray-100 rounded-full animate-spin" style={{ borderTopColor: PRIMARY }}></div>
+          <p className="text-gray-500 animate-pulse text-sm">Loading content...</p>
+        </div>
       </div>
     );
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Oops!</h2>
+        <p className="text-gray-600 mb-6">{error}</p>
+        <button
+          onClick={() => window.history.back()}
+          className="btn-primary"
+        >
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+  if (!article) return null;
 
   const {
     title,
@@ -56,27 +91,34 @@ export default function Article() {
   const mainImg = thumbnailUrl || imageUrl || "/favicon.ico";
   const formattedDate = publishedAt
     ? new Date(publishedAt).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
     : "";
 
   return (
     <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
       {/* Banner */}
-      <div className="w-full max-w-6xl mx-auto mt-24 md:mt-32">
+      <div className="w-full max-w-5xl mx-auto mt-24 md:mt-28 px-4 md:px-0">
+        <Link
+          to="/knowledge-hub"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-4 transition-colors group text-sm font-medium"
+        >
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          Back to Knowledge Hub
+        </Link>
         <img
           src={mainImg}
           alt="Article banner"
-          className="w-full h-80 md:h-[30rem] object-cover rounded-3xl shadow-lg"
+          className="w-full h-64 md:h-[22rem] object-cover rounded-3xl shadow-lg"
         />
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-5 md:px-0 mt-10 mb-24">
+      <div className="max-w-4xl mx-auto px-5 md:px-0 mt-8 mb-24">
         {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-snug text-gray-900">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-snug text-gray-900">
           {title}
         </h1>
 
@@ -116,7 +158,7 @@ export default function Article() {
             <h3 className="text-2xl font-semibold mb-5 text-gray-900">
               Gallery
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {gallery.slice(0, 10).map((g, i) => (
                 <div
                   key={i}
@@ -125,7 +167,7 @@ export default function Article() {
                   <img
                     src={g}
                     alt={`gallery-${i}`}
-                    className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
                 </div>

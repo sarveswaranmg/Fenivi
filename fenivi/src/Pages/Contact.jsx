@@ -37,7 +37,7 @@ export default function Contact() {
       <div className="w-full page-container !px-0 sm:!px-8 md:!px-12">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-purple-700 mb-3">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: "#30337A" }}>
             Contact Us
           </h1>
           <p className="text-lg text-gray-700">
@@ -266,6 +266,7 @@ export default function Contact() {
                     <input
                       type="text"
                       name="First_Name"
+                      placeholder="First Name"
                       className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />
@@ -277,7 +278,7 @@ export default function Contact() {
                     <input
                       type="text"
                       name="Last_Name"
-                      placeholder="Doe"
+                      placeholder="Last Name"
                       className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                     />
                   </div>
@@ -292,6 +293,7 @@ export default function Contact() {
                     <input
                       type="email"
                       name="email"
+                      placeholder="Your email address"
                       className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />
@@ -303,7 +305,7 @@ export default function Contact() {
                     <input
                       type="tel"
                       name="Phone_Number"
-                      placeholder="+1 012 3456 789"
+                      placeholder="+91 98765 43210"
                       className="w-full border-b-2 border-gray-300 focus:border-purple-600 outline-none py-2 md:py-1.5 text-base md:text-sm transition-colors"
                       required
                     />

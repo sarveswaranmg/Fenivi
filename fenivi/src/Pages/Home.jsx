@@ -7,10 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import StatsShowcase from "../Components/StatsShowcase";
-import { BookOpen, FileText, BarChart3, ArrowRight } from "lucide-react";
+import { BookOpen, FileText, BarChart3, ArrowRight, Map } from "lucide-react";
 import CourseHero from "../Components/CourseHero";
 import UpcomingCourses from "../Components/UpcomingCourses";
 import ContentCarousel from "../Components/ContentCarousel";
+import ServicesSection from "../Components/ServicesSection";
+import { PRIMARY, PRIMARY_DARK, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
@@ -190,77 +192,82 @@ const Home = () => {
       {/* Hero Section */}
       <CourseHero />
 
-      {/* Upcoming Courses Section */}
+      {/* Learn With Fenivi Section */}
       <UpcomingCourses />
 
       {/* Intro Section - Moved Up */}
-      <section className="w-full relative pt-8 pb-12 lg:pt-10 lg:pb-20">
+      <section className="w-full relative pt-2 pb-4 lg:pt-3 lg:pb-6">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 items-center gap-12 lg:gap-16">
           {/* LEFT CONTENT */}
           <div className="intro-text flex flex-col justify-center">
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
-              Fenivi Research Solutions Pvt. Ltd. is a research and advisory
-              organization committed to bridging the gap between policy,
-              practice, and community needs.
-            </p>
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Since 2017, we have empowered governments, NGOs, corporates, and startups
-              with evidence-based research, feasibility studies, and strategic advisory.
-            </p>
+            <h2 className="text-2xl font-normal text-gray-900 mb-6">
+              Fenivi Research and Solution pvt.Ltd
+            </h2>
+            <div className="space-y-6">
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                Fenivi Research Solutions Pvt. Ltd. is a research and advisory organization committed to bridging the gap between policy, practice, and community needs.
+
+                Since 2017, we have empowered governments, NGOs, corporates, and startups with evidence-based research, feasibility studies, and strategic advisory.</p>
+            </div>
           </div>
 
           {/* 2x2 STATS GRID (REDUCED SIZE - RIGHT ALIGNED) */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[400px] aspect-[4/3] md:aspect-square justify-self-end">
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[320px] aspect-[4/3] md:aspect-square justify-self-end">
             {/* Box 1: Image + Label */}
             <div className="stat-box overflow-hidden rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] bg-white relative group hover-lift">
               <img
-                src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
-                alt="Impact Footprint"
+                src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1000&auto=format&fit=crop"
+                alt="Publications"
                 className="w-full h-full object-cover rounded-2xl transition-all duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4 flex flex-col justify-end h-full">
-                <p className="text-white text-[8px] sm:text-[10px] uppercase tracking-widest font-semibold opacity-90 mb-0.5">Impact Footprint</p>
-                <h4 className="text-white text-base sm:text-lg lg:text-xl font-bold">12+ Districts</h4>
+                <p className="text-white text-[8px] sm:text-[10px] uppercase tracking-widest font-semibold opacity-90 mb-0.5">Publications</p>
+                <h4 className="text-white text-base sm:text-lg lg:text-xl font-semibold">200+</h4>
               </div>
             </div>
 
-            {/* Box 2: Publications */}
-            <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-600">
-                <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
+            {/* Box 2: Impact Footprints */}
+            <div className="stat-box p-3 lg:p-5 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center mb-3" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY }}>
+                <Map className="w-5 h-5 lg:w-6 lg:h-6" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">200+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Publications</p>
+              <p className="text-gray-900 text-[10px] sm:text-[12px] uppercase tracking-wider leading-tight">
+                <span className="font-bold">Impact Footprints</span><br />
+                <span className="text-[8px] sm:text-[10px] text-gray-500 font-medium">Throughout India</span>
+              </p>
             </div>
 
             {/* Box 3: Years of Impact */}
             <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-2 text-indigo-600">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY_LIGHT }}>
                 <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">8+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Years of Impact</p>
+              <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-0.5">8+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">Years of Impact</p>
             </div>
 
             {/* Box 4: Strategic Reports */}
             <div className="stat-box p-3 lg:p-4 bg-white rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all flex flex-col justify-center items-center text-center hover-lift">
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-2 text-purple-700">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: PRIMARY_BG, color: PRIMARY_DARK }}>
                 <FileText className="w-4 h-4 lg:w-5 lg:h-5" />
               </div>
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-0.5">100+</h3>
-              <p className="text-gray-500 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">Strategic Reports</p>
+              <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-0.5">100+</h3>
+              <p className="text-gray-500 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">Strategic Reports</p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ===== Services Section ===== */}
+      <ServicesSection />
+
       {/* ===== Events Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Events
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -295,14 +302,14 @@ const Home = () => {
               renderCard={(e) => (
                 <div className="event-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={e.thumbnailUrl}
                       alt={e.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {e.date && (
-                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{ backgroundColor: PRIMARY }}>
                         {new Date(e.date).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -313,11 +320,11 @@ const Home = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {e.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {e.description}
                     </p>
                     {e.registrationUrl ? (
@@ -344,12 +351,12 @@ const Home = () => {
       </section>
 
       {/* ===== Articles Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Recent Evidence-Driven Projects
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -383,14 +390,14 @@ const Home = () => {
               renderCard={(a) => (
                 <div className="article-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={a.thumbnailUrl}
                       alt={a.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {a.publishedAt && (
-                      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-md font-medium">
+                      <span className="absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md font-medium" style={{ backgroundColor: PRIMARY }}>
                         {new Date(a.publishedAt).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
@@ -401,11 +408,11 @@ const Home = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {a.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {a.description}
                     </p>
                     <Link
@@ -422,12 +429,12 @@ const Home = () => {
       </section>
 
       {/* ===== Latest Blogs Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-2xl font-normal text-gray-900 mb-2">
                 Latest Blogs
               </h2>
               <p className="text-gray-600 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -461,27 +468,27 @@ const Home = () => {
               renderCard={(blog) => (
                 <div className="blog-card card flex flex-col hover-lift h-full">
                   {/* Image */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative h-32 w-full overflow-hidden">
                     <img
                       src={blog.thumbnailUrl}
                       alt={blog.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full shadow-md">
+                    <span className="absolute top-2 left-2 text-white text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full shadow-md" style={{ backgroundColor: PRIMARY }}>
                       Blog
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3.5 flex flex-col flex-1">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-2">
                       {blog.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
                       {blog.description}
                     </p>
                     <Link
-                      to={`/article/${blog.id}`}
+                      to={`/blog/${blog.id}`}
                       className="btn-primary w-full text-center">
                       Read More
                     </Link>
@@ -494,11 +501,11 @@ const Home = () => {
       </section>
 
       {/* ===== Real World Evidence Section ===== */}
-      <section className="w-full py-12 lg:py-20">
+      <section className="w-full py-5 lg:py-7">
         <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT CONTENT */}
           <div className="rwe-content">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-normal text-gray-900 mb-4">
               Real-World Evidence
             </h2>
 
@@ -524,12 +531,42 @@ const Home = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="rwe-image w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+          <div className="rwe-image w-full h-[200px] md:h-[260px] rounded-2xl overflow-hidden shadow-xl">
             <img
               src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1600&auto=format&fit=crop"
               alt="Real World Evidence"
               className="w-full h-full object-cover"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CTA Section ===== */}
+      <section className="w-full py-10 px-4 md:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-2xl px-8 py-8 text-white flex flex-col md:flex-row items-center justify-between gap-6" style={{ backgroundColor: PRIMARY }}>
+            <div className="text-left">
+              <h2 className="text-xl font-semibold mb-1">
+                Ready to Transform Your Research Career?
+              </h2>
+              <p className="text-white/80 text-xs sm:text-sm max-w-xl">
+                Join hundreds of researchers, students, and professionals who have advanced their careers with Fenivi's programs.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
+              <Link
+                to="/contact"
+                className="bg-white font-semibold rounded-full hover:bg-gray-100 transition-all text-xs px-5 py-2" style={{ color: PRIMARY }}
+              >
+                Get Started
+              </Link>
+              <Link
+                to="/courses"
+                className="border border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all text-xs px-5 py-2"
+              >
+                Browse Courses
+              </Link>
+            </div>
           </div>
         </div>
       </section>

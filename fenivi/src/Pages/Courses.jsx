@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MapPin, Calendar } from "lucide-react";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { PRIMARY } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,14 +39,14 @@ const FeatureCardWithGlow = ({ item }) => {
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
-          background: `radial-gradient(circle 150px at ${position.x}px ${position.y}px, rgba(168, 85, 247, 0.15), transparent 80%)`,
+          background: `radial-gradient(circle 150px at ${position.x}px ${position.y}px, rgba(48, 51, 122, 0.15), transparent 80%)`,
         }}
       ></div>
 
       {/* CONTENT */}
       <div className="relative z-10">
         {/* ICON */}
-        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-xl shadow-lg mb-6">
+        <div className="w-14 h-14 flex items-center justify-center rounded-full text-white text-xl shadow-lg mb-6" style={{backgroundColor: PRIMARY}}>
           {item.icon}
         </div>
 
@@ -132,13 +133,13 @@ const FeaturesSection = () => {
       ref={sectionRef}
       onMouseMove={handleSectionMouseMove}
       onMouseLeave={handleSectionMouseLeave}
-      className="relative py-24 bg-[#f8f9fc] overflow-hidden will-change-transform"
+      className="relative pt-36 pb-24 bg-[#f8f9fc] overflow-hidden will-change-transform"
     >
       {/* BACKGROUND GLOW EFFECT */}
       <div
         className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-200 hover:opacity-60 will-change-opacity"
         style={{
-          background: `radial-gradient(circle 300px at ${bgPosition.x}px ${bgPosition.y}px, rgba(168, 85, 247, 0.12), transparent 70%)`,
+          background: `radial-gradient(circle 300px at ${bgPosition.x}px ${bgPosition.y}px, rgba(48, 51, 122, 0.12), transparent 70%)`,
         }}
       ></div>
 
@@ -210,35 +211,31 @@ const CourseCard = ({
   return (
     <div
       ref={cardRef}
-      className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-500 flex flex-col h-full relative"
+      className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-xl transition-all duration-500 flex flex-col h-full relative"
     >
-      {/* CATEGORY BADGE */}
-      <div className="absolute top-4 left-4 z-10">
-        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${category === 'upcoming' ? 'bg-purple-600 text-white' :
-          category === 'ongoing' ? 'bg-green-600 text-white' :
-            'bg-gray-600 text-white'
-          }`}>
-          {category || 'Upcoming'}
-        </span>
-      </div>
-
-      {/* PRICE BADGE */}
-      <div className="absolute top-4 right-4 z-10">
-        <span className="bg-white/90 backdrop-blur-sm border border-gray-100 px-3 py-1 rounded-full text-[10px] font-bold text-gray-900 shadow-sm">
-          {price || 'Free'}
-        </span>
-      </div>
-
-      {/* IMAGE SECTION */}
-      <div className={`relative h-56 overflow-hidden ${gradient}`}>
+      {/* IMAGE SECTION - Badges inside to prevent title overlap */}
+      <div className={`relative h-52 overflow-hidden ${gradient}`}>
         <img
           src={image}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
-        <div className="absolute bottom-4 left-4">
+        <div className="absolute top-2 left-2 z-10">
           <span
-            className={`inline-block px-3 py-1 ${badgeColor} font-semibold text-[10px] rounded-full shadow-md`}
+            className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider shadow-sm text-white ${category === 'ongoing' ? 'bg-green-600' : ''}`}
+            style={category !== 'ongoing' ? {backgroundColor: PRIMARY} : {}}
+          >
+            {category || 'Upcoming'}
+          </span>
+        </div>
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-white/90 backdrop-blur-sm border border-gray-100 px-2 py-0.5 rounded-full text-[9px] font-bold text-gray-900 shadow-sm">
+            {price || 'Free'}
+          </span>
+        </div>
+        <div className="absolute bottom-3 left-3">
+          <span
+            className={`inline-block px-2 py-0.5 ${badgeColor} font-semibold text-[9px] rounded-full shadow-md`}
           >
             {badge || 'Certificate'}
           </span>
@@ -246,48 +243,54 @@ const CourseCard = ({
       </div>
 
       {/* CONTENT SECTION */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">{title}</h3>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-base font-medium text-gray-900 mb-1.5 line-clamp-1">{title}</h3>
 
         <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
-          <MapPin size={12} className="text-purple-500" />
+          <MapPin size={12} className="text-gray-400" />
           <span>{location || 'Online'}</span>
           {courseDate && (
             <>
               <span className="mx-1">•</span>
-              <Calendar size={12} className="text-purple-500" />
+              <Calendar size={12} className="text-gray-400" />
               <span>{new Date(courseDate).toLocaleDateString('en-GB')}</span>
             </>
           )}
         </div>
 
-        <p className="text-sm text-gray-600 mb-5 line-clamp-2 flex-grow">
+        <p className="text-xs text-gray-600 mb-4 line-clamp-2">
           {description}
         </p>
 
         {/* INFO GRID */}
-        <div className="grid grid-cols-3 gap-3 mb-5 py-4 border-y border-gray-200">
+        <div className="grid grid-cols-3 gap-2 mb-4 py-3 border-y border-gray-100">
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Duration</p>
-            <p className="text-xs font-bold text-gray-900">{duration}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Duration</p>
+            <p className="text-[10px] font-bold text-gray-900">{duration}</p>
           </div>
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Format</p>
-            <p className="text-xs font-bold text-gray-900">{format}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Format</p>
+            <p className="text-[10px] font-bold text-gray-900">{format}</p>
           </div>
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold mb-1 uppercase tracking-wider">Level</p>
-            <p className="text-xs font-bold text-gray-900">{level}</p>
+            <p className="text-[9px] text-gray-400 font-semibold mb-0.5 uppercase tracking-wider">Level</p>
+            <p className="text-[10px] font-bold text-gray-900">{level}</p>
           </div>
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-3 mt-auto">
+        <div className="flex gap-2.5 mt-auto">
+          <Link
+            to={`/courses/${id}`}
+            className="btn-primary w-full text-center text-[10px]"
+          >
+            Learn More
+          </Link>
           <Link
             to="/contact"
-            className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-xs hover:shadow-lg transition text-center"
+            className="btn-outline w-full text-center text-[10px]"
           >
-            Enroll Now
+            Enroll
           </Link>
         </div>
       </div>
@@ -356,10 +359,10 @@ const DynamicCoursesSection = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="courses-heading mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
-            Our <span className="text-purple-600">Programs</span>
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
+            Our Programs
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base leading-relaxed">
             Comprehensive courses to advance your research career
           </p>
         </div>
@@ -374,73 +377,12 @@ const DynamicCoursesSection = () => {
   );
 };
 
-// ============ CTA SECTION ============
-const CTASection = () => {
-  const ctaRef = useRef(null);
-
-  useEffect(() => {
-    const section = ctaRef.current;
-    if (!section) return;
-
-    gsap.fromTo(
-      section.querySelector(".cta-content"),
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.45,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none none",
-        },
-        ease: "power2.out",
-      },
-    );
-  }, []);
-
-  return (
-    <section
-      ref={ctaRef}
-      className="w-full bg-white py-20 px-4 md:px-6 lg:px-8"
-    >
-      <div className="max-w-4xl mx-auto">
-        <div className="cta-content bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl p-10 md:p-16 text-white text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-5">
-            Ready to Transform Your Research Career?
-          </h2>
-          <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto">
-            Join hundreds of researchers, students, and professionals who have
-            advanced their careers with Fenivi's comprehensive training
-            programs.
-          </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-            >
-              Get Started Today
-            </a>
-            <a
-              href="#all-courses"
-              className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
-            >
-              Browse All Courses
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // ============ MAIN COURSES COMPONENT ============
 export default function Courses() {
   return (
     <div className="w-full bg-white text-gray-900 min-h-screen">
       <FeaturesSection />
       <DynamicCoursesSection />
-      <CTASection />
     </div>
   );
 }

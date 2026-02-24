@@ -3,12 +3,22 @@ import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot, limit } from "firebase/firestore";
 import gsap from "gsap";
-import { Calendar, MapPin, Clock } from "lucide-react";
+import { Calendar, MapPin, Clock, IndianRupee, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { PRIMARY, PRIMARY_LIGHT, PRIMARY_BG } from "../theme";
 
 export default function UpcomingCourses() {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const sectionRef = useRef(null);
+    const scrollRef = useRef(null);
+
+    const scroll = (direction) => {
+        if (scrollRef.current) {
+            const { scrollLeft, clientWidth } = scrollRef.current;
+            const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+            scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         // We only want upcoming or ongoing ones for this section
@@ -46,84 +56,132 @@ export default function UpcomingCourses() {
     return (
         <section ref={sectionRef} className="w-full py-12 lg:py-20 bg-gray-50/50">
             <div className="page-container">
-                <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                        Upcoming <span className="text-purple-600">Courses</span>
-                    </h2>
-                    <Link to="/courses" className="text-purple-600 font-semibold hover:underline text-sm">
-                        View All Courses →
-                    </Link>
+                <div className="flex items-start justify-between mb-8">
+                    <div>
+                        <h2 className="text-2xl md:text-2xl font-normal text-gray-900 leading-tight">
+                            Learn With Fenivi
+                        </h2>
+                        <p className="text-gray-400 text-sm mt-2 max-w-lg leading-relaxed">
+                            Research backed learning for professionals and changemakers  built from real-world evidence to help you grow, lead, and create lasting impact.
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-4 mt-1">
+                        <div className="hidden sm:flex items-center gap-2">
+                            <button
+                                onClick={() => scroll('left')}
+                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 transition-all shadow-sm bg-white hover:opacity-80"
+                                style={{}}
+                                aria-label="Scroll Left"
+                            >
+                                <ChevronLeft size={18} />
+                            </button>
+                            <button
+                                onClick={() => scroll('right')}
+                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 transition-all shadow-sm bg-white hover:opacity-80"
+                                aria-label="Scroll Right"
+                            >
+                                <ChevronRight size={18} />
+                            </button>
+                        </div>
+                        <Link to="/courses" className="font-semibold hover:underline text-sm whitespace-nowrap" style={{color: PRIMARY}}>
+                            View All →
+                        </Link>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {courses.map((course) => (
-                        <div
-                            key={course.id}
-                            className="upcoming-course-card relative bg-white rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col sm:flex-row gap-6 items-center"
-                        >
-                            {/* Category Badge - Top Left */}
-                            <div className="absolute top-4 left-4 z-10">
-                                <span className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${course.category === 'upcoming' ? 'bg-purple-100 text-purple-700' :
-                                        course.category === 'ongoing' ? 'bg-green-100 text-green-700' :
-                                            'bg-gray-100 text-gray-700'
-                                    }`}>
-                                    {course.category || 'Upcoming'}
-                                </span>
-                            </div>
+                <div className="relative">
+                    <div
+                        ref={scrollRef}
+                        className="flex overflow-x-auto gap-4 pb-4 scrollbar-hide scroll-smooth snap-x items-stretch"
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    >
+                        {/* Custom CSS to hide scrollbar for Chrome/Safari */}
+                        <style>{`
+                            .scrollbar-hide::-webkit-scrollbar {
+                                display: none;
+                            }
+                        `}</style>
 
-                            {/* Price Badge - Top Right */}
-                            <div className="absolute top-4 right-4 z-10">
-                                <span className="bg-white/90 backdrop-blur-sm border border-gray-100 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold text-purple-600 shadow-sm">
-                                    {course.price || 'Free'}
-                                </span>
-                            </div>
-
-                            {/* Thumbnail - Left (Rounded Rect) */}
-                            <div className="w-full sm:w-48 h-40 flex-shrink-0">
-                                <img
-                                    src={course.image}
-                                    alt={course.title}
-                                    className="w-full h-full object-cover rounded-2xl shadow-md border border-gray-50"
-                                />
-                            </div>
-
-                            {/* Content - Right */}
-                            <div className="flex-1 space-y-3 w-full">
-                                <h3 className="text-lg md:text-xl font-bold text-gray-900 leading-tight line-clamp-1">
-                                    {course.title}
-                                </h3>
-
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                                        <MapPin size={14} className="text-purple-500" />
-                                        <span>{course.location || 'Online'}</span>
+                        {courses.slice(0, 5).map((course) => (
+                            <div
+                                key={course.id}
+                                className="upcoming-course-card flex-shrink-0 w-[300px] sm:w-[340px] snap-start relative bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col sm:flex-row gap-3 items-start"
+                            >
+                                {/* Category & Badge - Inside Image */}
+                                <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
+                                    <div className="absolute top-0 left-0 z-10">
+                                        <span
+                                            className="px-2 py-0.5 rounded-br-lg text-[7px] font-normal uppercase tracking-[0.1em] shadow-[1px_1px_3px_rgba(0,0,0,0.1)] border-b border-r text-white"
+                                            style={{backgroundColor: course.category === 'ongoing' ? '#059669' : PRIMARY, borderColor: course.category === 'ongoing' ? '#047857' : PRIMARY_LIGHT}}
+                                        >
+                                            {course.category || 'Upcoming'}
+                                        </span>
                                     </div>
+                                    <img
+                                        src={course.image}
+                                        alt={course.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                                    <div className="flex items-center gap-4 text-gray-500 text-sm italic">
-                                        <div className="flex items-center gap-2">
-                                            <Calendar size={14} className="text-purple-500" />
-                                            <span>{course.courseDate ? new Date(course.courseDate).toLocaleDateString('en-GB') : 'TBA'}</span>
-                                        </div>
-                                        {course.courseTime && (
-                                            <div className="flex items-center gap-2">
-                                                <Clock size={14} className="text-purple-500" />
-                                                <span>{course.courseTime}</span>
+                                {/* Content - Right */}
+                                <div className="flex-1 w-full flex flex-col justify-between h-24">
+                                    <div>
+                                        <h3 className="text-sm font-medium text-gray-900 leading-tight line-clamp-2">
+                                            {course.title}
+                                        </h3>
+
+                                        <div className="mt-1 space-y-0.5">
+                                            <div className="flex items-center gap-1.5 text-gray-500 text-[10px]">
+                                                <MapPin size={10} style={{color: PRIMARY_LIGHT}} />
+                                                <span className="truncate">{course.location || 'Online'}</span>
                                             </div>
-                                        )}
+
+                                            <div className="text-gray-500 text-[10px] italic">
+                                                <div className="flex items-center gap-1.5">
+                                                    <Calendar size={10} style={{color: PRIMARY_LIGHT}} />
+                                                    <span>{course.courseDate ? new Date(course.courseDate).toLocaleDateString('en-GB') : 'TBA'}</span>
+                                                    {course.courseTime && (
+                                                        <>
+                                                            <Clock size={10} className="ml-1" style={{color: PRIMARY_LIGHT}} />
+                                                            <span>{course.courseTime}</span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center justify-between gap-1.5">
+                                        <div className="flex items-center gap-1 text-gray-500 text-[10px] italic">
+                                            <IndianRupee size={10} style={{color: PRIMARY_LIGHT}} />
+                                            <span>{course.price || 'Free'}</span>
+                                        </div>
+                                        <Link
+                                            to={`/courses/${course.id}`}
+                                            className="px-3 py-1 text-white text-[9px] font-bold rounded-lg hover:shadow-lg transition-all"
+                                            style={{background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})`}}
+                                        >
+                                            Learn More
+                                        </Link>
                                     </div>
                                 </div>
-
-                                <div className="pt-2">
-                                    <Link
-                                        to="/contact"
-                                        className="inline-block px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
-                                    >
-                                        Learn More
-                                    </Link>
-                                </div>
                             </div>
+                        ))}
+
+                        {/* View All Card - Matched Height */}
+                        <div className="flex-shrink-0 w-[140px] snap-start">
+                            <Link to="/courses" className="h-full block">
+                                <div className="h-full border-2 border-dashed rounded-xl flex flex-col items-center justify-center group transition-all p-4" style={{backgroundColor: PRIMARY_BG, borderColor: PRIMARY_LIGHT}}>
+                                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 transition-transform">
+                                        <ArrowRight size={16} style={{color: PRIMARY}} />
+                                    </div>
+                                    <span className="text-[10px] font-bold" style={{color: PRIMARY}}>View All</span>
+                                </div>
+                            </Link>
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </section>

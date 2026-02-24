@@ -25,7 +25,7 @@ export default function EditCourse() {
     const [courseDate, setCourseDate] = useState("");
     const [courseTime, setCourseTime] = useState("");
     const [category, setCategory] = useState("upcoming");
-    const [price, setPrice] = useState("Free");
+    const [price, setPrice] = useState("");
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState(null);
 
@@ -46,7 +46,7 @@ export default function EditCourse() {
                     setCourseDate(data.courseDate || "");
                     setCourseTime(data.courseTime || "");
                     setCategory(data.category || "upcoming");
-                    setPrice(data.price || "Free");
+                    setPrice(data.price || "");
                     setThumbnailUrl(data.image || "");
                 } else {
                     setMessage("Course not found");
@@ -157,13 +157,21 @@ export default function EditCourse() {
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Duration *
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 value={duration}
                                 onChange={(e) => setDuration(e.target.value)}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
-                            />
+                            >
+                                <option value="">Select Duration</option>
+                                <option value="Flexible">Flexible</option>
+                                <option value="Self-paced">Self-paced</option>
+                                <option value="1 Month">1 Month</option>
+                                <option value="3 Months">3 Months</option>
+                                <option value="6 Months">6 Months</option>
+                                <option value="30 Hours">30 Hours</option>
+                                <option value="Course Specific">Course Specific</option>
+                            </select>
                         </div>
                     </div>
 
@@ -172,25 +180,36 @@ export default function EditCourse() {
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Format *
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 value={format}
                                 onChange={(e) => setFormat(e.target.value)}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
-                            />
+                            >
+                                <option value="">Select Format</option>
+                                <option value="Online">Online</option>
+                                <option value="In-person">In-person</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Workshop">Workshop</option>
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Level *
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 value={level}
                                 onChange={(e) => setLevel(e.target.value)}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
-                            />
+                            >
+                                <option value="">Select Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="All Levels">All Levels</option>
+                                <option value="Expert">Expert</option>
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -230,14 +249,21 @@ export default function EditCourse() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Time
+                                Timing / Start Type
                             </label>
-                            <input
-                                type="time"
+                            <select
                                 value={courseTime}
                                 onChange={(e) => setCourseTime(e.target.value)}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            />
+                            >
+                                <option value="">Select Time/Type</option>
+                                <option value="Flexible Start">Flexible Start</option>
+                                <option value="Self-paced">Self-paced</option>
+                                <option value="Evening Batches">Evening Batches</option>
+                                <option value="Morning Batches">Morning Batches</option>
+                                <option value="Weekends Only">Weekends Only</option>
+                                <option value="Full-time">Full-time</option>
+                            </select>
                         </div>
                     </div>
 

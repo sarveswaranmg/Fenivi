@@ -10,10 +10,12 @@
    ======================================== */
 
 :root {
-  /* Primary Colors */
-  --color-primary: #7c3aed;
-  --color-primary-dark: #6d28d9;
-  --color-primary-light: #8b5cf6;
+  /*
+   * ⚡ TO CHANGE THE SITE COLOR — edit these 3 lines + src/theme.js
+   */
+  --color-primary: #30337A;
+  --color-primary-dark: #22255a;
+  --color-primary-light: #4a4e9e;
 
   /* Neutral Colors */
   --color-text: #111827;
@@ -23,7 +25,7 @@
   /* Backgrounds */
   --color-bg: #ffffff;
   --color-bg-secondary: #f9fafb;
-  --color-bg-accent: #faf5ff;
+  --color-bg-accent: #eeeef7;
 
   /* Consistent Spacing - Page Margins */
   --page-padding-mobile: 1.5rem;
@@ -161,7 +163,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
   color: white;
   font-weight: 600;
   font-size: var(--text-sm);
@@ -171,7 +173,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
@@ -193,6 +195,26 @@ body {
 
 .btn-secondary:hover {
   background-color: var(--color-bg-accent);
+}
+
+/* Outline Button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
 }
 
 /* Card Base */
@@ -238,21 +260,21 @@ body {
 }
 
 .animate-gradient-premium {
-  background: radial-gradient(circle at 30% 20%,
-      #7b2ff7,
-      #9d50bb 30%,
-      #5304a3 60%,
-      #2e026d 90%);
+  background: linear-gradient(135deg,
+      #4a4e9e 0%,
+      #30337A 40%,
+      #22255a 75%,
+      #14163a 100%);
   background-size: 200% 200%;
   animation: gradient-luxury 12s ease-in-out infinite;
 }
 
 .animate-gradient-shape {
-  background: radial-gradient(circle at 30% 20%,
-      #7b2ff7,
-      #9d50bb 30%,
-      #5304a3 60%,
-      #2e026d 90%);
+  background: linear-gradient(135deg,
+      #4a4e9e 0%,
+      #30337A 40%,
+      #22255a 75%,
+      #14163a 100%);
   background-size: 200% 200%;
   animation: gradient-luxury 15s ease-in-out infinite;
   -webkit-mask: url("/wave-shape.svg") no-repeat center;
@@ -350,11 +372,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
+    box-shadow: 0 0 5px rgba(48, 51, 122, 0.5);
   }
 
   50% {
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.8);
+    box-shadow: 0 0 20px rgba(48, 51, 122, 0.8);
   }
 }
 
@@ -406,7 +428,7 @@ body {
 
 .hover-lift:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+  box-shadow: 0 10px 30px rgba(48, 51, 122, 0.2);
 }
 
 .hover-scale {
@@ -422,7 +444,7 @@ body {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 20px rgba(48, 51, 122, 0.6);
 }
 
 /* ========================================
