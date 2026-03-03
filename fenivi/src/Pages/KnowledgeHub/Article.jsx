@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaLink } from "react-icons/fa";
 import { ArrowLeft } from "lucide-react";
 import { PRIMARY } from "../../theme";
 
@@ -118,7 +113,7 @@ export default function Article() {
       {/* Content */}
       <div className="max-w-4xl mx-auto px-5 md:px-0 mt-8 mb-24">
         {/* Title */}
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-snug text-gray-900">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 leading-snug text-gray-900">
           {title}
         </h1>
 
@@ -139,11 +134,18 @@ export default function Article() {
           </div>
 
           <div className="flex items-center gap-3 mt-4 md:mt-0">
-            <span className="font-medium text-gray-600">Share:</span>
-            <FaInstagram className="text-gray-400 hover:text-pink-600 cursor-pointer transition" />
-            <FaFacebookF className="text-gray-400 hover:text-blue-600 cursor-pointer transition" />
-            <FaTwitter className="text-gray-400 hover:text-sky-500 cursor-pointer transition" />
-            <FaLinkedinIn className="text-gray-400 hover:text-blue-700 cursor-pointer transition" />
+            <button
+              onClick={() => {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url);
+                alert("Link copied to clipboard!");
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-all text-sm font-medium"
+              title="Copy Link"
+            >
+              <FaLink />
+              <span>Copy Link</span>
+            </button>
           </div>
         </div>
 

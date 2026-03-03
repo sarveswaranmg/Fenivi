@@ -106,12 +106,12 @@ export default function UpcomingCourses() {
                         {courses.slice(0, 5).map((course) => (
                             <div
                                 key={course.id}
-                                className="upcoming-course-card flex-shrink-0 w-[300px] sm:w-[340px] snap-start relative bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col sm:flex-row gap-3 items-start overflow-hidden"
+                                className="upcoming-course-card flex-shrink-0 w-[290px] sm:w-[340px] snap-start relative bg-white rounded-xl p-2.5 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-row gap-3 items-center overflow-hidden"
                             >
                                 {course.earlyBirdDiscount && (
-                                    <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none z-20 overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-20 h-20 pointer-events-none z-20 overflow-hidden">
                                         <div
-                                            className="absolute top-0 right-0 bg-red-600 text-white text-[8px] font-bold py-1 px-10 transform rotate-45 translate-x-[30%] translate-y-[20%] shadow-sm"
+                                            className="absolute top-0 right-0 bg-red-600 text-white text-[7px] font-bold py-1 px-8 transform rotate-45 translate-x-[35%] translate-y-[25%] shadow-sm"
                                             style={{ backgroundColor: '#ef4444' }}
                                         >
                                             EARLY BIRD
@@ -119,10 +119,10 @@ export default function UpcomingCourses() {
                                     </div>
                                 )}
                                 {/* Category & Badge - Inside Image */}
-                                <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
+                                <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 overflow-hidden rounded-lg">
                                     <div className="absolute top-0 left-0 z-10">
                                         <span
-                                            className="px-2 py-0.5 rounded-br-lg text-[7px] font-normal uppercase tracking-[0.1em] shadow-[1px_1px_3px_rgba(0,0,0,0.1)] border-b border-r text-white"
+                                            className="px-1.5 py-0.5 rounded-br-lg text-[6px] sm:text-[7px] font-normal uppercase tracking-[0.1em] shadow-[1px_1px_3px_rgba(0,0,0,0.1)] border-b border-r text-white"
                                             style={{ backgroundColor: course.category === 'ongoing' ? '#059669' : PRIMARY, borderColor: course.category === 'ongoing' ? '#047857' : PRIMARY_LIGHT }}
                                         >
                                             {course.category || 'Upcoming'}
@@ -136,26 +136,26 @@ export default function UpcomingCourses() {
                                 </div>
 
                                 {/* Content - Right */}
-                                <div className="flex-1 w-full flex flex-col justify-between h-24">
+                                <div className="flex-1 min-w-0 flex flex-col justify-between h-20 sm:h-24">
                                     <div>
-                                        <h3 className="text-sm font-medium text-gray-900 leading-tight line-clamp-2">
+                                        <h3 className="text-[11px] sm:text-sm font-semibold text-gray-900 leading-tight line-clamp-2">
                                             {course.title}
                                         </h3>
 
                                         <div className="mt-1 space-y-0.5">
-                                            <div className="flex items-center gap-1.5 text-gray-500 text-[10px]">
-                                                <MapPin size={10} style={{ color: PRIMARY_LIGHT }} />
+                                            <div className="flex items-center gap-1 text-gray-500 text-[9px] sm:text-[10px]">
+                                                <MapPin size={9} style={{ color: PRIMARY_LIGHT }} />
                                                 <span className="truncate">{course.location || 'Online'}</span>
                                             </div>
 
-                                            <div className="text-gray-500 text-[10px] italic">
-                                                <div className="flex items-center gap-1.5">
-                                                    <Calendar size={10} style={{ color: PRIMARY_LIGHT }} />
+                                            <div className="text-gray-500 text-[9px] sm:text-[10px] italic">
+                                                <div className="flex items-center gap-1">
+                                                    <Calendar size={9} style={{ color: PRIMARY_LIGHT }} />
                                                     <span>{course.courseDate ? new Date(course.courseDate).toLocaleDateString('en-GB') : 'TBA'}</span>
                                                     {course.courseTime && (
                                                         <>
-                                                            <Clock size={10} className="ml-1" style={{ color: PRIMARY_LIGHT }} />
-                                                            <span>{course.courseTime}</span>
+                                                            <Clock size={9} className="ml-1" style={{ color: PRIMARY_LIGHT }} />
+                                                            <span className="truncate">{course.courseTime}</span>
                                                         </>
                                                     )}
                                                 </div>
@@ -163,14 +163,14 @@ export default function UpcomingCourses() {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between gap-1.5">
-                                        <div className="flex items-center gap-1 text-gray-500 text-[10px] italic">
-                                            <IndianRupee size={10} style={{ color: PRIMARY_LIGHT }} />
+                                    <div className="flex items-center justify-between gap-1 mt-1">
+                                        <div className="flex items-center gap-0.5 text-gray-900 font-bold text-[10px] sm:text-[11px]">
+                                            <IndianRupee size={9} style={{ color: PRIMARY_LIGHT }} />
                                             <span>{course.price || 'Free'}</span>
                                         </div>
                                         <Link
                                             to={`/courses/${course.id}`}
-                                            className="px-3 py-1 text-white text-[9px] font-bold rounded-lg hover:shadow-lg transition-all"
+                                            className="px-2.5 py-1 text-white text-[8px] sm:text-[9px] font-bold rounded-lg hover:shadow-lg transition-all whitespace-nowrap"
                                             style={{ background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})` }}
                                         >
                                             Learn More
@@ -181,13 +181,13 @@ export default function UpcomingCourses() {
                         ))}
 
                         {/* View All Card - Matched Height */}
-                        <div className="flex-shrink-0 w-[140px] snap-start">
+                        <div className="flex-shrink-0 w-[100px] sm:w-[140px] snap-start">
                             <Link to="/courses" className="h-full block">
-                                <div className="h-full border-2 border-dashed rounded-xl flex flex-col items-center justify-center group transition-all p-4" style={{ backgroundColor: PRIMARY_BG, borderColor: PRIMARY_LIGHT }}>
-                                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 transition-transform">
-                                        <ArrowRight size={16} style={{ color: PRIMARY }} />
+                                <div className="h-full border-2 border-dashed rounded-xl flex flex-col items-center justify-center group transition-all p-2 sm:p-4" style={{ backgroundColor: PRIMARY_BG, borderColor: PRIMARY_LIGHT }}>
+                                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center mb-1 sm:mb-2 shadow-sm group-hover:scale-110 transition-transform">
+                                        <ArrowRight size={14} className="sm:w-4 sm:h-4" style={{ color: PRIMARY }} />
                                     </div>
-                                    <span className="text-[10px] font-bold" style={{ color: PRIMARY }}>View All</span>
+                                    <span className="text-[8px] sm:text-[10px] font-bold" style={{ color: PRIMARY }}>View All</span>
                                 </div>
                             </Link>
                         </div>

@@ -5,58 +5,30 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MapPin, Calendar } from "lucide-react";
 import { db } from "../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { PRIMARY } from "../theme";
+import { PRIMARY, PRIMARY_BG } from "../theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ============ FEATURE CARD WITH MOUSE GLOW ============
-const FeatureCardWithGlow = ({ item }) => {
-  const cardRef = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setPosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
+// ============ FEATURE CARD ============
+const FeatureCard = ({ item }) => {
   return (
     <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="feature-card group relative bg-white rounded-2xl border border-gray-100 p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden"
+      className="feature-card relative bg-white rounded-2xl border border-gray-100 p-5 md:p-8 overflow-hidden"
     >
-      {/* GLOW EFFECT ON MOUSE MOVE */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle 150px at ${position.x}px ${position.y}px, rgba(48, 51, 122, 0.15), transparent 80%)`,
-        }}
-      ></div>
-
       {/* CONTENT */}
       <div className="relative z-10">
         {/* ICON */}
-        <div className="w-14 h-14 flex items-center justify-center rounded-full text-white text-xl shadow-lg mb-6" style={{ backgroundColor: PRIMARY }}>
+        <div className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded-full text-white text-base md:text-xl shadow-lg mb-4 md:mb-6" style={{ backgroundColor: PRIMARY_BG }}>
           {item.icon}
         </div>
 
         {/* TITLE */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-snug">
+        <h3 className="text-[13px] md:text-lg font-semibold text-gray-900 mb-2 md:mb-3 leading-snug">
           {item.title}
         </h3>
 
         {/* DESCRIPTION */}
-        <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+        <p className="text-gray-500 text-[10px] md:text-sm leading-relaxed">{item.desc}</p>
       </div>
     </div>
   );
@@ -88,21 +60,7 @@ const FeaturesSection = () => {
   ];
 
   const sectionRef = useRef(null);
-  const [bgPosition, setBgPosition] = useState({ x: 0, y: 0 });
 
-  const handleSectionMouseMove = (e) => {
-    if (!sectionRef.current) return;
-
-    const rect = sectionRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setBgPosition({ x, y });
-  };
-
-  const handleSectionMouseLeave = () => {
-    setBgPosition({ x: 0, y: 0 });
-  };
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -131,17 +89,8 @@ const FeaturesSection = () => {
   return (
     <section
       ref={sectionRef}
-      onMouseMove={handleSectionMouseMove}
-      onMouseLeave={handleSectionMouseLeave}
       className="relative pt-36 pb-24 bg-[#f8f9fc] overflow-hidden will-change-transform"
     >
-      {/* BACKGROUND GLOW EFFECT */}
-      <div
-        className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-200 hover:opacity-60 will-change-opacity"
-        style={{
-          background: `radial-gradient(circle 300px at ${bgPosition.x}px ${bgPosition.y}px, rgba(48, 51, 122, 0.12), transparent 70%)`,
-        }}
-      ></div>
 
       {/* CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -157,9 +106,9 @@ const FeaturesSection = () => {
         </div>
 
         {/* ===== CARDS GRID ===== */}
-        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:gap-8 grid-cols-2 lg:grid-cols-4">
           {features.map((item, i) => (
-            <FeatureCardWithGlow key={i} item={item} />
+            <FeatureCard key={i} item={item} />
           ))}
         </div>
       </div>

@@ -135,7 +135,7 @@ const CourseHero = () => {
                             social well-being
                         </p>
 
-                        <div className="hero-buttons flex flex-wrap gap-4 pt-4">
+                        <div className="hero-buttons flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
                             <a
                                 href="/contact"
                                 className="px-8 py-3.5 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105" style={{ background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})` }}
@@ -144,7 +144,7 @@ const CourseHero = () => {
                             </a>
                         </div>
 
-                        <div className="hero-stats grid grid-cols-3 gap-4 pt-8 border-t border-gray-200">
+                        <div className="hero-stats grid grid-cols-3 gap-4 pt-8 border-t border-gray-200 w-full text-center lg:text-left">
                             <div>
                                 <p className="text-2xl md:text-3xl font-bold text-gray-900">
                                     75+
@@ -168,7 +168,7 @@ const CourseHero = () => {
 
                     {/* RIGHT HERO IMAGE */}
                     <div
-                        className="relative flex items-center justify-end
+                        className="relative flex items-center justify-center lg:justify-end
                 h-[320px] md:h-[480px] lg:h-[520px]"
                     >
                         {/* === SOFT BACKGROUND LIGHT === */}

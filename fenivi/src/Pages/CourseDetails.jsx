@@ -319,7 +319,20 @@ const CourseDetails = () => {
                                     >
                                         Enroll Now
                                     </a>
-                                    <button className="w-full h-14 flex items-center justify-center border-2 border-slate-100 text-slate-500 rounded-xl font-bold text-sm transition-all hover:bg-slate-50 hover:border-slate-200 gap-2">
+                                    <button
+                                        onClick={() => {
+                                            if (navigator.share) {
+                                                navigator.share({
+                                                    title: course.title,
+                                                    url: window.location.href
+                                                }).catch(err => console.error("Error sharing:", err));
+                                            } else {
+                                                navigator.clipboard.writeText(window.location.href);
+                                                alert("Course link copied to clipboard!");
+                                            }
+                                        }}
+                                        className="w-full h-14 flex items-center justify-center border-2 border-slate-100 text-slate-500 rounded-xl font-bold text-sm transition-all hover:bg-slate-50 hover:border-slate-200 gap-2"
+                                    >
                                         <Share2 size={18} /> Share Course
                                     </button>
                                 </div>

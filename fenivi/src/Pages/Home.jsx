@@ -211,8 +211,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/* 2x2 STATS GRID (REDUCED SIZE - RIGHT ALIGNED) */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[320px] aspect-[4/3] md:aspect-square justify-self-end">
+          {/* 1x2 STATS GRID (REDUCED SIZE - CENTERED ON MOBILE, RIGHT ALIGNED ON MD+) */}
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-3 w-full max-w-[320px] aspect-[4/3] md:aspect-square mx-auto md:ml-auto md:mr-0">
             {/* Box 1: Image + Label */}
             <div className="stat-box overflow-hidden rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.06)] bg-white relative group hover-lift">
               <img

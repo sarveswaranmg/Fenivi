@@ -53,9 +53,6 @@ export default function ProjectDetails() {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end px-8 md:px-16 lg:px-24 pb-12">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-lg max-w-7xl mx-auto w-full">
-            {project.title}
-          </h1>
           {project.category && (
             <span className="inline-block bg-white/20 backdrop-blur-md text-white text-sm px-4 py-1 rounded-full w-fit font-medium">
               {project.category}
