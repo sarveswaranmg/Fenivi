@@ -46,7 +46,7 @@ const FeatureCardWithGlow = ({ item }) => {
       {/* CONTENT */}
       <div className="relative z-10">
         {/* ICON */}
-        <div className="w-14 h-14 flex items-center justify-center rounded-full text-white text-xl shadow-lg mb-6" style={{backgroundColor: PRIMARY}}>
+        <div className="w-14 h-14 flex items-center justify-center rounded-full text-white text-xl shadow-lg mb-6" style={{ backgroundColor: PRIMARY }}>
           {item.icon}
         </div>
 
@@ -184,6 +184,7 @@ const CourseCard = ({
   courseTime,
   price,
   category,
+  earlyBirdDiscount,
 }) => {
   const cardRef = useRef(null);
 
@@ -213,6 +214,16 @@ const CourseCard = ({
       ref={cardRef}
       className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-xl transition-all duration-500 flex flex-col h-full relative"
     >
+      {earlyBirdDiscount && (
+        <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none z-20 overflow-hidden">
+          <div
+            className="absolute top-0 right-0 bg-red-600 text-white text-[8px] font-bold py-1 px-10 transform rotate-45 translate-x-[30%] translate-y-[20%] shadow-sm"
+            style={{ backgroundColor: '#ef4444' }}
+          >
+            EARLY BIRD
+          </div>
+        </div>
+      )}
       {/* IMAGE SECTION - Badges inside to prevent title overlap */}
       <div className={`relative h-52 overflow-hidden ${gradient}`}>
         <img
@@ -223,7 +234,7 @@ const CourseCard = ({
         <div className="absolute top-2 left-2 z-10">
           <span
             className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider shadow-sm text-white ${category === 'ongoing' ? 'bg-green-600' : ''}`}
-            style={category !== 'ongoing' ? {backgroundColor: PRIMARY} : {}}
+            style={category !== 'ongoing' ? { backgroundColor: PRIMARY } : {}}
           >
             {category || 'Upcoming'}
           </span>

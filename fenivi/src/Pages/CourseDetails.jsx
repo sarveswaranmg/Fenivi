@@ -286,6 +286,12 @@ const CourseDetails = () => {
                                         {course.price && course.price !== 'Free' && !course.price.toString().includes('₹') && <span className="text-2xl font-semibold opacity-50">₹</span>}
                                         {course.price || 'Free'}
                                     </div>
+                                    {course.earlyBirdDiscount && (
+                                        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 text-red-600 rounded-lg border border-red-100 animate-pulse">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider">Early Bird Discount Active</span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="space-y-4 mb-8">
@@ -322,7 +328,7 @@ const CourseDetails = () => {
                                     <p className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-4">Direct Payment</p>
                                     <div className="bg-slate-50 p-4 rounded-2xl inline-block border border-slate-100 shadow-inner">
                                         <img
-                                            src={QRImage}
+                                            src={course.paymentQR || QRImage}
                                             alt="Payment QR"
                                             className="w-32 h-32 md:w-40 md:h-40 object-contain mix-blend-multiply"
                                         />

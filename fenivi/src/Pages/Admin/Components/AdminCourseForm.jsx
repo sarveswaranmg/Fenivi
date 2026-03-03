@@ -30,7 +30,9 @@ export default function AdminCourseForm() {
     const [courseTime, setCourseTime] = useState("");
     const [category, setCategory] = useState("upcoming");
     const [price, setPrice] = useState("");
+    const [earlyBirdDiscount, setEarlyBirdDiscount] = useState(false);
     const [thumbnailFile, setThumbnailFile] = useState(null);
+    const [qrFile, setQrFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [courses, setCourses] = useState([]);
@@ -68,6 +70,16 @@ export default function AdminCourseForm() {
             await uploadBytes(thumbRef, thumbnailFile);
             const thumbnailUrl = await getDownloadURL(thumbRef);
 
+            let qrUrl = "";
+            if (qrFile) {
+                const qrRef = storageRefFn(
+                    storage,
+                    `courses/qrs/${Date.now()}-${qrFile.name}`,
+                );
+                await uploadBytes(qrRef, qrFile);
+                qrUrl = await getDownloadURL(qrRef);
+            }
+
             const courseData = {
                 title,
                 description,
@@ -80,7 +92,9 @@ export default function AdminCourseForm() {
                 courseTime: courseTime || "",
                 category: category || "upcoming",
                 price: price || "Free",
+                earlyBirdDiscount: earlyBirdDiscount || false,
                 image: thumbnailUrl,
+                paymentQR: qrUrl,
                 badgeColor: "bg-gradient-to-br from-purple-500 to-indigo-600 text-white",
                 gradient: "bg-gradient-to-br from-purple-500 to-indigo-600",
                 createdAt: serverTimestamp(),
@@ -100,8 +114,12 @@ export default function AdminCourseForm() {
             setCourseTime("");
             setCategory("upcoming");
             setPrice("");
+            setEarlyBirdDiscount(false);
             setThumbnailFile(null);
+            setQrFile(null);
             document.getElementById("course-thumb").value = "";
+            const qrInput = document.getElementById("course-qr");
+            if (qrInput) qrInput.value = "";
         } catch (err) {
             console.error(err);
             setMessage("❌ Failed to upload course.");
@@ -257,6 +275,18 @@ export default function AdminCourseForm() {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
+                    <div className="flex items-center gap-2 p-2 sm:p-3">
+                        <input
+                            type="checkbox"
+                            id="early-bird"
+                            className="w-4 h-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                            checked={earlyBirdDiscount}
+                            onChange={(e) => setEarlyBirdDiscount(e.target.checked)}
+                        />
+                        <label htmlFor="early-bird" className="text-sm font-medium text-gray-700">
+                            Early Bird Discount Available
+                        </label>
+                    </div>
                     <div className="w-full md:col-span-2">
                         <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-gray-700">
                             Course Image
@@ -268,6 +298,18 @@ export default function AdminCourseForm() {
                             className="text-xs sm:text-sm w-full"
                             onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
                             required
+                        />
+                    </div>
+                    <div className="w-full md:col-span-2">
+                        <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-gray-700">
+                            Payment QR Code (Optional)
+                        </label>
+                        <input
+                            id="course-qr"
+                            type="file"
+                            accept="image/*"
+                            className="text-xs sm:text-sm w-full"
+                            onChange={(e) => setQrFile(e.target.files?.[0] || null)}
                         />
                     </div>
                 </div>

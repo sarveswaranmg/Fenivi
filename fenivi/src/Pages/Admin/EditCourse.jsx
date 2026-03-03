@@ -26,8 +26,11 @@ export default function EditCourse() {
     const [courseTime, setCourseTime] = useState("");
     const [category, setCategory] = useState("upcoming");
     const [price, setPrice] = useState("");
+    const [earlyBirdDiscount, setEarlyBirdDiscount] = useState(false);
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState(null);
+    const [qrUrl, setQrUrl] = useState("");
+    const [qrFile, setQrFile] = useState(null);
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -47,7 +50,9 @@ export default function EditCourse() {
                     setCourseTime(data.courseTime || "");
                     setCategory(data.category || "upcoming");
                     setPrice(data.price || "");
+                    setEarlyBirdDiscount(data.earlyBirdDiscount || false);
                     setThumbnailUrl(data.image || "");
+                    setQrUrl(data.paymentQR || "");
                 } else {
                     setMessage("Course not found");
                 }
@@ -84,6 +89,16 @@ export default function EditCourse() {
                 newThumbnailUrl = await getDownloadURL(thumbRef);
             }
 
+            let newQrUrl = qrUrl;
+            if (qrFile) {
+                const qrRef = storageRefFn(
+                    storage,
+                    `courses/qrs/${Date.now()}-${qrFile.name}`,
+                );
+                await uploadBytes(qrRef, qrFile);
+                newQrUrl = await getDownloadURL(qrRef);
+            }
+
             const updatedData = {
                 title,
                 description,
@@ -96,7 +111,9 @@ export default function EditCourse() {
                 courseTime: courseTime || "",
                 category: category || "upcoming",
                 price: price || "Free",
+                earlyBirdDiscount: earlyBirdDiscount || false,
                 image: newThumbnailUrl,
+                paymentQR: newQrUrl,
             };
 
             await updateDoc(doc(db, "courses", id), updatedData);
@@ -293,6 +310,18 @@ export default function EditCourse() {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                             />
                         </div>
+                        <div className="flex items-center gap-2 mt-8">
+                            <input
+                                type="checkbox"
+                                id="early-bird"
+                                className="w-4 h-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                                checked={earlyBirdDiscount}
+                                onChange={(e) => setEarlyBirdDiscount(e.target.checked)}
+                            />
+                            <label htmlFor="early-bird" className="text-sm font-medium text-gray-700">
+                                Early Bird Discount Available
+                            </label>
+                        </div>
                     </div>
 
                     <div>
@@ -306,6 +335,34 @@ export default function EditCourse() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                             required
                         />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Current QR Code
+                            </label>
+                            {qrUrl ? (
+                                <img
+                                    src={qrUrl}
+                                    alt="Current QR Code"
+                                    className="w-full h-48 object-contain bg-gray-50 rounded-lg mb-2"
+                                />
+                            ) : (
+                                <div className="w-full h-48 flex items-center justify-center bg-gray-50 rounded-lg mb-2 text-gray-400 text-sm italic">
+                                    No QR Code uploaded
+                                </div>
+                            )}
+                            <label className="block text-sm font-medium text-gray-700 mb-2 mt-4">
+                                Change/Upload QR Code
+                            </label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setQrFile(e.target.files?.[0] || null)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
                     </div>
 
                     <div>

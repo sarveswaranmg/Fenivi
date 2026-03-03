@@ -84,7 +84,7 @@ export default function UpcomingCourses() {
                                 <ChevronRight size={18} />
                             </button>
                         </div>
-                        <Link to="/courses" className="font-semibold hover:underline text-sm whitespace-nowrap" style={{color: PRIMARY}}>
+                        <Link to="/courses" className="font-semibold hover:underline text-sm whitespace-nowrap" style={{ color: PRIMARY }}>
                             View All →
                         </Link>
                     </div>
@@ -106,14 +106,24 @@ export default function UpcomingCourses() {
                         {courses.slice(0, 5).map((course) => (
                             <div
                                 key={course.id}
-                                className="upcoming-course-card flex-shrink-0 w-[300px] sm:w-[340px] snap-start relative bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col sm:flex-row gap-3 items-start"
+                                className="upcoming-course-card flex-shrink-0 w-[300px] sm:w-[340px] snap-start relative bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col sm:flex-row gap-3 items-start overflow-hidden"
                             >
+                                {course.earlyBirdDiscount && (
+                                    <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none z-20 overflow-hidden">
+                                        <div
+                                            className="absolute top-0 right-0 bg-red-600 text-white text-[8px] font-bold py-1 px-10 transform rotate-45 translate-x-[30%] translate-y-[20%] shadow-sm"
+                                            style={{ backgroundColor: '#ef4444' }}
+                                        >
+                                            EARLY BIRD
+                                        </div>
+                                    </div>
+                                )}
                                 {/* Category & Badge - Inside Image */}
                                 <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
                                     <div className="absolute top-0 left-0 z-10">
                                         <span
                                             className="px-2 py-0.5 rounded-br-lg text-[7px] font-normal uppercase tracking-[0.1em] shadow-[1px_1px_3px_rgba(0,0,0,0.1)] border-b border-r text-white"
-                                            style={{backgroundColor: course.category === 'ongoing' ? '#059669' : PRIMARY, borderColor: course.category === 'ongoing' ? '#047857' : PRIMARY_LIGHT}}
+                                            style={{ backgroundColor: course.category === 'ongoing' ? '#059669' : PRIMARY, borderColor: course.category === 'ongoing' ? '#047857' : PRIMARY_LIGHT }}
                                         >
                                             {course.category || 'Upcoming'}
                                         </span>
@@ -134,17 +144,17 @@ export default function UpcomingCourses() {
 
                                         <div className="mt-1 space-y-0.5">
                                             <div className="flex items-center gap-1.5 text-gray-500 text-[10px]">
-                                                <MapPin size={10} style={{color: PRIMARY_LIGHT}} />
+                                                <MapPin size={10} style={{ color: PRIMARY_LIGHT }} />
                                                 <span className="truncate">{course.location || 'Online'}</span>
                                             </div>
 
                                             <div className="text-gray-500 text-[10px] italic">
                                                 <div className="flex items-center gap-1.5">
-                                                    <Calendar size={10} style={{color: PRIMARY_LIGHT}} />
+                                                    <Calendar size={10} style={{ color: PRIMARY_LIGHT }} />
                                                     <span>{course.courseDate ? new Date(course.courseDate).toLocaleDateString('en-GB') : 'TBA'}</span>
                                                     {course.courseTime && (
                                                         <>
-                                                            <Clock size={10} className="ml-1" style={{color: PRIMARY_LIGHT}} />
+                                                            <Clock size={10} className="ml-1" style={{ color: PRIMARY_LIGHT }} />
                                                             <span>{course.courseTime}</span>
                                                         </>
                                                     )}
@@ -155,13 +165,13 @@ export default function UpcomingCourses() {
 
                                     <div className="flex items-center justify-between gap-1.5">
                                         <div className="flex items-center gap-1 text-gray-500 text-[10px] italic">
-                                            <IndianRupee size={10} style={{color: PRIMARY_LIGHT}} />
+                                            <IndianRupee size={10} style={{ color: PRIMARY_LIGHT }} />
                                             <span>{course.price || 'Free'}</span>
                                         </div>
                                         <Link
                                             to={`/courses/${course.id}`}
                                             className="px-3 py-1 text-white text-[9px] font-bold rounded-lg hover:shadow-lg transition-all"
-                                            style={{background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})`}}
+                                            style={{ background: `linear-gradient(135deg, ${PRIMARY_LIGHT}, ${PRIMARY})` }}
                                         >
                                             Learn More
                                         </Link>
@@ -173,11 +183,11 @@ export default function UpcomingCourses() {
                         {/* View All Card - Matched Height */}
                         <div className="flex-shrink-0 w-[140px] snap-start">
                             <Link to="/courses" className="h-full block">
-                                <div className="h-full border-2 border-dashed rounded-xl flex flex-col items-center justify-center group transition-all p-4" style={{backgroundColor: PRIMARY_BG, borderColor: PRIMARY_LIGHT}}>
+                                <div className="h-full border-2 border-dashed rounded-xl flex flex-col items-center justify-center group transition-all p-4" style={{ backgroundColor: PRIMARY_BG, borderColor: PRIMARY_LIGHT }}>
                                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 transition-transform">
-                                        <ArrowRight size={16} style={{color: PRIMARY}} />
+                                        <ArrowRight size={16} style={{ color: PRIMARY }} />
                                     </div>
-                                    <span className="text-[10px] font-bold" style={{color: PRIMARY}}>View All</span>
+                                    <span className="text-[10px] font-bold" style={{ color: PRIMARY }}>View All</span>
                                 </div>
                             </Link>
                         </div>
