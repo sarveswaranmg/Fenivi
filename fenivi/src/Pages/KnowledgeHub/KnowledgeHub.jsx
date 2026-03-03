@@ -267,15 +267,14 @@ export default function KnowledgeHub() {
   return (
     <div className="w-full min-h-screen text-gray-800">
       {/* HERO */}
-      {/* HERO */}
-      <section className="min-h-screen md:h-[90vh] w-full flex items-center pt-24 pb-12">
-        <div className="page-container flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+      <section className="min-h-screen md:h-[90vh] w-full flex items-center pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-10 md:pb-12 px-4 sm:px-6 md:px-4">
+        <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
           {/* LEFT */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-6">
-            <h1 className="hero-text-element text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight">
+          <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left space-y-3 sm:space-y-4 md:space-y-5">
+            <h1 className="hero-text-element text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight">
               Turning Data into Knowledge
             </h1>
-            <p className="hero-text-element text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
+            <p className="hero-text-element text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
               Fenivi Research Solutions bridges the gap between policy,
               practice, and community needs through actionable research and
               evidence-based insights that drive sustainable change.
@@ -283,8 +282,8 @@ export default function KnowledgeHub() {
           </div>
 
           {/* RIGHT */}
-          <div className="w-full md:w-1/2 flex justify-center items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-[650px]">
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-full max-w-full md:max-w-[600px] px-0 md:px-4">
               {/* IMAGE CARD */}
               <div
                 onClick={() => {
@@ -300,7 +299,7 @@ export default function KnowledgeHub() {
                     });
                   }
                 }}
-                className="hero-card-element relative overflow-hidden rounded-3xl shadow-md bg-gray-900 group cursor-pointer h-[280px]"
+                className="hero-card-element relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-md bg-gray-900 group cursor-pointer h-[160px] sm:h-[180px] md:h-[240px] lg:h-[280px]"
               >
                 <img
                   src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=900"
@@ -309,18 +308,21 @@ export default function KnowledgeHub() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-                <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                  <div className="flex items-end justify-between w-full">
+                <div className="absolute inset-0 p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col justify-end">
+                  <div className="flex items-end justify-between w-full gap-2">
                     <div className="flex flex-col">
-                      <h3 className="text-white text-2xl font-normal leading-tight drop-shadow-sm">
+                      <h3 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-normal leading-tight drop-shadow-sm">
                         Blogs
                       </h3>
-                      <p className="text-gray-300 text-xs mt-1 font-medium max-w-[120px]">
+                      <p className="text-gray-300 text-xs mt-1 font-medium">
                         Stories from the field
                       </p>
                     </div>
 
-                    <button className="btn-primary whitespace-nowrap" style={{padding: "0.3rem 0.8rem", fontSize: "0.75rem"}}>
+                    <button
+                      className="btn-primary whitespace-nowrap text-xs sm:text-sm"
+                      style={{ padding: "0.3rem 0.7rem" }}
+                    >
                       Read Now
                     </button>
                   </div>
@@ -328,13 +330,13 @@ export default function KnowledgeHub() {
               </div>
 
               {/* CARD 1: Publications */}
-              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
-                <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
-                <div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">
+              <div className="hero-card-element p-3 sm:p-4 md:p-5 lg:p-6 bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[160px] sm:h-[180px] md:h-[240px] lg:h-[280px] overflow-hidden">
+                <BookOpen className="w-5 sm:w-6 md:w-7 lg:w-8 h-5 sm:h-6 md:h-7 lg:h-8 text-purple-600 mb-2 sm:mb-3 md:mb-4 flex-shrink-0" />
+                <div className="flex-1 min-w-0 overflow-hidden">
+                  <h3 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2 line-clamp-2">
                     200+ Publications
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">
                     Access our extensive library of peer-reviewed research
                     papers, policy briefs, and scientific articles.
                   </p>
@@ -342,20 +344,26 @@ export default function KnowledgeHub() {
               </div>
 
               {/* CARD 2: Conference */}
-              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
-                <BarChart3 className="w-8 h-8 text-indigo-600 mb-4" />
-                <div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">
+              <div className="hero-card-element p-3 sm:p-4 md:p-5 lg:p-6 bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[160px] sm:h-[180px] md:h-[240px] lg:h-[280px] overflow-hidden">
+                <BarChart3 className="w-5 sm:w-6 md:w-7 lg:w-8 h-5 sm:h-6 md:h-7 lg:h-8 text-indigo-600 mb-2 sm:mb-3 md:mb-4 flex-shrink-0" />
+                <div className="flex-1 min-w-0 overflow-hidden">
+                  <h3 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2 line-clamp-2">
                     Conference Leadership
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
+                  <p className="text-xs text-gray-600 leading-relaxed mb-1 sm:mb-2 md:mb-3 line-clamp-2">
                     Organizing the annual "National Conference on Real-World
                     Evidence in Oncology" for clinicians & researchers.
                   </p>
-                  <div className="flex justify-end">
+                  <div className="flex justify-end mt-auto pt-1 sm:pt-2">
                     <button
-                      onClick={() => window.open("https://realworldevidence.in/gallery/2023", "_blank")}
-                      className="btn-primary" style={{padding: "0.3rem 0.8rem", fontSize: "0.75rem"}}
+                      onClick={() =>
+                        window.open(
+                          "https://realworldevidence.in/gallery/2023",
+                          "_blank",
+                        )
+                      }
+                      className="btn-primary text-xs whitespace-nowrap flex-shrink-0"
+                      style={{ padding: "0.25rem 0.5rem" }}
                     >
                       Learn More →
                     </button>
@@ -364,13 +372,13 @@ export default function KnowledgeHub() {
               </div>
 
               {/* CARD 3: Reports */}
-              <div className="hero-card-element p-6 bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[280px]">
-                <FileText className="w-8 h-8 text-purple-700 mb-4" />
-                <div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2">
+              <div className="hero-card-element p-3 sm:p-4 md:p-5 lg:p-6 bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover-lift h-[160px] sm:h-[180px] md:h-[240px] lg:h-[280px] overflow-hidden">
+                <FileText className="w-5 sm:w-6 md:w-7 lg:w-8 h-5 sm:h-6 md:h-7 lg:h-8 text-purple-700 mb-2 sm:mb-3 md:mb-4 flex-shrink-0" />
+                <div className="flex-1 min-w-0 overflow-hidden">
+                  <h3 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2 line-clamp-2">
                     Reports & Studies
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">
                     Evidence-based field studies covering environmental
                     sustainability, social impact, and public health.
                   </p>
@@ -381,60 +389,33 @@ export default function KnowledgeHub() {
         </div>
       </section>
 
-
       {/* ARTICLES GRID */}
       <section
         id="articles-section"
-        className="page-container pb-12 sm:pb-16 lg:pb-20"
+        className="w-full pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 md:px-4"
       >
-        {/* Header with Search and Sort */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
-          <div className="section-header">
-            <h2 className="text-2xl font-normal text-gray-900">
-              Latest Articles
-            </h2>
-            <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
-              Dive into our peer-reviewed papers, detailed reports, and
-              evidence-based studies shaping the future of community and
-              environmental health.
-            </p>
-          </div>
+        <div className="w-full max-w-7xl mx-auto">
+          {/* Header with Search and Sort */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
+            <div className="section-header">
+              <h2 className="text-2xl font-normal text-gray-900">
+                Latest Articles
+              </h2>
+              <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
+                Dive into our peer-reviewed papers, detailed reports, and
+                evidence-based studies shaping the future of community and
+                environmental health.
+              </p>
+            </div>
 
-          {/* Search and Sort Controls */}
-          <div className="flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
-            {/* Search Bar */}
-            <div className="relative w-full md:w-96">
-              <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 sm:pl-11 pr-10 sm:pr-12 py-2 sm:py-3 bg-white border-2 border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
-                >
+            {/* Search and Sort Controls */}
+            <div className="flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
+              {/* Search Bar */}
+              <div className="relative w-full md:w-96">
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -443,204 +424,206 @@ export default function KnowledgeHub() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 sm:pl-11 pr-10 sm:pr-12 py-2 sm:py-3 bg-white border-2 border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 sm:h-5 sm:w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="relative w-full sm:w-auto" ref={sortMenuRef}>
+                <button
+                  onClick={() => setShowSortMenu(!showSortMenu)}
+                  className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                    />
+                  </svg>
+                  <span>
+                    {sortOrder === "newest" && "Newest First"}
+                    {sortOrder === "oldest" && "Oldest First"}
+                    {sortOrder === "a-z" && "A-Z"}
+                    {sortOrder === "z-a" && "Z-A"}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-4 w-4 transition-transform ${showSortMenu ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </button>
-              )}
-            </div>
-
-            {/* Sort Dropdown */}
-            <div className="relative w-full sm:w-auto" ref={sortMenuRef}>
-              <button
-                onClick={() => setShowSortMenu(!showSortMenu)}
-                className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
-                  />
-                </svg>
-                <span>
-                  {sortOrder === "newest" && "Newest First"}
-                  {sortOrder === "oldest" && "Oldest First"}
-                  {sortOrder === "a-z" && "A-Z"}
-                  {sortOrder === "z-a" && "Z-A"}
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 w-4 transition-transform ${showSortMenu ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              {showSortMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
-                  <button
-                    onClick={() => {
-                      setSortOrder("newest");
-                      setShowSortMenu(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                      sortOrder === "newest"
-                        ? "bg-purple-50 text-purple-700 font-semibold"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    Newest First
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSortOrder("oldest");
-                      setShowSortMenu(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                      sortOrder === "oldest"
-                        ? "bg-purple-50 text-purple-700 font-semibold"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    Oldest First
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSortOrder("a-z");
-                      setShowSortMenu(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                      sortOrder === "a-z"
-                        ? "bg-purple-50 text-purple-700 font-semibold"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    A-Z
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSortOrder("z-a");
-                      setShowSortMenu(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
-                      sortOrder === "z-a"
-                        ? "bg-purple-50 text-purple-700 font-semibold"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    Z-A
-                  </button>
-                </div>
-              )}
+                {showSortMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
+                    <button
+                      onClick={() => {
+                        setSortOrder("newest");
+                        setShowSortMenu(false);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                        sortOrder === "newest"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      Newest First
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSortOrder("oldest");
+                        setShowSortMenu(false);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                        sortOrder === "oldest"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      Oldest First
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSortOrder("a-z");
+                        setShowSortMenu(false);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                        sortOrder === "a-z"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      A-Z
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSortOrder("z-a");
+                        setShowSortMenu(false);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors ${
+                        sortOrder === "z-a"
+                          ? "bg-purple-50 text-purple-700 font-semibold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      Z-A
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Articles Grid */}
-        {error && (
-          <p className="text-center text-red-500 py-10">
-            Error loading articles: {error}
-          </p>
-        )}
-
-        {!loading && !error && filteredArticles.length === 0 && (
-          <p className="text-center text-gray-500 py-10">
-            {searchQuery
-              ? "No articles found matching your search."
-              : "No articles available."}
-          </p>
-        )}
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {(loading ? [...Array(4)] : filteredArticles).map((a, i) =>
-            loading ? (
-              <ArticleCard
-                key={`skeleton-art-${i}`}
-                loading={true}
-                imageHeight="h-64"
-              />
-            ) : (
-              <ArticleCard
-                key={a.id}
-                id={a.id}
-                title={a.title}
-                description={a.description}
-                author={a.author}
-                place={a.place}
-                publishedAt={a.publishedAt}
-                imageUrl={a.thumbnailUrl}
-              />
-            ),
+          {/* Articles Grid */}
+          {error && (
+            <p className="text-center text-red-500 py-10">
+              Error loading articles: {error}
+            </p>
           )}
+
+          {!loading && !error && filteredArticles.length === 0 && (
+            <p className="text-center text-gray-500 py-10">
+              {searchQuery
+                ? "No articles found matching your search."
+                : "No articles available."}
+            </p>
+          )}
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+            {(loading ? [...Array(4)] : filteredArticles).map((a, i) =>
+              loading ? (
+                <ArticleCard
+                  key={`skeleton-art-${i}`}
+                  loading={true}
+                  imageHeight="h-64"
+                />
+              ) : (
+                <ArticleCard
+                  key={a.id}
+                  id={a.id}
+                  title={a.title}
+                  description={a.description}
+                  author={a.author}
+                  place={a.place}
+                  publishedAt={a.publishedAt}
+                  imageUrl={a.thumbnailUrl}
+                />
+              ),
+            )}
+          </div>
         </div>
       </section>
 
       {/* BLOGS GRID */}
       <section
         id="blogs-section"
-        className="page-container pb-12 sm:pb-16 lg:pb-20 pt-10 border-t border-gray-100"
+        className="w-full pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 lg:pb-20 border-t border-gray-100 px-4 sm:px-6 md:px-4"
       >
-        {/* Header with Search and Sort */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
-          <div className="section-header">
-            <h2 className="text-2xl font-normal text-gray-900">
-              Latest Blogs
-            </h2>
-            <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
-              Stories from the field, professional reflections, and community
-              perspectives that bring our research to life.
-            </p>
-          </div>
+        <div className="w-full max-w-7xl mx-auto">
+          {/* Header with Search and Sort */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-5 sm:mb-6 lg:mb-7 xl:mb-8 gap-4 sm:gap-5 md:gap-6">
+            <div className="section-header">
+              <h2 className="text-2xl font-normal text-gray-900">
+                Latest Blogs
+              </h2>
+              <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl">
+                Stories from the field, professional reflections, and community
+                perspectives that bring our research to life.
+              </p>
+            </div>
 
-          <div className="flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
-            {/* Search Bar */}
-            <div className="relative w-full md:w-96">
-              <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search blogs..."
-                value={blogSearchQuery}
-                onChange={(e) => setBlogSearchQuery(e.target.value)}
-                className="w-full pl-10 sm:pl-11 pr-10 sm:pr-12 py-2 sm:py-3 bg-white border-2 border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200"
-              />
-              {blogSearchQuery && (
-                <button
-                  onClick={() => setBlogSearchQuery("")}
-                  className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
-                >
+            <div className="flex flex-col gap-3 sm:gap-4 items-stretch sm:items-end w-full md:w-auto">
+              {/* Search Bar */}
+              <div className="relative w-full md:w-96">
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -649,112 +632,140 @@ export default function KnowledgeHub() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search blogs..."
+                  value={blogSearchQuery}
+                  onChange={(e) => setBlogSearchQuery(e.target.value)}
+                  className="w-full pl-10 sm:pl-11 pr-10 sm:pr-12 py-2 sm:py-3 bg-white border-2 border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200"
+                />
+                {blogSearchQuery && (
+                  <button
+                    onClick={() => setBlogSearchQuery("")}
+                    className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 sm:h-5 sm:w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="relative w-full sm:w-auto" ref={blogSortMenuRef}>
+                <button
+                  onClick={() => setShowBlogSortMenu(!showBlogSortMenu)}
+                  className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                    />
+                  </svg>
+                  <span>
+                    {blogSortOrder === "newest" && "Newest First"}
+                    {blogSortOrder === "oldest" && "Oldest First"}
+                    {blogSortOrder === "a-z" && "A-Z"}
+                    {blogSortOrder === "z-a" && "Z-A"}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-4 w-4 transition-transform ${showBlogSortMenu ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </button>
-              )}
-            </div>
-
-            {/* Sort Dropdown */}
-            <div className="relative w-full sm:w-auto" ref={blogSortMenuRef}>
-              <button
-                onClick={() => setShowBlogSortMenu(!showBlogSortMenu)}
-                className="flex items-center justify-between sm:justify-start gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-xl text-gray-700 text-xs sm:text-sm font-medium hover:border-gray-300 hover:bg-gray-50 transition-all shadow-sm w-full sm:w-auto"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
-                  />
-                </svg>
-                <span>
-                  {blogSortOrder === "newest" && "Newest First"}
-                  {blogSortOrder === "oldest" && "Oldest First"}
-                  {blogSortOrder === "a-z" && "A-Z"}
-                  {blogSortOrder === "z-a" && "Z-A"}
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 w-4 transition-transform ${showBlogSortMenu ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              {showBlogSortMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
-                  {["newest", "oldest", "a-z", "z-a"].map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => {
-                        setBlogSortOrder(opt);
-                        setShowBlogSortMenu(false);
-                      }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors capitalize ${blogSortOrder === opt ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"}`}
-                    >
-                      {opt.replace("-", " ")}{" "}
-                      {opt.includes("est") ? "First" : ""}
-                    </button>
-                  ))}
-                </div>
-              )}
+                {showBlogSortMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-10 overflow-hidden">
+                    {["newest", "oldest", "a-z", "z-a"].map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => {
+                          setBlogSortOrder(opt);
+                          setShowBlogSortMenu(false);
+                        }}
+                        className={`w-full text-left px-4 py-2.5 text-sm hover:bg-purple-50 transition-colors capitalize ${blogSortOrder === opt ? "bg-purple-50 text-purple-700 font-semibold" : "text-gray-700"}`}
+                      >
+                        {opt.replace("-", " ")}{" "}
+                        {opt.includes("est") ? "First" : ""}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Blogs Grid */}
-        {blogsError && (
-          <p className="text-center text-red-500 py-10">
-            Error loading blogs: {blogsError}
-          </p>
-        )}
-
-        {!blogsLoading && !blogsError && filteredBlogs.length === 0 && (
-          <p className="text-center text-gray-500 py-10">
-            {blogSearchQuery
-              ? "No blogs found matching your search."
-              : "No blogs available."}
-          </p>
-        )}
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {(blogsLoading ? [...Array(4)] : filteredBlogs).map((b, i) =>
-            blogsLoading ? (
-              <ArticleCard
-                key={`skeleton-blog-${i}`}
-                loading={true}
-                imageHeight="h-64"
-              />
-            ) : (
-              <ArticleCard
-                key={b.id}
-                id={b.id}
-                title={b.title}
-                description={b.description}
-                author={b.author}
-                place={b.place}
-                publishedAt={b.publishedAt}
-                imageUrl={b.thumbnailUrl}
-                type="blog"
-              />
-            ),
+          {/* Blogs Grid */}
+          {blogsError && (
+            <p className="text-center text-red-500 py-10">
+              Error loading blogs: {blogsError}
+            </p>
           )}
+
+          {!blogsLoading && !blogsError && filteredBlogs.length === 0 && (
+            <p className="text-center text-gray-500 py-10">
+              {blogSearchQuery
+                ? "No blogs found matching your search."
+                : "No blogs available."}
+            </p>
+          )}
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+            {(blogsLoading ? [...Array(4)] : filteredBlogs).map((b, i) =>
+              blogsLoading ? (
+                <ArticleCard
+                  key={`skeleton-blog-${i}`}
+                  loading={true}
+                  imageHeight="h-64"
+                />
+              ) : (
+                <ArticleCard
+                  key={b.id}
+                  id={b.id}
+                  title={b.title}
+                  description={b.description}
+                  author={b.author}
+                  place={b.place}
+                  publishedAt={b.publishedAt}
+                  imageUrl={b.thumbnailUrl}
+                  type="blog"
+                />
+              ),
+            )}
+          </div>
         </div>
       </section>
     </div>

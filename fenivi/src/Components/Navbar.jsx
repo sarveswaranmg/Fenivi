@@ -1,38 +1,28 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 import navLogo from "../assets/Nav_Logo.png";
+
+const links = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Projects", path: "/projects" },
+  { name: "Knowledge Hub", path: "/knowledge-hub" },
+  { name: "Events", path: "/events" },
+  { name: "Courses", path: "/courses" },
+  { name: "Contact Us", path: "/contact" },
+];
 
 export default function Navbar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const navRef = useRef(null);
   const logoRef = useRef(null);
   const linksRef = useRef([]);
   const mobileMenuRef = useRef(null);
   const indicatorRef = useRef(null);
-  const servicesDropdownRef = useRef(null);
-
-  // Handle click outside services dropdown
-  React.useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        servicesDropdownRef.current &&
-        !servicesDropdownRef.current.contains(event.target)
-      ) {
-        setServicesDropdownOpen(false);
-      }
-    }
-
-    if (servicesDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [servicesDropdownOpen]);
 
   // Modern Sliding Pill Animation
   React.useEffect(() => {
@@ -106,23 +96,6 @@ export default function Navbar() {
     }
   }, [open]);
 
-  const links = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services", hasDropdown: true },
-    { name: "Projects", path: "/projects" },
-    { name: "Knowledge Hub", path: "/knowledge-hub" },
-    { name: "Events", path: "/events" },
-    { name: "Courses", path: "/courses" },
-    { name: "Contact Us", path: "/contact" },
-  ];
-
-  const serviceSections = [
-    { name: "Research & Field Services", filter: "research" },
-    { name: "Training & Education", filter: "training" },
-    { name: "Startup Mentoring", filter: "startup" },
-  ];
-
   // 🔥 Get active page name for mobile header
   const getCurrentTitle = () => {
     const current = links.find((l) => l.path === location.pathname);
@@ -154,7 +127,12 @@ export default function Navbar() {
           <div
             ref={indicatorRef}
             className="absolute rounded-full z-0 pointer-events-none"
-            style={{ backgroundColor: "#eeeef7", height: "0px", width: "0px", opacity: 0 }}
+            style={{
+              backgroundColor: "#eeeef7",
+              height: "0px",
+              width: "0px",
+              opacity: 0,
+            }}
           />
 
           {links.map((link, index) => (
@@ -162,59 +140,20 @@ export default function Navbar() {
               key={link.name}
               ref={(el) => {
                 linksRef.current[index] = el;
-                if (link.hasDropdown) {
-                  servicesDropdownRef.current = el;
-                }
               }}
-              className="relative group z-10" // z-10 to stay above pill
+              className="relative group z-10"
             >
               <Link
                 to={link.path}
-                onClick={(e) => {
-                  if (link.hasDropdown) {
-                    e.preventDefault();
-                    setServicesDropdownOpen(!servicesDropdownOpen);
-                  }
-                }}
-                className={`text-[13px] xl:text-[14px] font-medium uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${location.pathname === link.path && !link.hasDropdown
-                  ? ""
-                  : "text-gray-700"
-                  }`}
+                className={`text-[13px] xl:text-[14px] font-medium uppercase tracking-tight transition-all duration-300 px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1 ${
+                  location.pathname === link.path ? "" : "text-gray-700"
+                }`}
                 style={
-                  location.pathname === link.path && !link.hasDropdown
-                    ? { color: "#30337A" }
-                    : {}
+                  location.pathname === link.path ? { color: "#30337A" } : {}
                 }
               >
                 {link.name}
-                {link.hasDropdown && (
-                  <ChevronDown
-                    size={14}
-                    className={`transition-transform duration-300 ${servicesDropdownOpen ? "rotate-180" : ""}`}
-                  />
-                )}
               </Link>
-
-              {/* Services Dropdown */}
-              {link.hasDropdown && (
-                <div
-                  className={`absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 transition-all duration-300 ${servicesDropdownOpen
-                    ? "opacity-100 visible translate-y-0"
-                    : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                    }`}
-                >
-                  {serviceSections.map((section) => (
-                    <Link
-                      key={section.name}
-                      to={`/services?filter=${section.filter}`}
-                      className="block px-5 py-2.5 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                      onClick={() => setServicesDropdownOpen(false)}
-                    >
-                      {section.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -226,9 +165,12 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center gap-4">
-            <span className="text-gray-900 text-lg font-semibold lg:hidden">
+            <button
+              onClick={() => setOpen(!open)}
+              className="text-gray-900 text-lg font-semibold lg:hidden hover:text-purple-600 transition-colors"
+            >
               {getCurrentTitle()}
-            </span>
+            </button>
             <button
               onClick={() => setOpen(!open)}
               className="text-gray-700 hover:text-purple-600"
@@ -247,66 +189,24 @@ export default function Navbar() {
         >
           <div className="flex flex-col p-4 gap-2">
             {links.map((link) => (
-              <div key={link.name}>
-                <Link
-                  to={link.path}
-                  onClick={(e) => {
-                    if (link.hasDropdown) {
-                      e.preventDefault();
-                      setServicesDropdownOpen(!servicesDropdownOpen);
-                    } else {
-                      setOpen(false);
-                    }
-                  }}
-                  className={`
-                    flex items-center justify-between text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl uppercase tracking-wide
-                    ${location.pathname === link.path && !link.hasDropdown
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setOpen(false)}
+                className={`
+                  text-[15px] font-medium transition-all duration-300 px-4 py-3 rounded-xl uppercase tracking-wide
+                  ${
+                    location.pathname === link.path
                       ? "bg-purple-50"
                       : "text-gray-700 hover:bg-gray-50"
-                    }
-                  `}
-                  style={
-                    location.pathname === link.path && !link.hasDropdown
-                      ? { color: "#30337A" }
-                      : {}
                   }
-                >
-                  {link.name}
-                  {link.hasDropdown && (
-                    <div className="p-1 text-purple-600">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={`h-5 w-5 transition-transform ${servicesDropdownOpen ? "rotate-180" : ""}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </Link>
-
-                {link.hasDropdown && servicesDropdownOpen && (
-                  <div className="ml-6 flex flex-col gap-1 mt-1 pb-2">
-                    {serviceSections.map((section) => (
-                      <Link
-                        key={section.name}
-                        to={`/services?filter=${section.filter}`}
-                        onClick={() => setOpen(false)}
-                        className="text-sm text-gray-600 px-4 py-2.5 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                      >
-                        {section.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                `}
+                style={
+                  location.pathname === link.path ? { color: "#30337A" } : {}
+                }
+              >
+                {link.name}
+              </Link>
             ))}
           </div>
         </div>
