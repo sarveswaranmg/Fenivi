@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import SEO from "../utils/SEO";
+import IframePreview from "../Components/IframePreview";
 
 export default function ProjectDetails() {
   const { id } = useParams();
@@ -44,7 +46,16 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="w-full bg-white text-gray-900 min-h-screen">
+    <>
+      <SEO 
+        title={`${project.title} - Portfolio Project | Fenivi Research`}
+        description={`${project.description?.substring(0, 160)}. A case study of innovative research and development.`}
+        keywords={`${project.title}, project, case study, ${project.category || 'innovation'}`}
+        url={`https://fenivi.com/projects/${id}`}
+        image={project.thumbnailUrl || 'https://fenivi.com/favicon.png'}
+        type="project"
+      />
+      <div className="w-full bg-white text-gray-900 min-h-screen">
       {/* ===== Banner ===== */}
       <div className="w-full h-[60vh] relative overflow-hidden">
         <img
@@ -89,6 +100,19 @@ export default function ProjectDetails() {
             </div>
           )}
 
+          {/* Live Preview */}
+          {project.projectUrl && (
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold mb-4">Live Preview</h3>
+              <IframePreview 
+                url={project.projectUrl}
+                title={`${project.title} - Live Preview`}
+                height={600}
+                showFullscreenButton={true}
+              />
+            </div>
+          )}
+
           {/* Project Link */}
           {project.projectUrl && (
             <a
@@ -127,6 +151,7 @@ export default function ProjectDetails() {
           )}
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
