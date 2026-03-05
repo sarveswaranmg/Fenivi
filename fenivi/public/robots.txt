@@ -1,0 +1,37 @@
+# robots.txt for Fenivi Research
+# This file tells search engines how to crawl and index the site
+
+# Allow all bots to crawl all pages
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /admin/edit-*
+
+# Specific rules for Google Bot
+User-agent: Googlebot
+Allow: /
+
+# Specific rules for Bing Bot
+User-agent: Bingbot
+Allow: /
+
+# Specific rules for other crawlers
+User-agent: slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+# Crawl delay for courtesy
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://fenivi.com/sitemap.xml
